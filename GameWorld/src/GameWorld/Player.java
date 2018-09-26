@@ -24,7 +24,9 @@ public class Player {
 	public Direction getDirection() {
 		return direction;
 	}
-	
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
 	public int currentMapInteger() {
 		return currentMap;
 	}
