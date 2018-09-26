@@ -11,13 +11,15 @@ public abstract class Item {
 	private int ID;
 	private String description;
 	private Icon icon;
+	private String title;
 	
-	public Item(int weight, Point point, int ID, String description, Icon icon) {
+	public Item(int weight, Point point, int ID, String description, Icon icon, String title) {
 		this.weight = weight;
 		this.point = point;
 		this.ID = ID;
 		this.description = description;
 		this.icon = icon;
+		this.title = title;
 	}
 	
 	public int getWeight() {
@@ -35,4 +37,9 @@ public abstract class Item {
 	public String getDescription() {
 		return description;
 	}
+	@Override
+	public String toString() {
+		return title;
+	}
+	
 }

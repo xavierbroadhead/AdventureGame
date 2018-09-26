@@ -39,6 +39,23 @@ public class Player {
 	public void setPosition(Position position) {
 		this.position = position;
 	}
+	/**
+	 * Returns names of all items in inventory in an array of strings
+	 * 
+	 * @return an array containing the names of all items in iterating player's inventory
+	 */
+	public String[] inventoryToString() {
+		String[] buffer = {""};
+		for (Item i : this.getInventory()) {
+			buffer[this.getInventory().indexOf(i)] = i.toString();
+		}
+		return buffer;
+	}
+	/**
+	 * Pick up an item that player is standing on top of
+	 * 
+	 * @return true if the player could pick up the item
+	 */
 	public boolean pickup() {
 		if (this.position.containsItem()){
 			this.inventory.add(position.getItem());
@@ -47,6 +64,7 @@ public class Player {
 		else return false;
 	}
 	/**
+	 * Check if proposed movement is allowed
 	 * 
 	 * @param dir the direction to check if the move is valid in
 	 * @return true if movement is allowed
@@ -55,7 +73,8 @@ public class Player {
 		return game.isAccessible(this.requestPosition(dir));
 	}
 	
-	/**
+	/** 
+	 * Move the player in given direction
 	 * 
 	 * @param dir direction in which we want to move the player
 	 * @return true if movement was successful
