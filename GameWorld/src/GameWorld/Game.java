@@ -16,6 +16,12 @@ public class Game {
 		}
 		return false;
 	}
+	/**
+	 * Moves the player using WASD keys
+	 * 
+	 * @param keyPressed - The key on the keyboard pressed 
+	 * @return true if movement was successful
+	 */
 	public boolean movePlayer(char keyPressed) {
 		Player.Direction dir = null;
 		switch (java.lang.Character.toUpperCase(keyPressed)) {
