@@ -5,19 +5,17 @@ import javax.swing.Icon;
 
 public abstract class Item {
 	
-	private int weight;
-	private Position position;
-	private int ID;
-	private String description;
-	private Icon icon;
-	private String title;
+	protected int weight;
+	protected Position position;
+	protected int ID;
+	protected String description;
+	protected String title;
 	
-	public Item(int weight, Position position, int ID, String description, Icon icon, String title) {
+	public Item(int weight, Position position, int ID, String description, String title) {
 		this.weight = weight;
 		this.position = position;
 		this.ID = ID;
 		this.description = description;
-		this.icon = icon;
 		this.title = title;
 	}
 	

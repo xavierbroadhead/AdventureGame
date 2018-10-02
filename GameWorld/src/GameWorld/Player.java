@@ -24,6 +24,9 @@ public class Player {
 	public Direction getDirection() {
 		return direction;
 	}
+	public void updateMap(int map) {
+		this.currentMap = map;
+	}
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
@@ -61,6 +64,7 @@ public class Player {
 	public boolean pickup() {
 		if (this.position.containsItem()){
 			this.inventory.add(position.getItem());
+			this.position.removeItem();
 			return true;
 		}
 		else return false;
