@@ -48,8 +48,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        loadButton = new javax.swing.JMenuItem();
+        saveButton = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         mapEditor = new javax.swing.JMenu();
@@ -210,16 +210,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
         file.setText("File");
 
-        jMenuItem2.setText("New Game");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        loadButton.setText("New Game");
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        file.add(jMenuItem2);
+        file.add(loadButton);
 
-        jMenuItem1.setText("Save");
-        file.add(jMenuItem1);
+        saveButton.setText("Save");
+        file.add(saveButton);
 
         jMenuItem3.setText("Load");
         file.add(jMenuItem3);
@@ -367,8 +367,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem saveButton;
+    private javax.swing.JMenuItem loadButton;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
