@@ -31,29 +31,29 @@ public class ApplicationWindow extends javax.swing.JFrame {
         Renderer = new javax.swing.JPanel();
         bottomPanel = new javax.swing.JPanel();
         UP = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        backwards = new javax.swing.JButton();
+        right = new javax.swing.JButton();
+        left = new javax.swing.JButton();
+        antiClockwise = new javax.swing.JButton();
+        clockwise = new javax.swing.JButton();
         rightSidePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         messageBoard = new java.awt.TextArea();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        unlock = new javax.swing.JButton();
+        discard = new javax.swing.JButton();
+        pickUp = new javax.swing.JButton();
+        open = new javax.swing.JButton();
         leftSidePanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
-        loadButton = new javax.swing.JMenuItem();
-        saveButton = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        newGame = new javax.swing.JMenuItem();
+        saveGame = new javax.swing.JMenuItem();
+        load = new javax.swing.JMenuItem();
+        restart = new javax.swing.JMenuItem();
         mapEditor = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        openMapEditor = new javax.swing.JMenuItem();
 
         jLabel1.setText("jLabel1");
 
@@ -74,15 +74,15 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
         UP.setText("FORWARD");
 
-        jButton2.setText("BACKWARDS");
+        backwards.setText("BACKWARDS");
 
-        jButton3.setText("RIGHT");
+        right.setText("RIGHT");
 
-        jButton4.setText("LEFT");
+        left.setText("LEFT");
 
-        jButton9.setText("jButton9");
+        antiClockwise.setText("jButton9");
 
-        jButton10.setText("jButton10");
+        clockwise.setText("jButton10");
 
         javax.swing.GroupLayout bottomPanelLayout = new javax.swing.GroupLayout(bottomPanel);
         bottomPanel.setLayout(bottomPanelLayout);
@@ -91,16 +91,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottomPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(clockwise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(left, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(UP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(backwards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(antiClockwise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(right, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         bottomPanelLayout.setVerticalGroup(
@@ -109,30 +109,30 @@ public class ApplicationWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(UP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(clockwise, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(antiClockwise, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(right, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(backwards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(left, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jLabel2.setText("INVENTORY");
 
-        jButton5.setLabel("Unlock");
+        unlock.setLabel("Unlock");
 
-        jButton6.setLabel("Discard");
+        discard.setLabel("Discard");
 
-        jButton7.setLabel("Pick up");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        pickUp.setLabel("Pick up");
+        pickUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                pickUpActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Open");
-        jButton8.setSize(new java.awt.Dimension(105, 29));
+        open.setText("Open");
+        open.setSize(new java.awt.Dimension(105, 29));
 
         javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel);
         rightSidePanel.setLayout(rightSidePanelLayout);
@@ -142,12 +142,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
                 .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rightSidePanelLayout.createSequentialGroup()
                         .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pickUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(open, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(unlock, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightSidePanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -165,12 +165,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(unlock)
+                    .addComponent(discard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(open)
+                    .addComponent(pickUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messageBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -210,35 +210,35 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
         file.setText("File");
 
-        loadButton.setText("New Game");
-        loadButton.addActionListener(new java.awt.event.ActionListener() {
+        newGame.setText("New Game");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                newGameActionPerformed(evt);
             }
         });
-        file.add(loadButton);
+        file.add(newGame);
 
-        saveButton.setText("Save");
-        file.add(saveButton);
+        saveGame.setText("Save");
+        file.add(saveGame);
 
-        jMenuItem3.setText("Load");
-        file.add(jMenuItem3);
+        load.setText("Load");
+        file.add(load);
 
-        jMenuItem5.setText("Restart");
-        file.add(jMenuItem5);
+        restart.setText("Restart");
+        file.add(restart);
 
         jMenuBar1.add(file);
 
         mapEditor.setText("MapEditor");
 
-        jMenuItem6.setText("Open");
-        jMenuItem6.setToolTipText("");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        openMapEditor.setText("Open");
+        openMapEditor.setToolTipText("");
+        openMapEditor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                openMapEditorActionPerformed(evt);
             }
         });
-        mapEditor.add(jMenuItem6);
+        mapEditor.add(openMapEditor);
 
         jMenuBar1.add(mapEditor);
 
@@ -288,17 +288,17 @@ public class ApplicationWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
-    }                                          
+    }                                       
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void pickUpActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
-    }                                        
+    }                                      
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-    }                                          
+    }                                             
 
     /**
      * @param args the command line arguments
@@ -353,30 +353,30 @@ public class ApplicationWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JPanel Renderer;
     private javax.swing.JButton UP;
+    private javax.swing.JButton antiClockwise;
+    private javax.swing.JButton backwards;
     private javax.swing.JPanel bottomPanel;
+    private javax.swing.JButton clockwise;
+    private javax.swing.JButton discard;
     private javax.swing.JMenu file;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem saveButton;
-    private javax.swing.JMenuItem loadButton;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton left;
     private javax.swing.JPanel leftSidePanel;
+    private javax.swing.JMenuItem load;
     private javax.swing.JMenu mapEditor;
     private java.awt.TextArea messageBoard;
+    private javax.swing.JMenuItem newGame;
+    private javax.swing.JButton open;
+    private javax.swing.JMenuItem openMapEditor;
+    private javax.swing.JButton pickUp;
+    private javax.swing.JMenuItem restart;
+    private javax.swing.JButton right;
     private javax.swing.JPanel rightSidePanel;
+    private javax.swing.JMenuItem saveGame;
+    private javax.swing.JButton unlock;
     // End of variables declaration                   
 }
