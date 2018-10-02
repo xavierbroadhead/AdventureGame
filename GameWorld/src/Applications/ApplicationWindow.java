@@ -73,16 +73,46 @@ public class ApplicationWindow extends javax.swing.JFrame {
         );
 
         UP.setText("FORWARD");
+        UP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPActionPerformed(evt);
+            }
+        });
 
         backwards.setText("BACKWARDS");
+        backwards.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backwardsActionPerformed(evt);
+            }
+        });
 
         right.setText("RIGHT");
+        right.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rightActionPerformed(evt);
+            }
+        });
 
         left.setText("LEFT");
+        left.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leftActionPerformed(evt);
+            }
+        });
 
         antiClockwise.setText("jButton9");
+        antiClockwise.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                antiClockwiseActionPerformed(evt);
+            }
+        });
 
         clockwise.setText("jButton10");
+        clockwise.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clockwiseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bottomPanelLayout = new javax.swing.GroupLayout(bottomPanel);
         bottomPanel.setLayout(bottomPanelLayout);
@@ -121,8 +151,18 @@ public class ApplicationWindow extends javax.swing.JFrame {
         jLabel2.setText("INVENTORY");
 
         unlock.setLabel("Unlock");
+        unlock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unlockActionPerformed(evt);
+            }
+        });
 
         discard.setLabel("Discard");
+        discard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discardActionPerformed(evt);
+            }
+        });
 
         pickUp.setLabel("Pick up");
         pickUp.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +173,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
         open.setText("Open");
         open.setSize(new java.awt.Dimension(105, 29));
+        open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel);
         rightSidePanel.setLayout(rightSidePanelLayout);
@@ -219,12 +264,27 @@ public class ApplicationWindow extends javax.swing.JFrame {
         file.add(newGame);
 
         saveGame.setText("Save");
+        saveGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveGameActionPerformed(evt);
+            }
+        });
         file.add(saveGame);
 
         load.setText("Load");
+        load.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadActionPerformed(evt);
+            }
+        });
         file.add(load);
 
         restart.setText("Restart");
+        restart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restartActionPerformed(evt);
+            }
+        });
         file.add(restart);
 
         jMenuBar1.add(file);
@@ -299,6 +359,54 @@ public class ApplicationWindow extends javax.swing.JFrame {
     private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
     }                                             
+
+    private void openActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+    }                                    
+
+    private void unlockActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // TODO add your handling code here:
+    }                                      
+
+    private void discardActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:
+    }                                       
+
+    private void UPActionPerformed(java.awt.event.ActionEvent evt) {                                   
+        // TODO add your handling code here:
+    }                                  
+
+    private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void rightActionPerformed(java.awt.event.ActionEvent evt) {                                      
+        // TODO add your handling code here:
+    }                                     
+
+    private void antiClockwiseActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void clockwiseActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void leftActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+    }                                    
+
+    private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void loadActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        // TODO add your handling code here:
+    }                                    
+
+    private void restartActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:
+    }                                       
 
     /**
      * @param args the command line arguments
