@@ -3,32 +3,56 @@ package GameWorld;
 public class Door {
 	
 	private boolean locked;
-	private int map;
+	private Integer map;
 	private int doorID;
-	private int link;
+	private Integer link;
+	private Position doorPosition;
+	private Position linkPosition;
+	private Player.Direction doorDirection;
 	
-	public Door(boolean locked, int map, int doorID, int link) {
+	public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
 		this.locked = locked;
 		this.map = map;
 		this.doorID = doorID;
 		this.link = link;
+		this.doorPosition = doorPosition;
+		this.linkPosition = linkPosition;
+		this.doorDirection = direction;
 	}
+	
 	public int getID() {
 		return doorID;
 	}
-	public int getMap() {
+	public Integer getMap() {
 		return map;
 	}
 	public boolean isLocked() {
 		return locked;
 	}
-	public int getLink() {
+	public Integer getLink() {
 		return link;
+	}
+	public Position getDoorPosition() {
+		return doorPosition;
+	}
+	public Position getLinkPosition() {
+		return linkPosition;
+	}
+	public Player.Direction getDirection() {
+		return doorDirection;
 	}
 	public void setLock(boolean locked) {
 		this.locked = locked;
 	}
-	
+	public void setDoorPosition(Position position) {
+		this.doorPosition = position;
+	}
+	public void setLinkPosition(Position position) {
+		this.linkPosition = position;
+	}
+	public void setDirection(Player.Direction direction) {
+		this.doorDirection = direction;
+	}
 	/** Checks if the player has the correct key to open this door.
 	 * 
 	 * 

@@ -1,8 +1,5 @@
 package GameWorld;
 
-
-import javax.swing.Icon;
-
 public abstract class Item {
 	
 	protected int weight;
@@ -10,13 +7,15 @@ public abstract class Item {
 	protected int ID;
 	protected String description;
 	protected String title;
+	protected Integer map;
 	
-	public Item(int weight, Position position, int ID, String description, String title) {
+	public Item(int weight, Position position, int ID, String description, String title, Integer map) {
 		this.weight = weight;
 		this.position = position;
 		this.ID = ID;
 		this.description = description;
 		this.title = title;
+		this.map = map;
 	}
 	
 	public int getWeight() {
@@ -37,6 +36,9 @@ public abstract class Item {
 	@Override
 	public String toString() {
 		return title;
+	}
+	public Integer currentMap() {
+		return map;
 	}
 	
 }
