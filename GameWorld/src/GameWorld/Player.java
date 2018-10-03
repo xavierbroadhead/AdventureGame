@@ -92,6 +92,62 @@ public class Player {
 		}
 		else return false;
 	}
+	
+	/** Returns direction 90 degrees to the LEFT of the player
+	 * 
+	 * 
+	 * @return Direction to the left of the player
+	 */
+	public Direction getLeft() {
+		if (this.direction == Direction.NORTH) {
+			return Direction.WEST;
+		}
+		else if (this.direction == Direction.EAST) {
+			return Direction.NORTH;
+		}
+		else if (this.direction == Direction.SOUTH) {
+			return Direction.EAST;
+		}
+		//assumed west
+		else return Direction.SOUTH;
+	}
+	
+	/** Returns direction 90 degrees to the RIGHT of the player
+	 * 
+	 * 
+	 * @return Direction to the left of the player
+	 */
+	public Direction getRight() {
+		if (this.direction == Direction.NORTH) {
+			return Direction.EAST;
+		}
+		else if (this.direction == Direction.EAST) {
+			return Direction.SOUTH;
+		}
+		else if (this.direction == Direction.SOUTH) {
+			return Direction.WEST;
+		}
+		//assumed west
+		else return Direction.NORTH;
+	}
+	/** Returns direction 180 degrees behind player
+	 * 
+	 * 
+	 * @return Direction behind player's current position
+	 */
+	public Direction getBehind() {
+		if (this.direction == Direction.NORTH) {
+			return Direction.SOUTH;
+		}
+		else if (this.direction == Direction.EAST) {
+			return Direction.WEST;
+		}
+		else if (this.direction == Direction.SOUTH) {
+			return Direction.NORTH;
+		}
+		//assumed west
+		else return Direction.EAST;
+	}
 	/**
 	 * Returns the position in the requested direction of the player
 	 * 
@@ -108,7 +164,7 @@ public class Player {
 		else if (dir == Direction.SOUTH) {
 			return new Position(this.position.getx(), this.position.gety() - 1);
 		}
-		//must be west
+		//assumed west
 		else {
 			return new Position(this.position.getx() - 1, this.position.gety());
 		}

@@ -6,13 +6,20 @@ public class Door {
 	private int map;
 	private int doorID;
 	private int link;
+	private Position doorPosition;
+	private Position linkPosition;
+	private Player.Direction doorDirection;
 	
-	public Door(boolean locked, int map, int doorID, int link) {
+	public Door(boolean locked, int map, int doorID, int link, Position doorPosition, Position linkPosition, Player.Direction direction) {
 		this.locked = locked;
 		this.map = map;
 		this.doorID = doorID;
 		this.link = link;
+		this.doorPosition = doorPosition;
+		this.linkPosition = linkPosition;
+		this.doorDirection = direction;
 	}
+	
 	public int getID() {
 		return doorID;
 	}
@@ -25,10 +32,27 @@ public class Door {
 	public int getLink() {
 		return link;
 	}
+	public Position getDoorPosition() {
+		return doorPosition;
+	}
+	public Position getLinkPosition() {
+		return linkPosition;
+	}
+	public Player.Direction getDirection() {
+		return doorDirection;
+	}
 	public void setLock(boolean locked) {
 		this.locked = locked;
 	}
-	
+	public void setDoorPosition(Position position) {
+		this.doorPosition = position;
+	}
+	public void setLinkPosition(Position position) {
+		this.linkPosition = position;
+	}
+	public void setDirection(Player.Direction direction) {
+		this.doorDirection = direction;
+	}
 	/** Checks if the player has the correct key to open this door.
 	 * 
 	 * 

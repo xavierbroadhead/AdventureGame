@@ -16,6 +16,7 @@ public class Game {
 		}
 		return false;
 	}
+	
 	/**
 	 * Moves the player using WASD keys
 	 * 
@@ -23,21 +24,25 @@ public class Game {
 	 * @return true if movement was successful
 	 */
 	public boolean movePlayer(char keyPressed) {
+		Position buffer = player.getPosition();
 		Player.Direction dir = null;
 		switch (java.lang.Character.toUpperCase(keyPressed)) {
 			case 'W': 
 				dir = player.getDirection(); 
 				break;
 			case 'A': 
-				dir = Player.Direction.WEST; 
+				dir = player.getLeft();
 				player.setDirection(dir);
 				break;
 			case 'S': 
-				dir = Player.Direction.SOUTH; 
+				dir = player.getDirection(); 
 				player.setDirection(dir);
+				if(player.moveValid(player.getBehind())){
+					player.setPosition(player.requestPosition(player.getBehind()));
+				}
 				break;
 			case 'D': 
-				dir = Player.Direction.EAST; 
+				dir = player.getRight(); 
 				player.setDirection(dir);
 				break;
 		}
@@ -46,7 +51,7 @@ public class Game {
 			throw new Error("Unknown input");
 		}
 		
-		if (player.moveValid(dir)) {
+		if (buffer == player.getPosition() && player.moveValid(dir)) {
 			player.setPosition(player.requestPosition(dir));
 			return true;
 		}
