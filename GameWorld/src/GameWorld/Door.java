@@ -3,14 +3,14 @@ package GameWorld;
 public class Door {
 	
 	private boolean locked;
-	private int map;
+	private Integer map;
 	private int doorID;
-	private int link;
+	private Integer link;
 	private Position doorPosition;
 	private Position linkPosition;
 	private Player.Direction doorDirection;
 	
-	public Door(boolean locked, int map, int doorID, int link, Position doorPosition, Position linkPosition, Player.Direction direction) {
+	public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
 		this.locked = locked;
 		this.map = map;
 		this.doorID = doorID;
@@ -23,13 +23,13 @@ public class Door {
 	public int getID() {
 		return doorID;
 	}
-	public int getMap() {
+	public Integer getMap() {
 		return map;
 	}
 	public boolean isLocked() {
 		return locked;
 	}
-	public int getLink() {
+	public Integer getLink() {
 		return link;
 	}
 	public Position getDoorPosition() {

@@ -3,7 +3,7 @@ package GameWorld;
 import java.util.List;
 
 public class Player {
-	private int currentMap;
+	private Integer currentMap;
 	private Position position;
 	private List<Item> inventory;
 	private Direction direction;
@@ -30,7 +30,7 @@ public class Player {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
-	public int currentMapInteger() {
+	public Integer currentMapInteger() {
 		return currentMap;
 	}
 	
@@ -47,7 +47,7 @@ public class Player {
 	/**
 	 * Returns names of all items in inventory in an array of strings
 	 * 
-	 * @return an array containing the names of all items in iterating player's inventory
+	 * @return - An array containing the names of all items in iterating player's inventory
 	 */
 	public String[] inventoryToString() {
 		String[] buffer = {""};
@@ -59,7 +59,7 @@ public class Player {
 	/**
 	 * Pick up an item that player is standing on top of
 	 * 
-	 * @return true if the player could pick up the item
+	 * @return - True if the player could pick up the item
 	 */
 	public boolean pickup() {
 		if (this.position.containsItem()){
@@ -72,21 +72,21 @@ public class Player {
 	/**
 	 * Check if proposed movement is allowed
 	 * 
-	 * @param dir the direction to check if the move is valid in
-	 * @return true if movement is allowed
+	 * @param dir - The direction to check if the move is valid in
+	 * @return - True if movement is allowed
 	 */
-	public boolean moveValid(Direction dir) {
-		return game.isAccessible(this.requestPosition(dir));
+	public boolean moveValid(Direction dir, Integer mapNum) {
+		return game.isAccessible(this.requestPosition(dir), this.currentMap);
 	}
 	
 	/** 
 	 * Move the player in given direction
 	 * 
-	 * @param dir direction in which we want to move the player
-	 * @return true if movement was successful
+	 * @param dir - direction in which we want to move the player
+	 * @return - True if movement was successful
 	 */
 	public boolean movePlayer(Direction dir) {
-		if (moveValid(dir)) {
+		if (moveValid(dir, this.currentMap)) {
 			this.position = this.requestPosition(dir);
 			return true;
 		}
@@ -96,7 +96,7 @@ public class Player {
 	/** Returns direction 90 degrees to the LEFT of the player
 	 * 
 	 * 
-	 * @return Direction to the left of the player
+	 * @return - Direction to the left of the player
 	 */
 	public Direction getLeft() {
 		if (this.direction == Direction.NORTH) {
@@ -115,7 +115,7 @@ public class Player {
 	/** Returns direction 90 degrees to the RIGHT of the player
 	 * 
 	 * 
-	 * @return Direction to the left of the player
+	 * @return - Direction to the left of the player
 	 */
 	public Direction getRight() {
 		if (this.direction == Direction.NORTH) {
@@ -133,7 +133,7 @@ public class Player {
 	/** Returns direction 180 degrees behind player
 	 * 
 	 * 
-	 * @return Direction behind player's current position
+	 * @return - Direction behind player's current position
 	 */
 	public Direction getBehind() {
 		if (this.direction == Direction.NORTH) {
@@ -151,7 +151,7 @@ public class Player {
 	/**
 	 * Returns the position in the requested direction of the player
 	 * 
-	 * @param dir - direction you need the new position relative to the player's current position to be in
+	 * @param dir - Direction you need the new position relative to the player's current position to be in
 	 */
 	public Position requestPosition(Direction dir) {
 		if (dir == null) return null;
