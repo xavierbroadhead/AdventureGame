@@ -7,6 +7,8 @@ public class Game {
 	public Player player;
 	
 	public Game(Player player) {
+		maps = new HashMap<Integer,Map>();
+		this.player = player;
 		Position[][] map1 = {{new Position(0,0), null, new Position(0,2), new Position(0,3), null},
 							{new Position(1,0), null, new Position(1,2), null, null},
 							{new Position(2,0), new Position(2,1), new Position(2,2), null, null}
@@ -24,11 +26,11 @@ public class Game {
 							{null, new Position(2,1), new Position(2,2), null, new Position(2,4)},
 							{null, new Position(3,1), null, new Position(3,3), new Position (3,4)},
 							{new Position(4,0), new Position(4,1), new Position(4,2), new Position(4,3), null}};
-		
+	
 		maps.put(1, new Map(map1));
 		maps.put(2, new Map(map2));
 		maps.put(3, new Map(map3));
-		this.player = player;
+		
 	}
 	public HashMap<Integer, Map> getMaps(){
 		return maps;
