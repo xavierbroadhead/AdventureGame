@@ -9,6 +9,7 @@ import GameWorld.Game;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
+import MapEditor.MapEditor;
 
 /**
  *
@@ -435,6 +436,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	}
 
 	private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
+		MapEditor editor = new MapEditor();
+		editor.main(null);
 		// TODO add your handling code here:
 	}
 
@@ -455,6 +458,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	private void UPActionPerformed(java.awt.event.ActionEvent evt) {
 
 		player.movePlayer(Direction.NORTH);
+		
 
 	}
 
@@ -466,6 +470,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 	private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 		player.setDirection(player.getRight());
+		
 	}
 
 	private void leftActionPerformed(java.awt.event.ActionEvent evt) {

@@ -17,7 +17,7 @@ import javax.swing.JButton;
 public class MapEditor extends javax.swing.JFrame {
 
     /**
-     * Creates new form ContactEditorUI
+     * Creates new form MapEditor
      */
     public MapEditor() {
         initComponents();
