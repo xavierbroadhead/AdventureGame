@@ -42,13 +42,11 @@ public class Game {
 	 */
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
-		Map buffer = maps.get(mapNum);
-		for (Position[] p : buffer.getMap()) {
-			for (Position p1 : p) {
-				if (p1.equals(position)) return true;
-			}
-		}
-		return false;
+		Position[][] buffer = maps.get(mapNum).getMap();
+		int x = position.getx();
+		int y = position.gety();
+		if (buffer[x][y] != null) return true;
+		else return false;
 	}
 	
 	/**
