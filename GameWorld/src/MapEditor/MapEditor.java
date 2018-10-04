@@ -35,7 +35,7 @@ public class MapEditor extends javax.swing.JFrame {
     	}else if(item.equals("Start")) {
     		input += "S";
     	}else if(item.equals("End")) {
-    		input += "E";
+    		input += "ED";
     	}else if(item.equals("RoomEnterPos")) {
     		input += "EP";
     	}else if(item.equals("DoorTo1")) {
