@@ -10,7 +10,9 @@ public class Game {
 		this.maps = maps;
 		this.player = player;
 	}
-	
+	public HashMap<Integer, Map> getMaps(){
+		return maps;
+	}
 	/** Returns true if the position on the given map number is accessible
 	 * 
 	 * 
@@ -21,7 +23,7 @@ public class Game {
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
 		Map buffer = maps.get(mapNum);
-		for (Position[] p : buffer.getAccessiblePositions()) {
+		for (Position[] p : buffer.getMap()) {
 			for (Position p1 : p) {
 				if (p1.equals(position)) return true;
 			}

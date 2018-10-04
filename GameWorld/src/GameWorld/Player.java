@@ -9,11 +9,12 @@ public class Player {
 	private Direction direction;
 	private static Game game;
 	
-	public Player(int startMap, Position position) {
+	public Player(int startMap, Position position, Game game) {
 		this.currentMap = startMap;
 		this.position = position;
 		this.direction = Direction.NORTH;
 	}
+	
 	public enum Direction{
 		NORTH,
 		EAST,
@@ -56,6 +57,7 @@ public class Player {
 		}
 		return buffer;
 	}
+	
 	/**
 	 * Pick up an item that player is standing on top of
 	 * 
@@ -69,6 +71,7 @@ public class Player {
 		}
 		else return false;
 	}
+	
 	/**
 	 * Check if proposed movement is allowed
 	 * 
@@ -130,6 +133,7 @@ public class Player {
 		//assumed west
 		else return Direction.NORTH;
 	}
+	
 	/** Returns direction 180 degrees behind player
 	 * 
 	 * 
@@ -148,25 +152,27 @@ public class Player {
 		//assumed west
 		else return Direction.EAST;
 	}
+	
 	/**
 	 * Returns the position in the requested direction of the player
 	 * 
 	 * @param dir - Direction you need the new position relative to the player's current position to be in
 	 */
 	public Position requestPosition(Direction dir) {
+		Position[][] buffer = game.getMaps().get(this.currentMap).getMap();
 		if (dir == null) return null;
 		else if (dir == Direction.NORTH) {
-			return new Position(this.position.getx(), this.position.gety() + 1);
+			return buffer[this.position.getx()][this.position.gety() + 1];
 		}
 		else if (dir == Direction.EAST) {
-			return new Position(this.position.getx() + 1, this.position.gety());
+			return buffer[this.position.getx() + 1][this.position.gety()];
 		}
 		else if (dir == Direction.SOUTH) {
-			return new Position(this.position.getx(), this.position.gety() - 1);
+			return buffer[this.position.getx()][this.position.gety() - 1];
 		}
 		//assumed west
 		else {
-			return new Position(this.position.getx() - 1, this.position.gety());
+			return buffer[this.position.getx() - 1][this.position.gety()];
 		}
 	}
 }

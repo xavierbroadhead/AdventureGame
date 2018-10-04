@@ -9,8 +9,9 @@ public class Door {
 	private Position doorPosition;
 	private Position linkPosition;
 	private Player.Direction doorDirection;
+	private Game game;
 	
-	public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
+	public Door(Game game, boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
 		this.locked = locked;
 		this.map = map;
 		this.doorID = doorID;
@@ -18,6 +19,7 @@ public class Door {
 		this.doorPosition = doorPosition;
 		this.linkPosition = linkPosition;
 		this.doorDirection = direction;
+		this.game = game;
 	}
 	
 	public int getID() {
@@ -75,8 +77,9 @@ public class Door {
 	 */
 	public boolean openDoor(Player player) {
 		if (this.hasKey(player)) {
+			Position[][] buffer = game.getMaps().get(this.link).getMap();
 			player.updateMap(link);
-			player.setPosition(new Position(0,0));
+			player.setPosition(buffer[0][0]);
 			return true;
 		}
 		else return false;
