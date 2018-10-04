@@ -6,11 +6,33 @@ public class Game {
 	private HashMap<Integer, Map> maps;
 	public Player player;
 	
-	public Game(HashMap<Integer, Map> maps, Player player) {
-		this.maps = maps;
+	public Game(Player player) {
+		Position[][] map1 = {{new Position(0,0), null, new Position(0,2), new Position(0,3), null},
+							{new Position(1,0), null, new Position(1,2), null, null},
+							{new Position(2,0), new Position(2,1), new Position(2,2), null, null}
+							,{null, null, null, null, null}
+							,{null, null, null, null, null}};
+		
+		Position[][] map2 = {{new Position(0,0), null, null, null, null},
+							{new Position(1,0), null, null, null, null},
+							{new Position(2,0), new Position(2,1), null, null, null},
+							{null, new Position(3,1), null, new Position(3,3), new Position(3,4)},
+							{null, new Position(4,1), new Position(4,2), new Position(4,3), null}};
+		
+		Position[][] map3 = {{new Position(0,0), new Position(0,1), new Position(0,2), null, null},
+							{null, null, new Position(1,2), null, new Position(1,4)},
+							{null, new Position(2,1), new Position(2,2), null, new Position(2,4)},
+							{null, new Position(3,1), null, new Position(3,3), new Position (3,4)},
+							{new Position(4,0), new Position(4,1), new Position(4,2), new Position(4,3), null}};
+		
+		maps.put(1, new Map(map1));
+		maps.put(2, new Map(map2));
+		maps.put(3, new Map(map3));
 		this.player = player;
 	}
-	
+	public HashMap<Integer, Map> getMaps(){
+		return maps;
+	}
 	/** Returns true if the position on the given map number is accessible
 	 * 
 	 * 
@@ -20,13 +42,11 @@ public class Game {
 	 */
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
-		Map buffer = maps.get(mapNum);
-		for (Position[] p : buffer.getAccessiblePositions()) {
-			for (Position p1 : p) {
-				if (p1.equals(position)) return true;
-			}
-		}
-		return false;
+		Position[][] buffer = maps.get(mapNum).getMap();
+		int x = position.getx();
+		int y = position.gety();
+		if (buffer[x][y] != null) return true;
+		else return false;
 	}
 	
 	/**

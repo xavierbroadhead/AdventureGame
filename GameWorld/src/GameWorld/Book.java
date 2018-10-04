@@ -1,11 +1,13 @@
 package GameWorld;
 
+import javax.swing.Icon;
+
 public class Book extends Item {
 	private boolean magical;
 	private String contents;
 	
-	public Book(int weight, Position position, int ID, String description, String title, boolean magical, String contents) {
-		super(weight, position, ID, description, title);
+	public Book(int weight, Position position, int ID, String description, String title, Integer map, boolean magical, String contents, Icon icon) {
+		super(weight, position, ID, description, title, map, icon);
 		this.magical = magical;
 		this.contents = contents;
 	}

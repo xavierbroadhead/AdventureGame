@@ -2,23 +2,15 @@ package GameWorld;
 
 public class Map {
 	
-	private Position[][] accessible;
-	private Position[][] inaccessible;
+	private Position[][] map;
 	
-	public Map(Position[][] accessible, Position[][] inaccessible) {
-		this.accessible = accessible;
-		this.inaccessible = inaccessible;
+	public Map(Position[][] map) {
+		this.map = map;
 	}
-	public Position[][] getAccessiblePositions(){
-		return accessible;
+	public Position[][] getMap(){
+		return map;
 	}
-	public Position[][] getInaccessiblePositions(){
-		return inaccessible;
-	}
-	public void setAccessiblePositions(Position[][] accessible) {
-		this.accessible = accessible;
-	}
-	public void setInaccessiblePositions(Position[][] inaccessible) {
-		this.inaccessible = inaccessible;
+	public void setMap(Position[][] map) {
+		this.map = map;
 	}
 }
