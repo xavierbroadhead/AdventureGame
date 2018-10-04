@@ -346,6 +346,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 		openMapEditor.setToolTipText("");
 		openMapEditor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				
 				openMapEditorActionPerformed(evt);
 			}
 		});
