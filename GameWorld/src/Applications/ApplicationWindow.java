@@ -10,6 +10,7 @@ import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
 import MapEditor.MapEditor;
+import Renderer.Render;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 	public static Player player = new Player(1, new Position(0, 0));
     public static Game game = new Game(player);
+    public static Render render = new Render();
 	/**
 	 * Creates new form AppWindow
 	 */
@@ -469,7 +471,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	}
 
 	private void rightActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		player.setDirection(player.getRight());
+		render.getBackgroundFile(player);
 		
 	}
 
