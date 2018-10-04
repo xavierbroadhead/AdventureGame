@@ -146,7 +146,10 @@ public class Parser {
 		int x = Integer.parseInt(xVal.getText());
 		int y = Integer.parseInt(yVal.getText());
 		
-		// create the position, add its item and return it 
+		// returns null if x or y are less than 0, indicating the position is innaccessible for the player
+		if (x < 0 || y < 0) {return null;}
+		
+		// otherwise create the position, add its item and return it 
 		Position pos = new Position(x,y);
 		pos.addItem(item);
 		return pos;
