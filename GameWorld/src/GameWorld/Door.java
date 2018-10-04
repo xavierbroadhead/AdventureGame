@@ -11,7 +11,7 @@ public class Door {
 	private Player.Direction doorDirection;
 	private Game game;
 	
-	public Door(Game game, boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
+	public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition, Player.Direction direction) {
 		this.locked = locked;
 		this.map = map;
 		this.doorID = doorID;
@@ -19,7 +19,6 @@ public class Door {
 		this.doorPosition = doorPosition;
 		this.linkPosition = linkPosition;
 		this.doorDirection = direction;
-		this.game = game;
 	}
 	
 	public int getID() {
