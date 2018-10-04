@@ -9,7 +9,7 @@ public class Player {
 	private Direction direction;
 	private static Game game;
 	
-	public Player(int startMap, Position position, Game game) {
+	public Player(int startMap, Position position) {
 		this.currentMap = startMap;
 		this.position = position;
 		this.direction = Direction.NORTH;
