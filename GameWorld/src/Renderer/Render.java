@@ -1,6 +1,7 @@
 package Renderer;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class Render{
 	public Player player; 
 	
 	public File background;
+	public Image image;
 	public File item;
 	
 	
@@ -47,18 +49,23 @@ public class Render{
 			//or image = position.view.north
 			
 			//frontDemo file
+			image = loadImage("front.png");
 		}
 		if(direction == Direction.EAST) {
 			//rightDemofile
+			image = loadImage("right.png");
+			
 		}
 		if(direction == Direction.SOUTH) {
 			//backDemo file
+			image = loadImage("back.png");
 		}
 		if(direction == Direction.WEST) {
 			//leftDemo file
+			image = loadImage("left.png");
 		}
 		
-		renderBackground(background);
+		renderBackground(image);
 		//return background;
 	}
 
@@ -86,14 +93,15 @@ public class Render{
 	 * Manipulate image depending on position (zoomScale)
 	 * return the file to be rendered on JPanel
 	 */
-	public Graphics2D renderBackground(File imageFile) {
-		BufferedImage img = null;
-		
+	public Graphics2D renderBackground(Image image) {
+		BufferedImage img = (BufferedImage) image;
+		/**
 		try {
 			img = ImageIO.read(new File(imageFile.getName()));//need to get correct name of image file
 		}
 		catch (IOException e) {
 		}
+		*/
 		
 		int imageWidth = 0;
 		int imageHeight = 0;
@@ -103,5 +111,22 @@ public class Render{
 		
 		return g;
 	}
+	
+	public Image loadImage(String fileName) {
+		java.net.URL imageURL = Render.class.getResource("images/" + fileName);
+		
+		Image img;
+		try {
+			img = ImageIO.read(imageURL);
+			return img;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException("Unable to load image" + fileName);
+		}
+		
+	}
+	
+	
 	
 }
