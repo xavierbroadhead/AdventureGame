@@ -43,7 +43,7 @@ public class Render{
 	 * 
 	 * @param player
 	 */
-	public void getBackgroundFile(Player player) {
+	public BufferedImage getBackgroundFile(Player player) {
 		Direction direction = player.getDirection();
 		if(direction == Direction.NORTH) {
 			//frontDemo file
@@ -63,7 +63,7 @@ public class Render{
 			image = loadImage("left.png");
 		}
 		
-		renderBackground(image);
+		return renderBackground(image);
 	}
 
 	/**
