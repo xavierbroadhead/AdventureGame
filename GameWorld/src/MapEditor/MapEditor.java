@@ -5,14 +5,15 @@
  */
 package MapEditor;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import GameWorld.Game;
+
 /**
  *
- * @author Owner
+ * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
 
@@ -175,7 +176,7 @@ public class MapEditor extends javax.swing.JFrame {
         buttonList.add(jButton25);
         
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wall", "Empty", "Key", "Start", "End", "RoomEnterPos", "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -608,6 +609,7 @@ public class MapEditor extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+
     // End of variables declaration                   
 }
 

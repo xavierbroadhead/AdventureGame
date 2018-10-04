@@ -175,4 +175,9 @@ public class Player {
 			return buffer[this.position.getx() - 1][this.position.gety()];
 		}
 	}
+	
+	// used by Parser to fill inventory from file
+	public void addItem(Item parseItem) {
+		inventory.add(parseItem);
+	}
 }

@@ -14,18 +14,20 @@ import GameWorld.Position;
 
 public class Render{
 	
-	//access to image of wall/direction
+	
 	public int wallZoomScale;
 	public int objectZoomScale;
-	//keep track of direction being rendered using player object, 
-	//also allows you to know position - also tell us what object is there
 	public Player player; 
-	
 	public File background;
 	public Image image;
 	public File item;
 	
-	
+	/**
+	 * Returns image specified in input string.
+	 * 
+	 * @param itemName - String of item name
+	 * @return item - File of item image
+	 */
 	public File getItemFile(String itemName) {
 		if(itemName.equals("key")) {
 			//set item file to key png
@@ -35,19 +37,15 @@ public class Render{
 		
 	}
 	
-	//THIS RENDERER SHOULD PRINT THE IMAGE ONTO A GRAPHIS OBJECT WHICH IS GIVEN TO THE GUI CLASS WHEN CALLED
-	//IN MAP ARRAYS STORE IMAGES FOR EACH POSOTION (4 FOR EACH) - SIMPLY GET IMAGE CORRELATING TO DIRECTION OF PLAYER
+	/**
+	 * Gets the image player is viewing based on their position and direction in a map.
+	 * Calls a render method to draw and scale image.
+	 * 
+	 * @param player
+	 */
 	public void getBackgroundFile(Player player) {
-		//based on player position there should be same 4 photos used on corridor, variance is zoomScale
-		//get position on board
-		//get file of view based on which direction player is looking from map array(each position of map array should have 4 files)
-		//return background
-		Position playerPos = player.getPosition();
 		Direction direction = player.getDirection();
 		if(direction == Direction.NORTH) {
-			//image = mapArray[playerPos.x][playerPos.y]
-			//or image = position.view.north
-			
 			//frontDemo file
 			image = loadImage("front.png");
 		}
@@ -66,10 +64,18 @@ public class Render{
 		}
 		
 		renderBackground(image);
-		//return background;
 	}
 
-	
+	/**
+	 * Returns a scaled bufferedImage based on zooming in on an original bufferedImage. 
+	 * This is based on how far away a player is from a wall.
+	 * 
+	 * @param player - Game player
+	 * @param img - Original bufferedImage of the image stored in Camera object
+	 * @param imageWidth - width in pixels of bufferedImage
+	 * @param imageHeight - height in pixels of bufferedImage
+	 * @return - A  scaled bufferedImage.
+	 */
 	public BufferedImage manipulateImage(Player player, BufferedImage img, int imageWidth, int imageHeight) {
 		int zoomFactor = zoomFactor(player);
 		int newImageHeight = imageHeight * zoomFactor;
@@ -81,19 +87,18 @@ public class Render{
 	
 	public int zoomFactor(Player player) {
 		return 0;
-		//return player.stepsFromWallInFront
+		
 	}
 	
-	//always keep track of a 3x3 grid around you
-	//check grid for accessable tiles to understand which file you want to return
-	//just check how far away walls are from current pos
 	
-	/*
-	 * Get file of background depending on position and which position is being face
-	 * Manipulate image depending on position (zoomScale)
-	 * return the file to be rendered on JPanel
+	/**
+	 * Converts Image in Camera object to bufferedImage, scales image based on distance 
+	 * from wall and returns bufferedImage to the GUI.
+	 * 
+	 * @param image - Image from
+	 * @return img - Scaled bufferedObject for GUI to display on canvas.
 	 */
-	public Graphics2D renderBackground(Image image) {
+	public BufferedImage renderBackground(Image image) {
 		BufferedImage img = (BufferedImage) image;
 		/**
 		try {
@@ -107,11 +112,16 @@ public class Render{
 		int imageHeight = 0;
 		BufferedImage scaledImage = manipulateImage(player, img, imageWidth, imageHeight);
 		
-		Graphics2D g = (Graphics2D) scaledImage.getGraphics();
 		
-		return g;
+		return img;
 	}
 	
+	/**
+	 * Retrieves image from images package based on fileName specified in getBackground method.
+	 * 
+	 * @param fileName - Name of image file
+	 * @return img - Image file stored in images package.
+	 */
 	public Image loadImage(String fileName) {
 		java.net.URL imageURL = Render.class.getResource("images/" + fileName);
 		

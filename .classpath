@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="GameWorld/src"/>
+	<classpathentry kind="lib" path="GameWorld/src/jdom-2.0.6.jar"/>
 	<classpathentry kind="output" path="GameWorld/bin"/>
 </classpath>
