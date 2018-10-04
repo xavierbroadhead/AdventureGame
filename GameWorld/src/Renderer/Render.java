@@ -14,7 +14,7 @@ import GameWorld.Position;
 
 public class Render{
 	
-	//access to image of wall/direction
+	
 	public int wallZoomScale;
 	public int objectZoomScale;
 	public Player player; 
@@ -93,12 +93,12 @@ public class Render{
 	
 	/**
 	 * Converts Image in Camera object to bufferedImage, scales image based on distance 
-	 * from wall and returns graphics object of bufferedImage for the renderer.
+	 * from wall and returns bufferedImage to the GUI.
 	 * 
 	 * @param image - Image from
-	 * @return g - Graphic object for GUI to display on canvas.
+	 * @return img - Scaled bufferedObject for GUI to display on canvas.
 	 */
-	public Graphics2D renderBackground(Image image) {
+	public BufferedImage renderBackground(Image image) {
 		BufferedImage img = (BufferedImage) image;
 		/**
 		try {
@@ -112,9 +112,8 @@ public class Render{
 		int imageHeight = 0;
 		BufferedImage scaledImage = manipulateImage(player, img, imageWidth, imageHeight);
 		
-		Graphics2D g = (Graphics2D) scaledImage.getGraphics();
 		
-		return g;
+		return img;
 	}
 	
 	/**
