@@ -6,7 +6,7 @@ public class Position {
 	private Item item = null;
 	private Camera camera;
 	
-	public Position(int x, int y, Camera camera) {
+	public Position(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -19,7 +19,10 @@ public class Position {
 	public Item getItem() {
 		return item;
 	}
-	public Camera getCamer() {
+	public void addCamera(Camera camera) {
+		this.camera = camera;
+	}
+	public Camera getCamera() {
 		return camera;
 	}
 	public void addItem(Item item) {
