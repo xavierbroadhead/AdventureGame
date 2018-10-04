@@ -7,12 +7,7 @@ public class Game {
 	private static Player player;
 	
 	public Game(Player player) {
-<<<<<<< Updated upstream
-		
-		
-=======
 		HashMap<Integer, Map> maps = new HashMap<Integer, Map>();
->>>>>>> Stashed changes
 		Position[][] map1 = {{new Position(0,0), null, new Position(0,2), new Position(0,3), null},
 							{new Position(1,0), null, new Position(1,2), null, null},
 							{new Position(2,0), new Position(2,1), new Position(2,2), null, null}
