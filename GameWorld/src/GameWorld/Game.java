@@ -2,17 +2,14 @@ package GameWorld;
 
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
+
 public class Game {
 	private HashMap<Integer, Map> maps;
 	private static Player player;
 	
 	public Game(Player player) {
-<<<<<<< Updated upstream
-		
-		
-=======
 		HashMap<Integer, Map> maps = new HashMap<Integer, Map>();
->>>>>>> Stashed changes
 		Position[][] map1 = {{new Position(0,0), null, new Position(0,2), new Position(0,3), null},
 							{new Position(1,0), null, new Position(1,2), null, null},
 							{new Position(2,0), new Position(2,1), new Position(2,2), null, null}
@@ -30,13 +27,22 @@ public class Game {
 							{null, new Position(2,1), new Position(2,2), null, new Position(2,4)},
 							{null, new Position(3,1), null, new Position(3,3), new Position (3,4)},
 							{new Position(4,0), new Position(4,1), new Position(4,2), new Position(4,3), null}};
-	
+		
+		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0], Player.Direction.NORTH);
+		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[0][3], Player.Direction.NORTH);
+		Door door3 = new Door(true, 2, 3, 3, map2[3][4], map3[0][0], Player.Direction.EAST);
+		Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[3][4], Player.Direction.NORTH);
+		
+		Key key1 = new Key(1, map1[2][2], 1, "A key with no markings." , "Key", 1, door1, new ImageIcon());
+		Key key2 = new Key(1, map2[4][2], 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, door3, new ImageIcon());
+		
 		maps.put(1, new Map(map1));
 		maps.put(2, new Map(map2));
 		maps.put(3, new Map(map3));
-		this.player = player;
 		
+		this.player = player;
 	}
+	
 	public HashMap<Integer, Map> getMaps(){
 		return maps;
 	}
