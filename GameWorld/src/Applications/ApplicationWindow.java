@@ -26,6 +26,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
     public static Render render = new Render();
     public static Image startImage = render.loadImage("front.png");
     public static BufferedImage img = (BufferedImage)startImage;
+    public static Image sovietUnion = render.loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
+    public static BufferedImage soviet= (BufferedImage)sovietUnion;
+    public static Image unitedState = render.loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
+    public static BufferedImage unitedStates= (BufferedImage)unitedState;
+
+	
+	
+	
 	/**
 	 * Creates new form AppWindows
 	 */
@@ -289,7 +297,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 						.addContainerGap(85, Short.MAX_VALUE)));
 
 		jLabel10.setIcon(
-				new javax.swing.ImageIcon("/Users/harryrodger/Desktop/Screen Shot 2018-10-04 at 11.27.52 AM.png")); // NOI18N
+				new javax.swing.ImageIcon(this.soviet)); // NOI18N
 
 		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
@@ -300,8 +308,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
 
-		jLabel4.setIcon(
-				new javax.swing.ImageIcon("/Users/harryrodger/Desktop/rsz_1280px-flag_of_the_united_statessvg.png")); // NOI18N
+		jLabel4.setIcon(new javax.swing.ImageIcon(this.unitedStates)); // NOI18N
 
 		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
 		jPanel4.setLayout(jPanel4Layout);
