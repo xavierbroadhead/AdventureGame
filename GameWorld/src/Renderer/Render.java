@@ -110,7 +110,7 @@ public class Render{
 		
 		int imageWidth = 0;
 		int imageHeight = 0;
-		BufferedImage scaledImage = manipulateImage(player, img, imageWidth, imageHeight);
+		//BufferedImage scaledImage = manipulateImage(player, img, imageWidth, imageHeight);
 		
 		
 		return img;
