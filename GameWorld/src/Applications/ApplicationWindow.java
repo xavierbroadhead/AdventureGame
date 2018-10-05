@@ -460,7 +460,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	}
 
 	private void discardActionPerformed(java.awt.event.ActionEvent evt) {
-		messageBoard.setText("");
+		messageBoard.setText("you have discarded");
 		// TODO add your handling code here:
 	}
 
@@ -501,6 +501,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 	private void loadActionPerformed(java.awt.event.ActionEvent evt) {
 		messageBoard.append("You have loaded a game");
+		// loadFromFile("hello");
 	}
 
 	private void restartActionPerformed(java.awt.event.ActionEvent evt) {
