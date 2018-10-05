@@ -480,7 +480,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		player.setDirection(player.getRight());
+		System.out.println("player direction: " + player.getDirection());
 		this.img = render.getBackgroundFile(player);
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 		
 		
 		
@@ -488,6 +490,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 	private void leftActionPerformed(java.awt.event.ActionEvent evt) {
 		player.setDirection(player.getLeft());
+		this.img = render.getBackgroundFile(player);
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
 	}
 
@@ -508,52 +512,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	 *            the command line arguments
 	 */
 	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		}
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-
-		/* Create and display the form */
+		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new ApplicationWindow().setVisible(true);

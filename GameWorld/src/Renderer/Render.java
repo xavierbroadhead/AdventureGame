@@ -48,19 +48,32 @@ public class Render{
 		if(direction == Direction.NORTH) {
 			//frontDemo file
 			image = loadImage("front.png");
+			System.out.println("NORTH");
+			
 		}
 		if(direction == Direction.EAST) {
 			//rightDemofile
+			
 			image = loadImage("right.png");
+			System.out.println("EAST");
+			System.out.println("image: " + image);
+
+
 			
 		}
 		if(direction == Direction.SOUTH) {
 			//backDemo file
 			image = loadImage("back.png");
+			System.out.println("SOUTH");
+			System.out.println("image: " + image);
+
 		}
 		if(direction == Direction.WEST) {
 			//leftDemo file
 			image = loadImage("left.png");
+			System.out.println("WEST");
+			System.out.println("image: " + image);
+
 		}
 		
 		return renderBackground(image);
@@ -124,7 +137,7 @@ public class Render{
 	 */
 	public Image loadImage(String fileName) {
 		java.net.URL imageURL = Render.class.getResource("images/" + fileName);
-		
+		System.out.println("imageURL: " + imageURL.toString());
 		Image img;
 		try {
 			img = ImageIO.read(imageURL);
