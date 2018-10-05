@@ -5,6 +5,9 @@
  */
 package Applications;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import GameWorld.Game;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
@@ -21,10 +24,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	public static Player player = new Player(1, new Position(0, 0));
     public static Game game = new Game(player);
     public static Render render = new Render();
+    public static Image startImage = render.loadImage("front.png");
+    public static BufferedImage img = (BufferedImage)startImage;
 	/**
-	 * Creates new form AppWindow
+	 * Creates new form AppWindows
 	 */
 	public ApplicationWindow() {
+		
 		initComponents();
 
 	}
@@ -81,7 +87,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 		Renderer.setPreferredSize(new java.awt.Dimension(50, 512));
 
-		jLabel3.setIcon(new javax.swing.ImageIcon("/Users/harryrodger/Desktop/rsz_1firstview.png")); // NOI18N
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img)); // NOI18N
 
 		javax.swing.GroupLayout RendererLayout = new javax.swing.GroupLayout(Renderer);
 		Renderer.setLayout(RendererLayout);
@@ -454,7 +460,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	}
 
 	private void discardActionPerformed(java.awt.event.ActionEvent evt) {
-		messageBoard.setText("");
+		messageBoard.setText("you have discarded");
 		// TODO add your handling code here:
 	}
 
@@ -474,12 +480,18 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		player.setDirection(player.getRight());
-		render.getBackgroundFile(player);
+		System.out.println("player direction: " + player.getDirection());
+		this.img = render.getBackgroundFile(player);
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
+		
+		
 		
 	}
 
 	private void leftActionPerformed(java.awt.event.ActionEvent evt) {
 		player.setDirection(player.getLeft());
+		this.img = render.getBackgroundFile(player);
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
 	}
 
@@ -489,6 +501,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 	private void loadActionPerformed(java.awt.event.ActionEvent evt) {
 		messageBoard.append("You have loaded a game");
+		// loadFromFile("hello");
 	}
 
 	private void restartActionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,52 +513,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	 *            the command line arguments
 	 */
 	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(ApplicationWindow.class.getName()).log(java.util.logging.Level.SEVERE,
-					null, ex);
-		}
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-		// </editor-fold>
-
-		/* Create and display the form */
+		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new ApplicationWindow().setVisible(true);
