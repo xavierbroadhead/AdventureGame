@@ -5,6 +5,9 @@
  */
 package Applications;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import GameWorld.Game;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
@@ -21,10 +24,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	public static Player player = new Player(1, new Position(0, 0));
     public static Game game = new Game(player);
     public static Render render = new Render();
+    public static Image startImage = render.loadImage("front.png");
+    public static BufferedImage img = (BufferedImage)startImage;
 	/**
-	 * Creates new form AppWindow
+	 * Creates new form AppWindows
 	 */
 	public ApplicationWindow() {
+		
 		initComponents();
 
 	}
@@ -81,7 +87,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
 		Renderer.setPreferredSize(new java.awt.Dimension(50, 512));
 
-		jLabel3.setIcon(new javax.swing.ImageIcon("/Users/harryrodger/Desktop/rsz_1firstview.png")); // NOI18N
+		jLabel3.setIcon(new javax.swing.ImageIcon(this.img)); // NOI18N
 
 		javax.swing.GroupLayout RendererLayout = new javax.swing.GroupLayout(Renderer);
 		Renderer.setLayout(RendererLayout);
@@ -474,7 +480,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
 	private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		player.setDirection(player.getRight());
-		render.getBackgroundFile(player);
+		this.img = render.getBackgroundFile(player);
+		
+		
 		
 	}
 
