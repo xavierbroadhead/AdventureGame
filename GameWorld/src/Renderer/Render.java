@@ -48,10 +48,15 @@ public class Render{
 		if(direction == Direction.NORTH) {
 			//frontDemo file
 			image = loadImage("front.png");
+<<<<<<< HEAD
 
 			System.out.println("NORTH");
 			
 
+=======
+			System.out.println("NORTH");
+			
+>>>>>>> 13bc67712923a6fd6c35eb279fbe52541987747b
 		}
 		if(direction == Direction.EAST) {
 			//rightDemofile
@@ -61,7 +66,10 @@ public class Render{
 			System.out.println("image: " + image);
 
 
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 13bc67712923a6fd6c35eb279fbe52541987747b
 			
 		}
 		if(direction == Direction.SOUTH) {
