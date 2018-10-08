@@ -69,7 +69,7 @@ public class MapEditor extends javax.swing.JFrame {
     //convertGameToString();
   }
   
-  /*public void saveGame() {
+  public void saveGame() {
     //Convert rooms string back into a game and assign to this.originalGame
   }
   
@@ -97,8 +97,9 @@ public class MapEditor extends javax.swing.JFrame {
       }
     }
     
+    
 
-  }*/
+  }
   
   
   
