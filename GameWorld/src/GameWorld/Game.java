@@ -131,7 +131,7 @@ public class Game {
 			}
 		}
 		else if (this.player.getDirection() == Player.Direction.EAST) {
-			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() - 1] != null) {
+			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() + 1] != null) {
 				return true;
 			}
 		}		
@@ -162,7 +162,7 @@ public class Game {
 			}
 		}
 		else if (this.player.getDirection() == Player.Direction.EAST) {
-			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() + 1] != null) {
+			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() - 1] != null) {
 				return true;
 			}
 		}		
