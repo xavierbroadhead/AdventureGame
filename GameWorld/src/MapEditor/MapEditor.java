@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The Map Editor Class that handles editing the map when in play.
  */
 package MapEditor;
 
@@ -9,10 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
-
 import GameWorld.Game;
-import GameWorld.Map;
 import GameWorld.Player;
 
 /**
