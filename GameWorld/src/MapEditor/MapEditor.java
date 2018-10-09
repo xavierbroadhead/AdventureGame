@@ -183,7 +183,7 @@ public class MapEditor extends javax.swing.JFrame {
       int y = count % 5;
       int x = count / 5;
       String room = (String) jComboBox2.getSelectedItem();
-      int roomNum = (room.charAt(5) - '0');
+      int roomNum = (room.charAt(5) - '0') -1;
       String Text = rooms.get(roomNum)[x][y];
       String buttonText = buttonChanger(Text);
       jBut.setText(buttonText);
