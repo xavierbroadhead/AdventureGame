@@ -61,7 +61,8 @@ public class MapEditor extends javax.swing.JFrame {
   
   
   /**
-   * Creates new form MapEditor
+   * Creates new form MapEditor using a pre-existing game
+   * @param game that is the game currently being played.
    */
   public MapEditor(Game game) {
     this.originalGame = game;
