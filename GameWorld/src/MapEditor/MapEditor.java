@@ -9,18 +9,100 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
+
+import GameWorld.Game;
+import GameWorld.Map;
+
 /**
  *
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
-
+  
+  //MapEditor variables
+  private Game originalGame;
+  private ArrayList<JButton> buttonList;
+  private ArrayList<String[][]> rooms;
+  private javax.swing.JButton jButton1;
+  private javax.swing.JButton jButton2;
+  private javax.swing.JButton jButton3;
+  private javax.swing.JButton jButton4;
+  private javax.swing.JButton jButton5;
+  private javax.swing.JButton jButton6;
+  private javax.swing.JButton jButton7;
+  private javax.swing.JButton jButton8;
+  private javax.swing.JButton jButton9;
+  private javax.swing.JButton jButton10;
+  private javax.swing.JButton jButton11;
+  private javax.swing.JButton jButton12;
+  private javax.swing.JButton jButton13;
+  private javax.swing.JButton jButton14;
+  private javax.swing.JButton jButton15;
+  private javax.swing.JButton jButton16;
+  private javax.swing.JButton jButton17;
+  private javax.swing.JButton jButton18;
+  private javax.swing.JButton jButton19;
+  private javax.swing.JButton jButton20;
+  private javax.swing.JButton jButton21;
+  private javax.swing.JButton jButton22;
+  private javax.swing.JButton jButton23;
+  private javax.swing.JButton jButton24;
+  private javax.swing.JButton jButton25;
+  private javax.swing.JComboBox<String> jComboBox1;
+  private javax.swing.JComboBox<String> jComboBox2;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JMenu jMenu1;
+  private javax.swing.JMenuBar jMenuBar1;
+  private javax.swing.JMenuItem jMenuItem1;
+  private javax.swing.JMenuItem jMenuItem2;
+  private javax.swing.JPanel jPanel1;
+  
+  
   /**
    * Creates new form MapEditor
    */
-  public MapEditor() {
+  public MapEditor(Game game) {
+    this.originalGame = game;
     initComponents();
+    //convertGameToString();
   }
+  
+  public void saveGame() {
+    //Convert rooms string back into a game and assign to this.originalGame
+  }
+  
+  public void convertGameToString(){
+    GameWorld.Position[][] map1= this.originalGame.getMaps().get(1).getMap();
+    GameWorld.Position[][] map2= this.originalGame.getMaps().get(2).getMap();
+    GameWorld.Position[][] map3= this.originalGame.getMaps().get(3).getMap();
+    for(int i=0; i<5; i++) {
+      for(int j=0; j<5; j++) {  
+        if(map1[i][j] != null) {
+          rooms.get(0)[i][j] = "Wall";
+        }else {
+          rooms.get(0)[i][j] = "Empty";
+        }
+        if(map2[i][j] != null) {
+          rooms.get(1)[i][j] = "Wall";
+        }else {
+          rooms.get(1)[i][j] = "Empty";
+        }
+        if(map3[i][j] != null) {
+          rooms.get(2)[i][j] = "Wall";
+        }else {
+          rooms.get(2)[i][j] = "Empty";
+        }
+      }
+    }
+    
+    
+
+  }
+  
+  
+  
 
   public String buttonChanger(String item) {
     String input = "";
@@ -123,23 +205,18 @@ public class MapEditor extends javax.swing.JFrame {
     String[][] room1 = new String[5][5];
     String[][] room2 = new String[5][5];
     String[][] room3 = new String[5][5];
-    String[][] room4 = new String[5][5];
-    String[][] room5 = new String[5][5];
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 5; j++) {
         room1[i][j] = "Empty";
         room2[i][j] = "Empty";
         room3[i][j] = "Empty";
-        room4[i][j] = "Empty";
-        room5[i][j] = "Empty";
       }
     }
     ArrayList<String[][]> rooms = new ArrayList<String[][]>();
     rooms.add(room1);
     rooms.add(room2);
     rooms.add(room3);
-    rooms.add(room4);
-    rooms.add(room5);
+
 
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
     buttonList.add(jButton1);
@@ -354,7 +431,7 @@ public class MapEditor extends javax.swing.JFrame {
     });
 
     jComboBox2.setModel(
-        new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3", "Room 4", "Room 5" }));
+        new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3"}));
     jComboBox2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         resetJButtonValues(buttonList, rooms);
@@ -497,74 +574,29 @@ public class MapEditor extends javax.swing.JFrame {
    *          the command line arguments
    */
   public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-    // (optional) ">
-    /*
-     * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-     * look and feel. For details see
-     * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-     * 
-     * try { for (javax.swing.UIManager.LookAndFeelInfo info :
-     * javax.swing.UIManager.getInstalledLookAndFeels()) { if
-     * ("Nimbus".equals(info.getName())) {
-     * javax.swing.UIManager.setLookAndFeel(info.getClassName()); break; } } } catch
-     * (ClassNotFoundException ex) {
-     * java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.
-     * logging.Level.SEVERE, null, ex); } catch (InstantiationException ex) {
-     * java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.
-     * logging.Level.SEVERE, null, ex); } catch (IllegalAccessException ex) {
-     * java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.
-     * logging.Level.SEVERE, null, ex); } catch
-     * (javax.swing.UnsupportedLookAndFeelException ex) {
-     * java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.
-     * logging.Level.SEVERE, null, ex); } //</editor-fold> //</editor-fold>
+    /* Set the Nimbus look and feel 
      */
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        new MapEditor().setVisible(true);
-      }
-    });
+     try { 
+       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) { 
+         if("Nimbus".equals(info.getName())) {
+             javax.swing.UIManager.setLookAndFeel(info.getClassName()); 
+             break; 
+         }
+       }
+     } catch (ClassNotFoundException ex) {
+         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
+     } catch (InstantiationException ex) {
+         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
+     } catch (IllegalAccessException ex) {
+      java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
+     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
+     }
+     
+     
+    
+    
   }
+  
 
-  // Variables declaration - do not modify
-  private ArrayList<JButton> buttonList;
-  private ArrayList<String[][]> rooms;
-  private javax.swing.JButton jButton1;
-  private javax.swing.JButton jButton2;
-  private javax.swing.JButton jButton3;
-  private javax.swing.JButton jButton4;
-  private javax.swing.JButton jButton5;
-  private javax.swing.JButton jButton6;
-  private javax.swing.JButton jButton7;
-  private javax.swing.JButton jButton8;
-  private javax.swing.JButton jButton9;
-  private javax.swing.JButton jButton10;
-  private javax.swing.JButton jButton11;
-  private javax.swing.JButton jButton12;
-  private javax.swing.JButton jButton13;
-  private javax.swing.JButton jButton14;
-  private javax.swing.JButton jButton15;
-  private javax.swing.JButton jButton16;
-  private javax.swing.JButton jButton17;
-  private javax.swing.JButton jButton18;
-  private javax.swing.JButton jButton19;
-  private javax.swing.JButton jButton20;
-  private javax.swing.JButton jButton21;
-  private javax.swing.JButton jButton22;
-  private javax.swing.JButton jButton23;
-  private javax.swing.JButton jButton24;
-  private javax.swing.JButton jButton25;
-  private javax.swing.JComboBox<String> jComboBox1;
-  private javax.swing.JComboBox<String> jComboBox2;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JMenu jMenu1;
-  private javax.swing.JMenuBar jMenuBar1;
-  private javax.swing.JMenuItem jMenuItem1;
-  private javax.swing.JMenuItem jMenuItem2;
-  private javax.swing.JPanel jPanel1;
-
-  // End of variables declaration
 }

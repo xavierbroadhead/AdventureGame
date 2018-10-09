@@ -448,8 +448,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * @param evt
    */
   private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
-    MapEditor editor = new MapEditor();
-    editor.main(null);
+    MapEditor editor = new MapEditor(game);
+    editor.setVisible(true);
     // TODO add your handling code here:
   }
 
