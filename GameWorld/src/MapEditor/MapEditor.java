@@ -11,7 +11,7 @@ import GameWorld.Game;
 import GameWorld.Player;
 
 /**
- *
+ * Todo: Add mechanisms to save and load XML files - Need Callum
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
