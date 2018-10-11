@@ -12,10 +12,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
-
-
 
 import GameWorld.Game;
 import GameWorld.Player;
@@ -34,12 +33,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
   public static Player player = new Player(1, new Position(0, 0));
   public static Game game = new Game(player);
   public static Render render = new Render();
-  public static Image startImage = render.loadImage("front.png");
-  public static BufferedImage img = (BufferedImage) startImage;
-  public static Image sovietUnion = render.loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
+  // public static Image startImage = render.loadImage("front.png");
+  // public static BufferedImage img = (BufferedImage) startImage;
+  public static Image sovietUnion = loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
   public static BufferedImage soviet = (BufferedImage) sovietUnion;
-  public static Image unitedState = render.loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
+  public static Image unitedState = loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
   public static BufferedImage unitedStates = (BufferedImage) unitedState;
+  public static Image key = loadImage("keyImage.png");
+  public static BufferedImage keyImage = (BufferedImage) key;
 
   /**
    * CREATION OF GUI. Creates new form AppWindows
@@ -96,11 +97,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
     openMapEditor = new javax.swing.JMenuItem();
 
     jLabel1.setText("jLabel1");
-    
+
     jFileChooserLoad.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
     jFileChooserLoad.setApproveButtonToolTipText("");
     jFileChooserLoad.setDialogTitle("Load");
-    
+
     jFileChooserSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
     jFileChooserSave.setApproveButtonToolTipText("");
     jFileChooserSave.setDialogTitle("Save");
@@ -111,7 +112,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     renderer.setPreferredSize(new java.awt.Dimension(50, 512));
 
-    jLabel3.setIcon(new javax.swing.ImageIcon(this.img)); // NOI18N
+    // jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
     javax.swing.GroupLayout rendererLayout = new javax.swing.GroupLayout(renderer);
     renderer.setLayout(rendererLayout);
@@ -239,13 +240,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
+    inventory1.setIcon(new javax.swing.ImageIcon(this.keyImage));
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
                                                                                                       // black with
                                                                                                       // width 3
 
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory3.setText("           ");
+    inventory3.setText("           "); //when you want photos use setIcon instead 
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory4.setText("           ");
@@ -385,7 +387,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout // sorts out the layout of the contents pane
-        .setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING) //sorts horizontal layout
+        .setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING) // sorts horizontal
+                                                                                                  // layout
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -410,7 +413,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
                             javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup().addGap(10, 10, 10).addComponent(messageBoard,
                         javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))));
-    layout //sorts vertical layout
+    layout // sorts vertical layout
         .setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -533,8 +536,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 
     player.setDirection(player.getRight());
-    this.img = render.getBackgroundFile(player);
-    jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
   }
 
@@ -544,8 +545,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void leftActionPerformed(java.awt.event.ActionEvent evt) {
     player.setDirection(player.getLeft());
-    this.img = render.getBackgroundFile(player);
-    jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
   }
 
@@ -554,20 +553,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * @param evt
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
-    
+
     int returnVal = jFileChooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = jFileChooserSave.getSelectedFile();
-       // try {
-          // What to do with the file, e.g. display it in a TextArea
-          //textarea.read( new FileReader( file.getAbsolutePath() ), null );
-       // } catch (IOException ex) {
-        //  System.out.println("problem accessing file"+file.getAbsolutePath());
-        //}
+      File file = jFileChooserSave.getSelectedFile();
+      // try {
+      // What to do with the file, e.g. display it in a TextArea
+      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
+      // } catch (IOException ex) {
+      // System.out.println("problem accessing file"+file.getAbsolutePath());
+      // }
     } else {
-        System.out.println("File access cancelled by user.");
+      System.out.println("File access cancelled by user.");
     }
-   
+
     messageBoard.append("You have saved the game \n");
   }
 
@@ -578,17 +577,17 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
     int returnVal = jFileChooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = jFileChooserLoad.getSelectedFile();
-       // try {
-          // What to do with the file, e.g. display it in a TextArea
-          //textarea.read( new FileReader( file.getAbsolutePath() ), null );
-       // } catch (IOException ex) {
-        //  System.out.println("problem accessing file"+file.getAbsolutePath());
-        //}
+      File file = jFileChooserLoad.getSelectedFile();
+      // try {
+      // What to do with the file, e.g. display it in a TextArea
+      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
+      // } catch (IOException ex) {
+      // System.out.println("problem accessing file"+file.getAbsolutePath());
+      // }
     } else {
-        System.out.println("File access cancelled by user.");
+      System.out.println("File access cancelled by user.");
     }
-    
+
     messageBoard.append("You have loaded a game \n");
     // loadFromFile("hello");
   }
@@ -605,6 +604,21 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * 
    * @param args
    */
+
+  public static Image loadImage(String fileName) {
+    java.net.URL imageURL = Render.class.getResource("images/" + fileName);
+    System.out.println("imageURL: " + imageURL.toString());
+    Image img;
+    try {
+      img = ImageIO.read(imageURL);
+      return img;
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      throw new RuntimeException("Unable to load image" + fileName);
+    }
+  }
+
   public static void main(String[] args) {
 
     java.awt.EventQueue.invokeLater(new Runnable() {
