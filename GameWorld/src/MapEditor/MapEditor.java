@@ -3,9 +3,11 @@
  */
 package MapEditor;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 
 import GameWorld.Game;
 import GameWorld.Player;
@@ -56,7 +58,14 @@ public class MapEditor extends javax.swing.JFrame {
   private javax.swing.JMenuItem jMenuItem1;
   private javax.swing.JMenuItem jMenuItem2;
   private javax.swing.JPanel jPanel1;
+<<<<<<< HEAD
 
+=======
+  private javax.swing.JFileChooser jFileChooserLoad;
+  private javax.swing.JFileChooser jFileChooserSave;
+  
+  
+>>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
   /**
    * Creates new form MapEditor using a pre-existing game
    * 
@@ -236,6 +245,8 @@ public class MapEditor extends javax.swing.JFrame {
     jMenu1 = new javax.swing.JMenu();
     jMenuItem1 = new javax.swing.JMenuItem();
     jMenuItem2 = new javax.swing.JMenuItem();
+    jFileChooserLoad = new javax.swing.JFileChooser();
+    jFileChooserSave = new javax.swing.JFileChooser();
 
     // Create the room 2D arrays that correspond to the Game maps
     String[][] room1 = new String[5][5];
@@ -583,10 +594,17 @@ public class MapEditor extends javax.swing.JFrame {
 
     jMenuItem1.setText("Save Map");
     jMenu1.add(jMenuItem1);
+<<<<<<< HEAD
 
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         // Save current Game using parser as an XML File.
+=======
+    
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        saveGameActionPerformed(evt); 
+>>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
       }
     });
 
@@ -595,14 +613,30 @@ public class MapEditor extends javax.swing.JFrame {
 
     jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
+<<<<<<< HEAD
         // Load Game using parser.
         // Get the game and make a MapEditor using the Game class object.
+=======
+        loadActionPerformed(evt);
+>>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
       }
     });
 
+    
+    jFileChooserLoad.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    jFileChooserLoad.setApproveButtonToolTipText("");
+    jFileChooserLoad.setDialogTitle("Load");
+    
+    
+    jFileChooserSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    jFileChooserSave.setApproveButtonToolTipText("");
+    jFileChooserSave.setDialogTitle("Save");
+    
+    
     jMenuBar1.add(jMenu1);
 
     setJMenuBar(jMenuBar1);
+    
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -616,6 +650,46 @@ public class MapEditor extends javax.swing.JFrame {
 
     pack();
 
+  }
+  
+  /**
+   * 
+   * @param evt
+   */
+  private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
+
+    int returnVal = jFileChooserSave.showSaveDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+      File file = jFileChooserSave.getSelectedFile();
+      // try {
+      // What to do with the file, e.g. display it in a TextArea
+      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
+      // } catch (IOException ex) {
+      // System.out.println("problem accessing file"+file.getAbsolutePath());
+      // }
+    } else {
+      System.out.println("File access cancelled by user.");
+    }
+
+  }
+
+  /**
+   * 
+   * @param evt
+   */
+  private void loadActionPerformed(java.awt.event.ActionEvent evt) {
+    int returnVal = jFileChooserLoad.showOpenDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+      File file = jFileChooserLoad.getSelectedFile();
+      // try {
+      // What to do with the file, e.g. display it in a TextArea
+      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
+      // } catch (IOException ex) {
+      // System.out.println("problem accessing file"+file.getAbsolutePath());
+      // }
+    } else {
+      System.out.println("File access cancelled by user.");
+    }
   }
 
   /**
