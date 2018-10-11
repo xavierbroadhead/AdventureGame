@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
@@ -41,6 +42,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
   public static BufferedImage unitedStates = (BufferedImage) unitedState;
   public static Image key = loadImage("keyImage.png");
   public static BufferedImage keyImage = (BufferedImage) key;
+ // public static imageIcon ooga = loadImage("ooga.gif");
+  // public static BufferedImage oogaBooga = (BufferedImage) ooga;
 
   /**
    * CREATION OF GUI. Creates new form AppWindows
@@ -59,6 +62,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
   private void initComponents() {
 
+    inventory7 = new javax.swing.JLabel();
     jFileChooserLoad = new javax.swing.JFileChooser();
     jFileChooserSave = new javax.swing.JFileChooser();
     jLabel1 = new javax.swing.JLabel();
@@ -242,12 +246,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory1.setIcon(new javax.swing.ImageIcon(this.keyImage));
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
-                                                                                                      // black with
-                                                                                                      // width 3
+                                                                                                      // 3
+
+    inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory3.setText("           "); //when you want photos use setIcon instead 
+    inventory3.setText("           ");
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory4.setText("           ");
@@ -259,52 +264,67 @@ public class ApplicationWindow extends javax.swing.JFrame {
     inventory6.setText("           ");
     inventory6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel); // initialise left side
-                                                                                              // panel layout
+    // URL url ApplicationWindow.class.getResource("\"ooga.gif\"")
+    //ImageIcon ooga = new ImageIcon(getClass().getResource("/Resources/ooga.gif"));
+    inventory7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ooga.gif")));
+    // inventory7.setIcon(new
+    // javax.swing.ImageIcon("/Users/harryrodger/Desktop/image/ooga.gif"));
+    // inventory7.setIcon(new
+    // javax.swing.ImageIcon(Renderer.getResource("ooga.gif")));
+    // inventory7.setBorder(javax.swing.BorderFactory.createLineBorder(new
+    // java.awt.Color(0, 0, 0), 3));
+
+    javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
     leftSidePanel.setLayout(leftSidePanelLayout);
     leftSidePanelLayout.setHorizontalGroup(leftSidePanelLayout
         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(leftSidePanelLayout.createSequentialGroup().addGroup(leftSidePanelLayout
-            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftSidePanelLayout.createSequentialGroup().addGap(28, 28, 28)
-                .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        .addGroup(leftSidePanelLayout.createSequentialGroup()
+            .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftSidePanelLayout.createSequentialGroup().addGap(71, 71, 71).addComponent(inventory))
+                .addGroup(leftSidePanelLayout.createSequentialGroup().addGap(28, 28, 28)
                     .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(inventory3, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(inventory1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(inventory3, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                        .addComponent(inventory6, javax.swing.GroupLayout.DEFAULT_SIZE,
                             javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(inventory6))
-                .addGap(51, 51, 51)
-                .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inventory2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inventory4, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inventory5, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(leftSidePanelLayout.createSequentialGroup().addGap(71, 71, 71).addComponent(inventory)))
-            .addContainerGap(50, Short.MAX_VALUE)));
+                    .addGap(40, 40, 40)
+                    .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(inventory4, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                        .addComponent(inventory5, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(inventory2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                    leftSidePanelLayout.createSequentialGroup().addContainerGap()
+                        .addComponent(inventory7, javax.swing.GroupLayout.PREFERRED_SIZE, 131,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     leftSidePanelLayout
         .setVerticalGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
             leftSidePanelLayout.createSequentialGroup().addContainerGap().addComponent(inventory).addGap(38, 38, 38)
                 .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                    .addComponent(inventory1, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventory2, javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                    .addComponent(inventory2, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addGap(30, 30, 30)
                 .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inventory3, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                    .addComponent(inventory3, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventory5, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                    .addComponent(inventory5, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
+                .addGap(35, 35, 35)
                 .addGroup(leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inventory4, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                    .addComponent(inventory6, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventory6, javax.swing.GroupLayout.PREFERRED_SIZE, 47,
+                    .addComponent(inventory4, javax.swing.GroupLayout.PREFERRED_SIZE, 61,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE)));
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(inventory7, javax.swing.GroupLayout.PREFERRED_SIZE, 122,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()));
 
     jLabel10.setIcon(new javax.swing.ImageIcon(this.soviet)); // creates the soviet icon from the Label
 
@@ -665,5 +685,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private javax.swing.JButton unlock;
   private javax.swing.JFileChooser jFileChooserLoad;
   private javax.swing.JFileChooser jFileChooserSave;
+  private javax.swing.JLabel inventory7;
   // End of variables declaration
 }

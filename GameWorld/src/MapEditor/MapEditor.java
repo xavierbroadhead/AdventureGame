@@ -11,13 +11,14 @@ import GameWorld.Game;
 import GameWorld.Player;
 
 /**
- * TODO Look up all of the functions needed. 
- * TODO Make sure no more than three walls are in the game. 
+ * TODO Look up all of the functions needed. TODO Make sure no more than three
+ * walls are in the game.
+ * 
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
-  
-  //MapEditor variables
+
+  // MapEditor variables
   private Game originalGame;
   private ArrayList<JButton> buttonList;
   private ArrayList<String[][]> rooms;
@@ -55,70 +56,66 @@ public class MapEditor extends javax.swing.JFrame {
   private javax.swing.JMenuItem jMenuItem1;
   private javax.swing.JMenuItem jMenuItem2;
   private javax.swing.JPanel jPanel1;
-  
-  
+
   /**
    * Creates new form MapEditor using a pre-existing game
-   * @param game that is the game currently being played.
+   * 
+   * @param game
+   *          that is the game currently being played.
    */
   public MapEditor(Game game) {
     this.originalGame = game;
     initComponents();
-    //convertGameToString();
+    // convertGameToString();
   }
-  
-  
+
   /**
-   * Saves the new modified game state into the existing game.
-   * This converts the string array into a Game object which is the original game.
+   * Saves the new modified game state into the existing game. This converts the
+   * string array into a Game object which is the original game.
    * 
    * void method and takes no arguments.
    */
   public void saveGame() {
-    //Convert rooms string back into a game and assign to this.originalGame
+    // Convert rooms string back into a game and assign to this.originalGame
   }
-  
-  
+
   /**
-   * Takes a Game object and converts it into a string array so that modifications can be made more 
-   * easily as positions can be more specific due to game logic
-   * .
+   * Takes a Game object and converts it into a string array so that modifications
+   * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
    */
-  public void convertGameToString(){
-    GameWorld.Position[][] map1= this.originalGame.getMaps().get(1).getMap();
-    GameWorld.Position[][] map2= this.originalGame.getMaps().get(2).getMap();
-    GameWorld.Position[][] map3= this.originalGame.getMaps().get(3).getMap();
-    for(int i=0; i<5; i++) {
-      for(int j=0; j<5; j++) {  
-        if(map1[i][j] != null) {
+  public void convertGameToString() {
+    GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
+    GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
+    GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 5; j++) {
+        if (map1[i][j] != null) {
           rooms.get(0)[i][j] = "Wall";
-        }else {
+        } else {
           rooms.get(0)[i][j] = "Empty";
         }
-        if(map2[i][j] != null) {
+        if (map2[i][j] != null) {
           rooms.get(1)[i][j] = "Wall";
-        }else {
+        } else {
           rooms.get(1)[i][j] = "Empty";
         }
-        if(map3[i][j] != null) {
+        if (map3[i][j] != null) {
           rooms.get(2)[i][j] = "Wall";
-        }else {
+        } else {
           rooms.get(2)[i][j] = "Empty";
         }
       }
     }
-    
-    
 
   }
-  
-  
-  
+
   /**
    * This outputs the corresponding button value for a given item.
+   * 
    * @param item
-   * @return String The value that the button represents given an item in that spot
+   * @return String The value that the button represents given an item in that
+   *         spot
    */
   public String buttonChanger(String item) {
     String input = "";
@@ -149,14 +146,18 @@ public class MapEditor extends javax.swing.JFrame {
 
   }
 
-  
   /**
    * This method changes the value on a button and also in the array that holds
    * the game values in string format.
-   * @param button The button that is being changed for this call
-   * @param x The value of the first array position
-   * @param y The value of the second array position
-   * @param rooms The string array that is getting updated
+   * 
+   * @param button
+   *          The button that is being changed for this call
+   * @param x
+   *          The value of the first array position
+   * @param y
+   *          The value of the second array position
+   * @param rooms
+   *          The string array that is getting updated
    */
   public void buttonChanger(JButton button, int x, int y, ArrayList<String[][]> rooms) {
     String room = (String) jComboBox2.getSelectedItem();
@@ -167,11 +168,16 @@ public class MapEditor extends javax.swing.JFrame {
     button.setText(buttonText);
   }
 
-  
   /**
-   * The method updates the string value of the buttons when the room combobox is changed
-   * @param buttonList This is a list of all of the buttons on the screen that can be clicked
-   * @param rooms The string array that is getting its values checked and then shown in the buttons
+   * The method updates the string value of the buttons when the room combobox is
+   * changed
+   * 
+   * @param buttonList
+   *          This is a list of all of the buttons on the screen that can be
+   *          clicked
+   * @param rooms
+   *          The string array that is getting its values checked and then shown
+   *          in the buttons
    */
   private void resetJButtonValues(ArrayList<JButton> buttonList, ArrayList<String[][]> rooms) {
     int count = 0;
@@ -179,7 +185,7 @@ public class MapEditor extends javax.swing.JFrame {
       int y = count % 5;
       int x = count / 5;
       String room = (String) jComboBox2.getSelectedItem();
-      int roomNum = (room.charAt(5) - '0') -1;
+      int roomNum = (room.charAt(5) - '0') - 1;
       String Text = rooms.get(roomNum)[x][y];
       String buttonText = buttonChanger(Text);
       jBut.setText(buttonText);
@@ -190,11 +196,12 @@ public class MapEditor extends javax.swing.JFrame {
   }
 
   /**
-   * This method is called from within the constructor to initialize the GUI components.
+   * This method is called from within the constructor to initialize the GUI
+   * components.
    */
   private void initComponents() {
-    
-    //Create all of the variables. 
+
+    // Create all of the variables.
     jPanel1 = new javax.swing.JPanel();
     jComboBox1 = new javax.swing.JComboBox<>();
     jButton1 = new javax.swing.JButton();
@@ -246,7 +253,7 @@ public class MapEditor extends javax.swing.JFrame {
     rooms.add(room2);
     rooms.add(room3);
 
-    //Create button list for easy access to all buttons
+    // Create button list for easy access to all buttons
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
     buttonList.add(jButton1);
     buttonList.add(jButton2);
@@ -274,10 +281,9 @@ public class MapEditor extends javax.swing.JFrame {
     buttonList.add(jButton24);
     buttonList.add(jButton25);
 
-    //Ensure the ApplicationWindow GUI does not close when this GUI is closed.
+    // Ensure the ApplicationWindow GUI does not close when this GUI is closed.
     setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
-    
     jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wall", "Empty", "Key", "Start", "End",
         "RoomEnterPos", "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
     jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -285,22 +291,21 @@ public class MapEditor extends javax.swing.JFrame {
 
       }
     });
-    
-    jComboBox2.setModel(
-        new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3"}));
+
+    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3" }));
     jComboBox2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         resetJButtonValues(buttonList, rooms);
       }
     });
-    
+
     jButton1.setText("00");
     jButton1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         buttonChanger(jButton1, 0, 0, rooms);
       }
     });
-    
+
     jButton2.setText("01");
     jButton2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -314,7 +319,7 @@ public class MapEditor extends javax.swing.JFrame {
         buttonChanger(jButton3, 0, 2, rooms);
       }
     });
-    
+
     jButton4.setText("03");
     jButton4.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +333,7 @@ public class MapEditor extends javax.swing.JFrame {
         buttonChanger(jButton5, 0, 4, rooms);
       }
     });
-    
+
     jButton6.setText("10");
     jButton6.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -579,21 +584,19 @@ public class MapEditor extends javax.swing.JFrame {
     jMenuItem1.setText("Save Map");
     jMenu1.add(jMenuItem1);
 
-    
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        //Save current Game using parser as an XML File. 
+        // Save current Game using parser as an XML File.
       }
     });
-    
-    
+
     jMenuItem2.setText("Load Map");
     jMenu1.add(jMenuItem2);
-    
+
     jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        //Load Game using parser.
-        //Get the game and make a MapEditor using the Game class object. 
+        // Load Game using parser.
+        // Get the game and make a MapEditor using the Game class object.
       }
     });
 
@@ -617,8 +620,10 @@ public class MapEditor extends javax.swing.JFrame {
 
   /**
    * Runs the Program with dummy game.
-   * @param args Standard main arguments.
-   *          
+   * 
+   * @param args
+   *          Standard main arguments.
+   * 
    */
   public static void main(String args[]) {
     Player player = null;
@@ -626,6 +631,5 @@ public class MapEditor extends javax.swing.JFrame {
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
   }
-  
 
 }

@@ -29,12 +29,8 @@ import GameWorld.Position;
  *
  * <Game>
  *
- * <Player startMap = int>
- *  <Position>
- *   <xVal>int</xVal>
- *   <yVal>int</yVal>
- *    <Item>stuff; haven't done this part</Item>
- *  </Position>
+ * <Player startMap = int> <Position> <xVal>int</xVal> <yVal>int</yVal>
+ * <Item>stuff; haven't done this part</Item> </Position>
  *
  * <Inventory> <Item>stuff; haven't done this part</Item> ++ (there can be any
  * number of items here) </Inventory> </Player>
@@ -57,8 +53,7 @@ import GameWorld.Position;
 public class Parser {
 
   /**
-   * Create a Game from an xml save file
-   * new Game
+   * Create a Game from an xml save file new Game
    *
    * @param fname
    *          filename (obtained from a file chooser of some sort)
@@ -98,8 +93,9 @@ public class Parser {
   }
 
   /**
-   * Logic for parsing the Player
-   * TODO: needs to determine if the position is already in a Map
+   * Logic for parsing the Player TODO: needs to determine if the position is
+   * already in a Map
+   * 
    * @param player
    * @return player object generated from file
    * @throws DataConversionException
@@ -123,6 +119,7 @@ public class Parser {
 
   /**
    * Logic for parsing a Map
+   * 
    * @param map
    * @return
    */
@@ -181,13 +178,13 @@ public class Parser {
     String type = item.getAttribute("Type").getValue();
 
     // extract the children
-    Element weight = item.getChild("Weight");  //int
-    Element position = item.getChild("Position"); //position
+    Element weight = item.getChild("Weight"); // int
+    Element position = item.getChild("Position"); // position
     Element ID = item.getChild("ID");
-    Element description = item.getChild("Description"); //string
-    Element title = item.getChild("Title"); //string
-    Element map = item.getChild("Map"); //integer (int)
-    Element icon = item.getChild("Icon"); //icon
+    Element description = item.getChild("Description"); // string
+    Element title = item.getChild("Title"); // string
+    Element map = item.getChild("Map"); // integer (int)
+    Element icon = item.getChild("Icon"); // icon
 
     // create parameter objects
     int w = Integer.parseInt(weight.getText());
@@ -201,7 +198,7 @@ public class Parser {
     // Implementation specific parsing (uses parseDoor, which is unfinished)
     if (type.equals("Key")) {
       Door door = parseDoor(item.getChild("Door"));
-      return new Key(w, pos, id, descr, ttl, mp, door, i);  // need ID
+      return new Key(w, pos, id, descr, ttl, mp, door, i); // need ID
     }
 
     // add similar if blocks for other types of Item
@@ -211,14 +208,14 @@ public class Parser {
   }
 
   // TODO: finish this (currently a stub)
-  private Door parseDoor (Element door) {
+  private Door parseDoor(Element door) {
     return null;
   }
 
   /**
    * Logic for parsing an Icon (filename of the image used is saved in xml file)
    */
-  private Icon parseIcon (Element icon) {
+  private Icon parseIcon(Element icon) {
     String filename = icon.getText();
     return new ImageIcon(filename);
   }
