@@ -8,6 +8,14 @@ package Applications;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+
+
 
 import GameWorld.Game;
 import GameWorld.Player;
@@ -50,6 +58,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
   private void initComponents() {
 
+    jFileChooserLoad = new javax.swing.JFileChooser();
+    jFileChooserSave = new javax.swing.JFileChooser();
     jLabel1 = new javax.swing.JLabel();
     renderer = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
@@ -86,6 +96,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
     openMapEditor = new javax.swing.JMenuItem();
 
     jLabel1.setText("jLabel1");
+    
+    jFileChooserLoad.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    jFileChooserLoad.setApproveButtonToolTipText("");
+    jFileChooserLoad.setDialogTitle("Load");
+    
+    jFileChooserSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    jFileChooserSave.setApproveButtonToolTipText("");
+    jFileChooserSave.setDialogTitle("Save");
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setBackground(new java.awt.Color(255, 51, 51));
@@ -156,21 +174,21 @@ public class ApplicationWindow extends javax.swing.JFrame {
                 .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(46, 46, 46)));
 
-    unlock.setLabel("Unlock");
+    unlock.setText("Unlock"); // set button text
     unlock.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         unlockActionPerformed(evt);
       }
     });
 
-    discard.setLabel("Discard");
+    discard.setText("Discard"); // set button text
     discard.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         discardActionPerformed(evt);
       }
     });
 
-    pickUp.setLabel("Pick up");
+    pickUp.setText("Pick up"); // set button text
     pickUp.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         pickUpActionPerformed(evt);
@@ -185,7 +203,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
       }
     });
 
-    javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel);
+    javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel); // initialise right side
+                                                                                                // panel layout
     rightSidePanel.setLayout(rightSidePanelLayout);
     rightSidePanelLayout
         .setHorizontalGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,9 +235,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
                             javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(open))));
 
+    // Create inventory aspects of the GUI
+
     inventory.setText("INVENTORY");
 
-    inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+    inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
+                                                                                                      // black with
+                                                                                                      // width 3
 
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
@@ -234,7 +257,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
     inventory6.setText("           ");
     inventory6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
+    javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel); // initialise left side
+                                                                                              // panel layout
     leftSidePanel.setLayout(leftSidePanelLayout);
     leftSidePanelLayout.setHorizontalGroup(leftSidePanelLayout
         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,9 +304,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
                         javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(85, Short.MAX_VALUE)));
 
-    jLabel10.setIcon(new javax.swing.ImageIcon(this.soviet)); // NOI18N
+    jLabel10.setIcon(new javax.swing.ImageIcon(this.soviet)); // creates the soviet icon from the Label
 
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2); // initialises bottom right jPanel
     jPanel2.setLayout(jPanel2Layout);
     jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
@@ -291,7 +315,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
 
-    jLabel4.setIcon(new javax.swing.ImageIcon(this.unitedStates)); // NOI18N
+    jLabel4.setIcon(new javax.swing.ImageIcon(this.unitedStates)); // creates the USA icon from the label
 
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);
@@ -303,6 +327,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
             javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
     file.setText("File");
+
+    // ActionListeners for file menubar Item
 
     newGame.setText("New Game");
     newGame.addActionListener(new java.awt.event.ActionListener() {
@@ -340,6 +366,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     mapEditor.setText("MapEditor");
 
+    // ActionListener for MapEditor menubar item
+
     openMapEditor.setText("Open");
     openMapEditor.setToolTipText("");
     openMapEditor.addActionListener(new java.awt.event.ActionListener() {
@@ -356,8 +384,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
-    layout
-        .setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    layout // sorts out the layout of the contents pane
+        .setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING) //sorts horizontal layout
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -382,7 +410,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
                             javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup().addGap(10, 10, 10).addComponent(messageBoard,
                         javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))));
-    layout
+    layout //sorts vertical layout
         .setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -526,6 +554,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * @param evt
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
+    
+    int returnVal = jFileChooserSave.showSaveDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+        File file = jFileChooserSave.getSelectedFile();
+       // try {
+          // What to do with the file, e.g. display it in a TextArea
+          //textarea.read( new FileReader( file.getAbsolutePath() ), null );
+       // } catch (IOException ex) {
+        //  System.out.println("problem accessing file"+file.getAbsolutePath());
+        //}
+    } else {
+        System.out.println("File access cancelled by user.");
+    }
+   
     messageBoard.append("You have saved the game \n");
   }
 
@@ -534,6 +576,19 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * @param evt
    */
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
+    int returnVal = jFileChooserLoad.showOpenDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+        File file = jFileChooserLoad.getSelectedFile();
+       // try {
+          // What to do with the file, e.g. display it in a TextArea
+          //textarea.read( new FileReader( file.getAbsolutePath() ), null );
+       // } catch (IOException ex) {
+        //  System.out.println("problem accessing file"+file.getAbsolutePath());
+        //}
+    } else {
+        System.out.println("File access cancelled by user.");
+    }
+    
     messageBoard.append("You have loaded a game \n");
     // loadFromFile("hello");
   }
@@ -594,5 +649,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private javax.swing.JPanel rightSidePanel;
   private javax.swing.JMenuItem saveGame;
   private javax.swing.JButton unlock;
+  private javax.swing.JFileChooser jFileChooserLoad;
+  private javax.swing.JFileChooser jFileChooserSave;
   // End of variables declaration
 }
