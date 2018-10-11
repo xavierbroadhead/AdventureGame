@@ -27,7 +27,7 @@ public class Render {
                     int bottom = getHeight();
                     int mid = bottom/2;
                     int y = bottom;
-                    int stepsToWall = 3;
+                    int stepsToWall = 0;
                     int stepsToWallPolys = stepsToWall;
                     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
                     for(int j = bottom; j > getHeight()/2; j--) {
@@ -156,7 +156,7 @@ public class Render {
                 			rMax = intersectionsR.get(i+1);
                 		}
                 	}
-                	//drawing back wall
+                	//drawing back wall for passage with no turns
                 	Polygon backWall = new Polygon();
                 	
                 	backWall.addPoint((int)rMax.xInt, (int)rMax.yInt);
@@ -178,6 +178,16 @@ public class Render {
                 		g2.drawLine((int)i1.xInt, (int)i1.yInt, (int)i2.xInt, (int)i2.yInt);
                 	}
                 	
+                	//creates polygon for back wall with right turn and florr
+                	Polygon backWallRT = new Polygon();
+                	backWallRT.addPoint((int)lMax.xInt, (int)lMax.yInt);
+                	backWallRT.addPoint(getWidth(), (int)lMax.yInt);
+                	backWallRT.addPoint(getWidth(), 0);
+                	backWallRT.addPoint((int)topWL.xInt, 0);
+                	//g2.setColor(Color.GREEN);
+                	//g2.fillPolygon(backWallLT);
+                	
+                	
                 	//draws left wall
                 	Polygon leftWall = new Polygon();
                 	
@@ -195,11 +205,24 @@ public class Render {
                 	g2.setColor(Color.GREEN);		
                 	//g2.drawLine((int)rturn.xInt, (int)rturn.yInt, getWidth(), (int)rturn.xInt);
                 	g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
+                	//draws floor for right turn
+                	Polygon floorRT = new Polygon();
+                	floorRT.addPoint((int)rMax.xInt, (int)rMax.yInt);
+                	floorRT.addPoint((int)rturn.xInt, (int)rturn.yInt);
+                	floorRT.addPoint(getWidth(), (int)rturn.yInt);
+                	floorRT.addPoint(getWidth(), (int)rMax.yInt);
+                	g2.setColor(Color.GRAY);
+                	g2.fillPolygon(floorRT);
+                	//draws line seperting floor from cieling along back wall
+                	g2.setColor(Color.BLACK);
+                	g2.drawLine((int)rMax.xInt, (int)rMax.yInt, getWidth(), (int)rMax.yInt);
                 	
                 	Intersect lturn = intersectionsL.get(stepsToWallPolys-1);
                 	g2.setColor(Color.GREEN);	
                 	g2.drawLine((int)lturn.xInt, (int)lturn.yInt, (int)lturn.xInt, 0);
 
+                	
+                	
                 	//draws right wall w/ right turn
                 	Polygon leftTurn = new Polygon();
                 	
@@ -225,6 +248,29 @@ public class Render {
                 	left.drawLine(g2);
                 	right.drawLine(g2);
                 	*/
+                	
+                	
+                	//draws back wall last to cover horizon guide lines
+                	g2.fillPolygon(backWall);
+                	//g2.drawLine(x1, y1, x2, y2);
+                	g2.setColor(Color.GRAY);	
+                	//draws back wall for right turn
+                	g2.fillPolygon(backWallRT);
+                	g2.setColor(Color.BLACK);
+                	//draws lines for backWallLT
+                	g2.drawLine((int)lMax.xInt, (int)lMax.yInt, (int)lMax.xInt, 0);
+                	//g2.drawLine((int)rMax.xInt, (int)rMax.yInt, (int)rMax.xInt, 0);
+                	
+                	g2.setColor(Color.BLACK);	
+                	
+                	//line for wall turn
+                	g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
+                	
+                	g2.setColor(Color.BLACK);
+                	//line for skiring seperating floor and walls
+                	g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+                	g2.drawLine(getWidth(), bottom, (int)rMax.xInt, (int)rMax.yInt);
+                	
                 	for(Intersect i : intersectionsL) {
                 		g2.setColor(Color.BLACK);
                 		g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
@@ -234,14 +280,6 @@ public class Render {
                 		g2.setColor(Color.BLACK);
                 		g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
                 	}
-                	
-                	//draws back wall last to cover horizon guide lines
-                	g2.fillPolygon(backWall);
-                	//g2.drawLine(x1, y1, x2, y2);
-                	g2.setColor(Color.GREEN);	
-                	
-                	g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
-
          
                 }
                 
