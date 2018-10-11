@@ -11,7 +11,8 @@ import GameWorld.Game;
 import GameWorld.Player;
 
 /**
- * Todo: Add mechanisms to save and load XML files - Need Callum
+ * TODO Look up all of the functions needed. 
+ * TODO Make sure no more than three walls are in the game. 
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
@@ -578,8 +579,23 @@ public class MapEditor extends javax.swing.JFrame {
     jMenuItem1.setText("Save Map");
     jMenu1.add(jMenuItem1);
 
+    
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //Save current Game using parser as an XML File. 
+      }
+    });
+    
+    
     jMenuItem2.setText("Load Map");
     jMenu1.add(jMenuItem2);
+    
+    jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //Load Game using parser.
+        //Get the game and make a MapEditor using the Game class object. 
+      }
+    });
 
     jMenuBar1.add(jMenu1);
 
