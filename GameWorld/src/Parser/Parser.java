@@ -1,9 +1,14 @@
 package Parser;
 
+import GameWorld.Key;
+import GameWorld.Door;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import org.jdom2.DataConversionException;
 import org.jdom2.Document;
@@ -20,38 +25,41 @@ import GameWorld.Position;
 /**
  * DATA STRUCTURE FOR XML SAVE FILE: below outlines the hierarchy of the
  * elements in a valid XML save file TODO: add representation and relevant code
- * for storing data on Doors TODO: finish representation and relevant code for
- * Items
- * 
+ * for storing data on Doors
+ *
  * <Game>
- * 
- * <Player startMap = int> <Position> <xVal>int</xVal> <yVal>int</yVal>
- * <Item>stuff; haven't done this part</Item> </Position>
- * 
+ *
+ * <Player startMap = int>
+ *  <Position>
+ *   <xVal>int</xVal>
+ *   <yVal>int</yVal>
+ *    <Item>stuff; haven't done this part</Item>
+ *  </Position>
+ *
  * <Inventory> <Item>stuff; haven't done this part</Item> ++ (there can be any
  * number of items here) </Inventory> </Player>
- * 
+ *
  * <Map> x 5; each game has 5 Maps <Position> x 25; there are 25 positions in a
  * Map, forming a 5x5 grid. It is important these positions are stored in a
  * specific order <xVal>int</xVal> <yVal>int</yVal> <Item>stuff; haven't done
  * this part</Item> </Position> </Map>
- * 
+ *
  * </Game>
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * @author callum
  *
  */
 public class Parser {
 
   /**
-   * Create a Game from an xml save file TODO: make it so Maps can be passed into
+   * Create a Game from an xml save file
    * new Game
-   * 
+   *
    * @param fname
    *          filename (obtained from a file chooser of some sort)
    * @return
@@ -90,8 +98,8 @@ public class Parser {
   }
 
   /**
-   * Logic for parsing the Player TODO: finish inventory loading functionality
-   * 
+   * Logic for parsing the Player
+   * TODO: needs to determine if the position is already in a Map
    * @param player
    * @return player object generated from file
    * @throws DataConversionException
@@ -115,7 +123,6 @@ public class Parser {
 
   /**
    * Logic for parsing a Map
-   * 
    * @param map
    * @return
    */
@@ -139,7 +146,7 @@ public class Parser {
 
   /**
    * Logic for parsing a Position
-   * 
+   *
    * @param position
    * @return
    */
@@ -164,13 +171,56 @@ public class Parser {
   }
 
   /**
-   * Logic for parsing an Item TODO: Unfinished; currently just a stub
-   * 
+   * Logic for parsing an Item
+   *
    * @param item
    * @return
    */
   private Item parseItem(Element item) {
+
+    String type = item.getAttribute("Type").getValue();
+
+    // extract the children
+    Element weight = item.getChild("Weight");  //int
+    Element position = item.getChild("Position"); //position
+    Element ID = item.getChild("ID");
+    Element description = item.getChild("Description"); //string
+    Element title = item.getChild("Title"); //string
+    Element map = item.getChild("Map"); //integer (int)
+    Element icon = item.getChild("Icon"); //icon
+
+    // create parameter objects
+    int w = Integer.parseInt(weight.getText());
+    Position pos = parsePosition(position);
+    int id = Integer.parseInt(ID.getText());
+    String descr = description.getText();
+    String ttl = title.getText();
+    Integer mp = Integer.getInteger(map.getText());
+    Icon i = parseIcon(icon);
+
+    // Implementation specific parsing (uses parseDoor, which is unfinished)
+    if (type.equals("Key")) {
+      Door door = parseDoor(item.getChild("Door"));
+      return new Key(w, pos, id, descr, ttl, mp, door, i);  // need ID
+    }
+
+    // add similar if blocks for other types of Item
+
+    // returns null if the type is not specified or type is invalid
     return null;
+  }
+
+  // TODO: finish this (currently a stub)
+  private Door parseDoor (Element door) {
+    return null;
+  }
+
+  /**
+   * Logic for parsing an Icon (filename of the image used is saved in xml file)
+   */
+  private Icon parseIcon (Element icon) {
+    String filename = icon.getText();
+    return new ImageIcon(filename);
   }
 
 }

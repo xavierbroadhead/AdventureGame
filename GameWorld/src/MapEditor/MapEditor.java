@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The Map Editor Class that handles editing the map when in play.
  */
 package MapEditor;
 
@@ -9,13 +7,12 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
-
 import GameWorld.Game;
-import GameWorld.Map;
+import GameWorld.Player;
 
 /**
- *
+ * TODO Look up all of the functions needed. 
+ * TODO Make sure no more than three walls are in the game. 
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
@@ -61,7 +58,8 @@ public class MapEditor extends javax.swing.JFrame {
   
   
   /**
-   * Creates new form MapEditor
+   * Creates new form MapEditor using a pre-existing game
+   * @param game that is the game currently being played.
    */
   public MapEditor(Game game) {
     this.originalGame = game;
@@ -69,10 +67,24 @@ public class MapEditor extends javax.swing.JFrame {
     //convertGameToString();
   }
   
+  
+  /**
+   * Saves the new modified game state into the existing game.
+   * This converts the string array into a Game object which is the original game.
+   * 
+   * void method and takes no arguments.
+   */
   public void saveGame() {
     //Convert rooms string back into a game and assign to this.originalGame
   }
   
+  
+  /**
+   * Takes a Game object and converts it into a string array so that modifications can be made more 
+   * easily as positions can be more specific due to game logic
+   * .
+   * void method and takes no arguments.
+   */
   public void convertGameToString(){
     GameWorld.Position[][] map1= this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2= this.originalGame.getMaps().get(2).getMap();
@@ -103,7 +115,11 @@ public class MapEditor extends javax.swing.JFrame {
   
   
   
-
+  /**
+   * This outputs the corresponding button value for a given item.
+   * @param item
+   * @return String The value that the button represents given an item in that spot
+   */
   public String buttonChanger(String item) {
     String input = "";
     if (item.equals("Wall")) {
@@ -133,6 +149,15 @@ public class MapEditor extends javax.swing.JFrame {
 
   }
 
+  
+  /**
+   * This method changes the value on a button and also in the array that holds
+   * the game values in string format.
+   * @param button The button that is being changed for this call
+   * @param x The value of the first array position
+   * @param y The value of the second array position
+   * @param rooms The string array that is getting updated
+   */
   public void buttonChanger(JButton button, int x, int y, ArrayList<String[][]> rooms) {
     String room = (String) jComboBox2.getSelectedItem();
     String item = (String) jComboBox1.getSelectedItem();
@@ -142,13 +167,19 @@ public class MapEditor extends javax.swing.JFrame {
     button.setText(buttonText);
   }
 
+  
+  /**
+   * The method updates the string value of the buttons when the room combobox is changed
+   * @param buttonList This is a list of all of the buttons on the screen that can be clicked
+   * @param rooms The string array that is getting its values checked and then shown in the buttons
+   */
   private void resetJButtonValues(ArrayList<JButton> buttonList, ArrayList<String[][]> rooms) {
     int count = 0;
     for (JButton jBut : buttonList) {
       int y = count % 5;
       int x = count / 5;
       String room = (String) jComboBox2.getSelectedItem();
-      int roomNum = room.charAt(5) - '0';
+      int roomNum = (room.charAt(5) - '0') -1;
       String Text = rooms.get(roomNum)[x][y];
       String buttonText = buttonChanger(Text);
       jBut.setText(buttonText);
@@ -159,13 +190,11 @@ public class MapEditor extends javax.swing.JFrame {
   }
 
   /**
-   * This method is called from within the constructor to initialize the form.
-   *
+   * This method is called from within the constructor to initialize the GUI components.
    */
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
-
+    
+    //Create all of the variables. 
     jPanel1 = new javax.swing.JPanel();
     jComboBox1 = new javax.swing.JComboBox<>();
     jButton1 = new javax.swing.JButton();
@@ -201,7 +230,7 @@ public class MapEditor extends javax.swing.JFrame {
     jMenuItem1 = new javax.swing.JMenuItem();
     jMenuItem2 = new javax.swing.JMenuItem();
 
-    // Create the room 2D arrays
+    // Create the room 2D arrays that correspond to the Game maps
     String[][] room1 = new String[5][5];
     String[][] room2 = new String[5][5];
     String[][] room3 = new String[5][5];
@@ -217,7 +246,7 @@ public class MapEditor extends javax.swing.JFrame {
     rooms.add(room2);
     rooms.add(room3);
 
-
+    //Create button list for easy access to all buttons
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
     buttonList.add(jButton1);
     buttonList.add(jButton2);
@@ -245,8 +274,10 @@ public class MapEditor extends javax.swing.JFrame {
     buttonList.add(jButton24);
     buttonList.add(jButton25);
 
+    //Ensure the ApplicationWindow GUI does not close when this GUI is closed.
     setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
+    
     jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wall", "Empty", "Key", "Start", "End",
         "RoomEnterPos", "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
     jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -254,21 +285,22 @@ public class MapEditor extends javax.swing.JFrame {
 
       }
     });
-
-    jButton4.setText("03");
-    jButton4.addActionListener(new java.awt.event.ActionListener() {
+    
+    jComboBox2.setModel(
+        new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3"}));
+    jComboBox2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        buttonChanger(jButton4, 0, 3, rooms);
+        resetJButtonValues(buttonList, rooms);
       }
     });
-
-    jButton5.setText("04");
-    jButton5.addActionListener(new java.awt.event.ActionListener() {
+    
+    jButton1.setText("00");
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        buttonChanger(jButton5, 0, 4, rooms);
+        buttonChanger(jButton1, 0, 0, rooms);
       }
     });
-
+    
     jButton2.setText("01");
     jButton2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,14 +314,21 @@ public class MapEditor extends javax.swing.JFrame {
         buttonChanger(jButton3, 0, 2, rooms);
       }
     });
-
-    jButton1.setText("00");
-    jButton1.addActionListener(new java.awt.event.ActionListener() {
+    
+    jButton4.setText("03");
+    jButton4.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        buttonChanger(jButton1, 0, 0, rooms);
+        buttonChanger(jButton4, 0, 3, rooms);
       }
     });
 
+    jButton5.setText("04");
+    jButton5.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buttonChanger(jButton5, 0, 4, rooms);
+      }
+    });
+    
     jButton6.setText("10");
     jButton6.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,14 +469,6 @@ public class MapEditor extends javax.swing.JFrame {
       }
     });
 
-    jComboBox2.setModel(
-        new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3"}));
-    jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        resetJButtonValues(buttonList, rooms);
-      }
-    });
-
     jLabel1.setText("Room ");
 
     jLabel2.setText("Items");
@@ -548,8 +579,23 @@ public class MapEditor extends javax.swing.JFrame {
     jMenuItem1.setText("Save Map");
     jMenu1.add(jMenuItem1);
 
+    
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //Save current Game using parser as an XML File. 
+      }
+    });
+    
+    
     jMenuItem2.setText("Load Map");
     jMenu1.add(jMenuItem2);
+    
+    jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //Load Game using parser.
+        //Get the game and make a MapEditor using the Game class object. 
+      }
+    });
 
     jMenuBar1.add(jMenu1);
 
@@ -567,35 +613,18 @@ public class MapEditor extends javax.swing.JFrame {
 
     pack();
 
-  }// </editor-fold>
+  }
 
   /**
-   * @param args
-   *          the command line arguments
+   * Runs the Program with dummy game.
+   * @param args Standard main arguments.
+   *          
    */
   public static void main(String args[]) {
-    /* Set the Nimbus look and feel 
-     */
-     try { 
-       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) { 
-         if("Nimbus".equals(info.getName())) {
-             javax.swing.UIManager.setLookAndFeel(info.getClassName()); 
-             break; 
-         }
-       }
-     } catch (ClassNotFoundException ex) {
-         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
-     } catch (InstantiationException ex) {
-         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
-     } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
-     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-         java.util.logging.Logger.getLogger(MapEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); 
-     }
-     
-     
-    
-    
+    Player player = null;
+    Game game = new Game(player);
+    MapEditor editor = new MapEditor(game);
+    editor.setVisible(true);
   }
   
 
