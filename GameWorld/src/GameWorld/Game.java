@@ -7,9 +7,13 @@ import javax.swing.ImageIcon;
 public class Game {
 	private HashMap<Integer, Map> maps;
 	private Player player;
+	private HashMap<Integer, Key> keys;
+	private HashMap<Integer, Door> doors;
 
 	public Game(Player player) {
-		HashMap<Integer, Map> maps = new HashMap<Integer, Map>();
+		maps = new HashMap<Integer, Map>();
+		this.keys = new HashMap<Integer, Key>();
+		this.doors = new HashMap<Integer, Door>();
 		Position[][] map1 = {{new Position(0,0), null, new Position(2,0), new Position(3,0), null},
 							{new Position(0,1), null, new Position(2,1), null, null},
 							{new Position(0,2), new Position(1,2), new Position(2,2), null, null}
@@ -45,6 +49,14 @@ public class Game {
 	public HashMap<Integer, Map> getMaps(){
 		return maps;
 	}
+
+	public HashMap<Integer, Key> getKeys(){
+    return keys;
+  }
+
+	public HashMap<Integer, Door> getDoors(){
+    return doors;
+  }
 	/** Returns true if the position on the given map number is accessible
 	 *
 	 *
@@ -86,10 +98,14 @@ public class Game {
 	 */
 	public int tilesTilWall() {
 		int i = 1;
-		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
+
+		Integer currentInteger = player.currentMapInteger();
+		Map map = maps.get(currentInteger);
+		Position[][] currentMap = map.getMap();
+
 		while(true) {
 			if (this.player.getDirection() == Player.Direction.NORTH) {
-				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() + i] != null) {
+				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() - i] != null) {
 					i++;
 				}
 				else break;
@@ -101,7 +117,7 @@ public class Game {
 				else break;
 			}
 			else if (this.player.getDirection() == Player.Direction.SOUTH) {
-				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() - i] != null) {
+				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() + i] != null) {
 					i++;
 				}
 				else break;
@@ -125,7 +141,7 @@ public class Game {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
 		if (this.player.getDirection() == Player.Direction.NORTH) {
-			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() + wall] != null) {
+			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() - wall] != null) {
 				return true;
 			}
 		}
@@ -135,7 +151,7 @@ public class Game {
 			}
 		}
 		else if (this.player.getDirection() == Player.Direction.SOUTH) {
-			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() - wall] != null) {
+			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() + wall] != null) {
 				return true;
 			}
 		}
@@ -156,7 +172,7 @@ public class Game {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
 		if (this.player.getDirection() == Player.Direction.NORTH) {
-			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() + wall] != null) {
+			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() - wall] != null) {
 				return true;
 			}
 		}
@@ -166,7 +182,7 @@ public class Game {
 			}
 		}
 		else if (this.player.getDirection() == Player.Direction.SOUTH) {
-			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() - wall] != null) {
+			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() + wall] != null) {
 				return true;
 			}
 		}

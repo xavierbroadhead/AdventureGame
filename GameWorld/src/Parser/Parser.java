@@ -105,6 +105,7 @@ public class Parser {
 
   /**
    * Logic for parsing a Map
+   *
    * @param map
    * @return
    */
@@ -198,10 +199,10 @@ public class Parser {
     // extract the children
     Element weight = item.getChild("Weight");  //int
     Element ID = item.getChild("ID");
-    Element description = item.getChild("Description"); //string
-    Element title = item.getChild("Title"); //string
-    Element map = item.getChild("Map"); //integer (int)
-    Element icon = item.getChild("Icon"); //icon
+    Element description = item.getChild("Description"); // string
+    Element title = item.getChild("Title"); // string
+    Element map = item.getChild("Map"); // integer (int)
+    Element icon = item.getChild("Icon"); // icon
 
     // create parameter objects
     int w = Integer.parseInt(weight.getText());
@@ -259,7 +260,7 @@ public class Parser {
   /**
    * Logic for parsing an Icon (filename of the image used is saved in xml file)
    */
-  private Icon parseIcon (Element icon) {
+  private Icon parseIcon(Element icon) {
     String filename = icon.getText();
     return new ImageIcon(filename);
   }
