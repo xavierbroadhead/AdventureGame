@@ -1,9 +1,5 @@
 /Applications/
-/Renderer/
-<<<<<<< HEAD
 /GameWorld/
 /MapEditor/
 /Parser/
-/Resources/
-=======
->>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
+/Renderer/
