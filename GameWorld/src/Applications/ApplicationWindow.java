@@ -483,6 +483,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          actions
    */
   private void pickUpActionPerformed(java.awt.event.ActionEvent evt) {
+    //if item is key add new imageIcon to one of the invetory spaces same goes for the other things
 
     // if there is an item you are on top of
     messageBoard.append("You have picked up an Item! \n");
@@ -527,6 +528,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          unlock the door.
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
+    //calls whther the door is unlocked already etc
+    // does person have key in inventory
     messageBoard.append("KaCHINK... the door is now \n open... \n");
 
   }
