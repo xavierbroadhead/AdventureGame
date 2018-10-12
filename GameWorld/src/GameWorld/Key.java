@@ -4,15 +4,16 @@ import javax.swing.Icon;
 
 public class Key extends Item {
 
-  private Door door;
+  private int door;
 
-  public Key(int weight, Position position, int ID, String description, String title, Integer map, Door door,
+  public Key(int weight, int ID, String description, String title, Integer map, int doorID,
       Icon icon) {
-    super(weight, position, ID, description, title, map, icon);
-    this.door = door;
+    super(weight, ID, description, title, map, icon);
+    this.door = doorID;
   }
 
-  public Door getDoor() {
+  // reference to the Door is now just done via the door's ID. Makes parsing much easier
+  public int getDoor() {
     return door;
   }
 

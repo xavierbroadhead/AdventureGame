@@ -1,0 +1,89 @@
+<Game>
+
+
+
+	<Map>                        // x 5. Maps must be in order
+
+		<Position>               // x 25. Positions must be in order
+			<xVal>INT</xVal>
+			<yVal>INT</yVal>
+
+			<Item Type = Key | Book | Empty>
+				<Weight>INT</Weight>
+	      <ID>INT</ID>
+				<Description>STRING</Description>
+				<Title>STRING</Title>
+				<Map>INTEGER</Map>
+				<Icon>ICON</Icon>
+
+				// if Type = Key
+				<DoorID>INT</DoorID>
+
+				// if Type = Book
+				<Contents>STRING</Contents>
+				<Magical>BOOLEAN</Magical>
+			</Item>
+
+		</Position>
+
+	</Map>
+
+
+	<Player startMap = INT>
+
+		<FindPosition>          // indicates the position of the player. The child values are then used to find a relevant Position object in the maps
+				<Map>INT</Map>  // the map where the position is
+				<xVal>INT</xVal>
+				<yVal>INT</yVal>
+		</FindPosition>
+
+		<Inventory>
+			<Item Type = Key | Book | Empty>     // x any number, including zero
+				<Weight>INT</Weight>
+	      <ID>INT</ID>
+				<Description>STRING</Description>
+				<Title>STRING</Title>
+				<Map>INTEGER</Map>
+				<Icon>ICON</Icon>
+
+				// if Type = Key
+				<DoorID>INT</DoorID>
+
+				// if Type = Book
+				<Contents>STRING</Contents>
+				<Magical>BOOLEAN</Magical>
+			</Item>
+		</Inventory>
+
+	</Player>
+
+
+	<Door>
+
+		<Locked>BOOLEAN</Locked>
+
+		<Map>INTEGER</Map>
+
+		<ID>INT</ID>
+
+		<Link>INTEGER</Link>
+
+		<DoorPosition>          //Position of the door
+				<Map>INT</Map>  // the map where the position is
+				<xVal>INT</xVal>
+				<yVal>INT</yVal>
+		</DoorPosition>
+
+		<LinkPosition>          //Position of the link
+				<Map>INT</Map>  // the map where the position is
+				<xVal>INT</xVal>
+				<yVal>INT</yVal>
+		</LinkPosition>
+
+		<Direction>Player.Direction</Direction>
+
+	</Door>
+
+
+
+</Game>
