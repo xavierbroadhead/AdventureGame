@@ -252,10 +252,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory3.setText("           ");
+    inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/health.gif")));
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory4.setText("           ");
+    inventory4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
     inventory4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory5.setText("           ");
@@ -267,12 +267,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     // URL url ApplicationWindow.class.getResource("\"ooga.gif\"")
     //ImageIcon ooga = new ImageIcon(getClass().getResource("/Resources/ooga.gif"));
     inventory7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ooga.gif")));
-    // inventory7.setIcon(new
-    // javax.swing.ImageIcon("/Users/harryrodger/Desktop/image/ooga.gif"));
-    // inventory7.setIcon(new
-    // javax.swing.ImageIcon(Renderer.getResource("ooga.gif")));
-    // inventory7.setBorder(javax.swing.BorderFactory.createLineBorder(new
-    // java.awt.Color(0, 0, 0), 3));
+   
 
     javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
     leftSidePanel.setLayout(leftSidePanelLayout);
