@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Render {
 
   
-      public void renderGame(Graphics2D g2, int width, int height, Game game) {
+      public void renderGame(Graphics2D g2, int width, int height, Game game, int steps) {
 
         int windowWidth = width;
         int windowHeight = height;
@@ -21,7 +21,7 @@ public class Render {
         int bottom = windowWidth;
         int mid = bottom/2;
         int y = bottom;
-        int stepsToWall = game.tilesTilWall();
+        int stepsToWall = steps;//game.tilesTilWall();
         int stepsToWallPolys = stepsToWall;
         ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
         for(int j = bottom; j > windowHeight/2; j--) {
