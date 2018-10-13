@@ -2,6 +2,7 @@ package Renderer;
 
 import javax.swing.*;
 
+import GameWorld.Game;
 import GameWorld.Player;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.Collections;
 public class Render {
 
   
-      public void renderGame(Graphics2D g2, int width, int height, Player player) {
+      public void renderGame(Graphics2D g2, int width, int height, Game game) {
 
         int windowWidth = width;
         int windowHeight = height;
@@ -20,7 +21,7 @@ public class Render {
         int bottom = windowWidth;
         int mid = bottom/2;
         int y = bottom;
-        int stepsToWall = 3;
+        int stepsToWall = 0;
         int stepsToWallPolys = stepsToWall;
         ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
         for(int j = bottom; j > windowHeight/2; j--) {
