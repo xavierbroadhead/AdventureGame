@@ -74,7 +74,7 @@ public class MapEditor extends javax.swing.JFrame {
   public MapEditor(Game game) {
     this.originalGame = game;
     initComponents();
-    // convertGameToString();
+    //convertGameToString(this.rooms);
   }
 
   /**TODO NEED TO FINISH THIS METHOD to return or act on something
@@ -115,12 +115,12 @@ public class MapEditor extends javax.swing.JFrame {
     // Convert rooms string back into a game and assign to this.originalGame
   }
 
-  /**TODO NEED TO FINISH THIS METHOD to take in a game
+  /**TODO NEED TO FINISH THIS METHOD to take in a game and check NullpointerExceptions
    * Takes a Game object and converts it into a string array so that modifications
    * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
    */
-  public void convertGameToString() {
+  public void convertGameToString(ArrayList<String[][]> rooms) {
     //this.originalGame = something from load method
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
@@ -670,7 +670,7 @@ public class MapEditor extends javax.swing.JFrame {
   }
   
   /**
-   * 
+   * Opens the file options to save the file on the computer.
    * @param evt
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
@@ -690,7 +690,7 @@ public class MapEditor extends javax.swing.JFrame {
   }
 
   /**
-   * 
+   * Opens the load options for the game to retrieve a file
    * @param evt
    */
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
@@ -703,6 +703,7 @@ public class MapEditor extends javax.swing.JFrame {
       // } catch (IOException ex) {
       // System.out.println("problem accessing file"+file.getAbsolutePath());
       // }
+      //
     } else {
       System.out.println("File access cancelled by user.");
     }
