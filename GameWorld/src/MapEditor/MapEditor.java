@@ -198,7 +198,7 @@ public class MapEditor extends javax.swing.JFrame {
   public void buttonChanger(JButton button, int x, int y, ArrayList<String[][]> rooms) {
     String room = (String) jComboBox2.getSelectedItem();
     String item = (String) jComboBox1.getSelectedItem();
-    int roomNum = room.charAt(5) - '0';
+    int roomNum = (room.charAt(5) - '0') -1;
     rooms.get(roomNum)[x][y] = item;
     String buttonText = buttonChanger(item);
     button.setText(buttonText);
