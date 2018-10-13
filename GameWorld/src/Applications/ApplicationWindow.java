@@ -7,6 +7,7 @@
 package Applications;
 
 import GameWorld.Game;
+import GameWorld.Item;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
@@ -17,10 +18,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -43,6 +47,47 @@ public class ApplicationWindow extends javax.swing.JFrame {
   protected BufferedImage soviet = (BufferedImage) sovietUnion;
   protected Image unitedState = loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
   protected BufferedImage unitedStates = (BufferedImage) unitedState;
+  protected int wallaway = 6;
+
+  // Variables declaration - do not modify
+  public javax.swing.JPanel renderer;
+  private javax.swing.JButton up;
+  private javax.swing.JButton backwards;
+  private javax.swing.JPanel bottomPanel;
+  private javax.swing.JButton discard;
+  private javax.swing.JMenu file;
+  private javax.swing.JLabel inventory;
+  private javax.swing.JLabel inventory1;
+  private javax.swing.JLabel inventory2;
+  private javax.swing.JLabel inventory3;
+  private javax.swing.JLabel inventory4;
+  private javax.swing.JLabel inventory5;
+  private javax.swing.JLabel inventory6;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel10;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JMenuBar jMenuBar1;
+  private javax.swing.JPanel jPanel2;
+  private javax.swing.JPanel jPanel4;
+  private javax.swing.JButton left;
+  private javax.swing.JPanel leftSidePanel;
+  private javax.swing.JMenuItem load;
+  private javax.swing.JMenu mapEditor;
+  private java.awt.TextArea messageBoard;
+  private javax.swing.JMenuItem newGame;
+  private javax.swing.JButton open;
+  private javax.swing.JMenuItem openMapEditor;
+  private javax.swing.JButton pickUp;
+  private javax.swing.JMenuItem restart;
+  private javax.swing.JButton right;
+  private javax.swing.JPanel rightSidePanel;
+  private javax.swing.JMenuItem saveGame;
+  private javax.swing.JButton unlock;
+  private javax.swing.JFileChooser chooserLoad;
+  private javax.swing.JFileChooser chooserSave;
+  private javax.swing.JLabel inventory7;
+  // End of variables declaration
 
   /**
    * CREATION OF GUI. Creates new form AppWindows
@@ -67,11 +112,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
     jLabel1 = new javax.swing.JLabel();
     renderer = new javax.swing.JPanel() {
       public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
-        render.renderGame(g2, getWidth(), getHeight());
+
+        render.renderGame(g2, getWidth(), getHeight(), game, wallaway);
       }
     };
     jLabel3 = new javax.swing.JLabel();
@@ -539,9 +586,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          unlock the door.
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
-    // calls whther the door is unlocked already etc
-    // does person have key in inventory
-    messageBoard.append("KaCHINK... the door is now \n open... \n");
+    List<GameWorld.Item> inventory = player.getInventory();
+
+    for (int i = 0; i < inventory.size(); i++) {
+      if (inventory.get(i) instanceof GameWorld.Key) {
+        // change the door status to unlocked
+        messageBoard.append("KaCHINK... the door is now \n open... \n");
+      }
+    }
 
   }
 
@@ -569,7 +621,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          methods from the gameWorld and the Renderer.
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
-    player.movePlayer(Direction.NORTH);
+    //player.setDirection(player.getBehind());
+   // player.movePlayer(player.getDirection());
+   
+    wallaway--;
+   
+    renderer.repaint();
 
   }
 
@@ -584,8 +641,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
 
-    player.setDirection(player.getBehind());
-    player.movePlayer(player.getDirection());
+    wallaway++;
+    
+    renderer.repaint();
+    
+    //player.setDirection(player.getBehind());
+    //player.movePlayer(player.getDirection());
   }
 
   /**
@@ -722,43 +783,4 @@ public class ApplicationWindow extends javax.swing.JFrame {
     });
   }
 
-  // Variables declaration - do not modify
-  private javax.swing.JPanel renderer;
-  private javax.swing.JButton up;
-  private javax.swing.JButton backwards;
-  private javax.swing.JPanel bottomPanel;
-  private javax.swing.JButton discard;
-  private javax.swing.JMenu file;
-  private javax.swing.JLabel inventory;
-  private javax.swing.JLabel inventory1;
-  private javax.swing.JLabel inventory2;
-  private javax.swing.JLabel inventory3;
-  private javax.swing.JLabel inventory4;
-  private javax.swing.JLabel inventory5;
-  private javax.swing.JLabel inventory6;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel10;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
-  private javax.swing.JMenuBar jMenuBar1;
-  private javax.swing.JPanel jPanel2;
-  private javax.swing.JPanel jPanel4;
-  private javax.swing.JButton left;
-  private javax.swing.JPanel leftSidePanel;
-  private javax.swing.JMenuItem load;
-  private javax.swing.JMenu mapEditor;
-  private java.awt.TextArea messageBoard;
-  private javax.swing.JMenuItem newGame;
-  private javax.swing.JButton open;
-  private javax.swing.JMenuItem openMapEditor;
-  private javax.swing.JButton pickUp;
-  private javax.swing.JMenuItem restart;
-  private javax.swing.JButton right;
-  private javax.swing.JPanel rightSidePanel;
-  private javax.swing.JMenuItem saveGame;
-  private javax.swing.JButton unlock;
-  private javax.swing.JFileChooser chooserLoad;
-  private javax.swing.JFileChooser chooserSave;
-  private javax.swing.JLabel inventory7;
-  // End of variables declaration
 }
