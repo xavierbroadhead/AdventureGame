@@ -13,6 +13,9 @@ import GameWorld.Position;
 import MapEditor.MapEditor;
 import Renderer.Render;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,7 +36,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
   protected Player player = new Player(1, new Position(0, 0));
   protected Game game = new Game(player);
-  // public static Render render = new Render();
+  protected Render render = new Render();
   // public static Image startImage = render.loadImage("front.png");
   // public static BufferedImage img = (BufferedImage) startImage;
   protected Image sovietUnion = loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
@@ -62,7 +65,15 @@ public class ApplicationWindow extends javax.swing.JFrame {
     chooserLoad = new javax.swing.JFileChooser();
     chooserSave = new javax.swing.JFileChooser();
     jLabel1 = new javax.swing.JLabel();
-    renderer = new javax.swing.JPanel();
+    renderer = new javax.swing.JPanel() {
+      public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        render.renderGame(g2, getWidth(), getHeight());
+      }
+    };
     jLabel3 = new javax.swing.JLabel();
     bottomPanel = new javax.swing.JPanel();
     up = new javax.swing.JButton();
@@ -119,7 +130,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     rendererLayout.setHorizontalGroup(rendererLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE));
     rendererLayout.setVerticalGroup(rendererLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE));
+        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE));
 
     up.setText("FORWARD");
     up.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +253,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory1.setText("      ");
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
-                                                                                                      // 3
 
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
@@ -478,12 +488,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * Pick up invocation.
    * 
    * @param evt
-   *          
+   * 
    *          When pick up pressed calls this method which will invoke certain
    *          actions
    */
   private void pickUpActionPerformed(java.awt.event.ActionEvent evt) {
-    //if item is key add new imageIcon to one of the invetory spaces same goes for the other things
+    // if item is key add new imageIcon to one of the invetory spaces same goes for
+    // the other things
 
     // if there is an item you are on top of
     messageBoard.append("You have picked up an Item! \n");
@@ -528,7 +539,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          unlock the door.
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
-    //calls whther the door is unlocked already etc
+    // calls whther the door is unlocked already etc
     // does person have key in inventory
     messageBoard.append("KaCHINK... the door is now \n open... \n");
 
@@ -618,7 +629,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      //File file = chooserSave.getSelectedFile();
+      // File file = chooserSave.getSelectedFile();
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
@@ -644,7 +655,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
     int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      //File file = chooserLoad.getSelectedFile();
+      // File file = chooserLoad.getSelectedFile();
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
@@ -687,7 +698,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       img = ImageIO.read(imageUrl);
       return img;
     } catch (IOException e) {
-      
+
       e.printStackTrace();
       throw new RuntimeException("Unable to load image" + fileName);
     }
