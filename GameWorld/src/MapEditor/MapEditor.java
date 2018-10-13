@@ -5,15 +5,18 @@ package MapEditor;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import GameWorld.Game;
+import GameWorld.Map;
 import GameWorld.Player;
+import GameWorld.Position;
 
 /**
- * TODO Look up all of the functions needed. TODO Make sure no more than three
+ * TODO Look up all of the functions needed. 
  * walls are in the game.
  * 
  * @author Christian Lee
@@ -74,22 +77,51 @@ public class MapEditor extends javax.swing.JFrame {
     // convertGameToString();
   }
 
-  /**
+  /**TODO NEED TO FINISH THIS METHOD to return or act on something
    * Saves the new modified game state into the existing game. This converts the
    * string array into a Game object which is the original game.
    * 
    * void method and takes no arguments.
    */
   public void saveGame() {
+    GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
+    GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
+    GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 5; j++) {
+        if (rooms.get(0)[i][j].equals("Wall")) {
+          map1[i][j] = new Position(i, j);
+        } else {
+          map1[i][j] = null;
+        }
+        if (rooms.get(1)[i][j].equals("Wall")) {
+          map2[i][j] = new Position(i, j);
+        } else {
+          map2[i][j] = null;
+        }
+        if (rooms.get(2)[i][j].equals("Wall")) {
+          map3[i][j] = new Position(i, j);
+        } else {
+          map3[i][j] = null;
+        }
+      }
+    }
+    HashMap<Integer, Map> newMaps = new HashMap<Integer, Map>();
+    newMaps.put(1, new Map(map1));
+    newMaps.put(2, new Map(map2));
+    newMaps.put(3, new Map(map3));
+    
+    this.originalGame.setMaps(newMaps);;
     // Convert rooms string back into a game and assign to this.originalGame
   }
 
-  /**
+  /**TODO NEED TO FINISH THIS METHOD to take in a game
    * Takes a Game object and converts it into a string array so that modifications
    * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
    */
   public void convertGameToString() {
+    //this.originalGame = something from load method
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
     GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
@@ -112,7 +144,6 @@ public class MapEditor extends javax.swing.JFrame {
         }
       }
     }
-
   }
 
   /**

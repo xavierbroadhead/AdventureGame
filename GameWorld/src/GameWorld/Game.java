@@ -49,6 +49,10 @@ public class Game {
 		this.player = player;
 	}
 
+	public void setMaps(HashMap<Integer, Map> newMaps){
+    maps = newMaps;
+  }
+	
 	public HashMap<Integer, Map> getMaps(){
 		return maps;
 	}
