@@ -58,14 +58,10 @@ public class MapEditor extends javax.swing.JFrame {
   private javax.swing.JMenuItem jMenuItem1;
   private javax.swing.JMenuItem jMenuItem2;
   private javax.swing.JPanel jPanel1;
-<<<<<<< HEAD
 
-=======
   private javax.swing.JFileChooser jFileChooserLoad;
   private javax.swing.JFileChooser jFileChooserSave;
-  
-  
->>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
+
   /**
    * Creates new form MapEditor using a pre-existing game
    * 
@@ -201,7 +197,6 @@ public class MapEditor extends javax.swing.JFrame {
 
       count++;
     }
-
   }
 
   /**
@@ -594,17 +589,11 @@ public class MapEditor extends javax.swing.JFrame {
 
     jMenuItem1.setText("Save Map");
     jMenu1.add(jMenuItem1);
-<<<<<<< HEAD
 
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // Save current Game using parser as an XML File.
-=======
-    
-    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //Save game using parser to XML File
         saveGameActionPerformed(evt); 
->>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
       }
     });
 
@@ -613,12 +602,9 @@ public class MapEditor extends javax.swing.JFrame {
 
     jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-<<<<<<< HEAD
         // Load Game using parser.
         // Get the game and make a MapEditor using the Game class object.
-=======
         loadActionPerformed(evt);
->>>>>>> b758fb65b8efafe381d4b057b1ada5c72becdaae
       }
     });
 
@@ -662,8 +648,7 @@ public class MapEditor extends javax.swing.JFrame {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = jFileChooserSave.getSelectedFile();
       // try {
-      // What to do with the file, e.g. display it in a TextArea
-      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
+      // Set loaded game as this.originalgame.
       // } catch (IOException ex) {
       // System.out.println("problem accessing file"+file.getAbsolutePath());
       // }
