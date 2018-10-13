@@ -36,7 +36,10 @@ public class Game {
 		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0], Player.Direction.NORTH);
 		Door door3 = new Door(true, 2, 3, 3, map2[4][3], map3[0][0], Player.Direction.EAST);
 		Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[4][3], Player.Direction.NORTH);
-
+		this.doors.put(1, door1);
+		this.doors.put(2, door2);
+		this.doors.put(3, door3);
+		this.doors.put(4, door4);
 
 
 		maps.put(1, new Map(map1));
