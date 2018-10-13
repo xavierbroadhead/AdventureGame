@@ -17,7 +17,7 @@ public class Render {
         int bottom = windowWidth;
         int mid = bottom/2;
         int y = bottom;
-        int stepsToWall = 0;
+        int stepsToWall = 3;
         int stepsToWallPolys = stepsToWall;
         ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
         for(int j = bottom; j > windowHeight/2; j--) {
