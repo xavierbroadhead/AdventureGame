@@ -7,37 +7,27 @@ import java.util.Collections;
 
 public class Render {
 
-  public static void main(String[] args) {
-    JFrame frame = new JFrame("Renderer");
+  
+      public void renderGame(Graphics2D g2, int width, int height) {
 
-    // panel to display render results
-
-
-    JPanel renderPanel = new JPanel() {
-
-      public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
-        g2.fillRect(0, 0, getWidth(), getHeight());
-
-
+        int windowWidth = width;
+        int windowHeight = height;
         int edgeWidth = 50;
         int tileHeight = 50;
-        int bottom = getHeight();
+        int bottom = windowWidth;
         int mid = bottom/2;
         int y = bottom;
         int stepsToWall = 0;
         int stepsToWallPolys = stepsToWall;
         ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
-        for(int j = bottom; j > getHeight()/2; j--) {
+        for(int j = bottom; j > windowHeight/2; j--) {
           y = y/2;
           stepsToWall--;
           if(stepsToWall < 0) break;
           //if(y < 0.3) break;
           System.out.println("y: " + y);
           Vertex lil = new Vertex(0, y, 0);
-          Vertex uzi = new Vertex(getWidth(),  y, 0);
+          Vertex uzi = new Vertex(windowWidth,  y, 0);
           Edge e = new Edge(lil, uzi);
           horizontalEdges.add(e);
           e.drawLine(g2);
@@ -49,7 +39,7 @@ public class Render {
           e.v2.drawOval(g2);
         }
 
-        Vertex horizon = new Vertex(getWidth()/2, 0, 0);
+        Vertex horizon = new Vertex(windowWidth/2, 0, 0);
         ArrayList<Edge> verticalEdges = new ArrayList<Edge>();
         /*
                     for(int i = 0; i < getWidth(); i++) {
@@ -63,7 +53,7 @@ public class Render {
                     }
          */
         Vertex bottomL = new Vertex(0,bottom,0);
-        Vertex bottomR = new Vertex(getWidth(),bottom,0);
+        Vertex bottomR = new Vertex(windowWidth,bottom,0);
         Edge left = new Edge(bottomL, horizon);
         Edge right = new Edge(bottomR, horizon);
         left.drawLine(g2);
@@ -79,9 +69,9 @@ public class Render {
         ArrayList<Intersect> intersectionsL = new ArrayList<Intersect>();
         ArrayList<Intersect> intersectionsR = new ArrayList<Intersect>();
         //adding first two points on bottom left and right of screen to make first tile
-        Intersect bottomLeft = new Intersect(0, getHeight());
+        Intersect bottomLeft = new Intersect(0, windowHeight);
         intersectionsL.add(bottomLeft);
-        Intersect bottomRight = new Intersect(getWidth(), getHeight());
+        Intersect bottomRight = new Intersect(windowWidth, windowHeight);
         intersectionsR.add(bottomRight);
         //adding all left hand side intersects 
         left.findGradient();
@@ -181,8 +171,8 @@ public class Render {
         //creates polygon for back wall with right turn and florr
         Polygon backWallRT = new Polygon();
         backWallRT.addPoint((int)lMax.xInt, (int)lMax.yInt);
-        backWallRT.addPoint(getWidth(), (int)lMax.yInt);
-        backWallRT.addPoint(getWidth(), 0);
+        backWallRT.addPoint(windowWidth, (int)lMax.yInt);
+        backWallRT.addPoint(windowWidth, 0);
         backWallRT.addPoint((int)topWL.xInt, 0);
         //g2.setColor(Color.GREEN);
         //g2.fillPolygon(backWallLT);
@@ -209,13 +199,13 @@ public class Render {
         Polygon floorRT = new Polygon();
         floorRT.addPoint((int)rMax.xInt, (int)rMax.yInt);
         floorRT.addPoint((int)rturn.xInt, (int)rturn.yInt);
-        floorRT.addPoint(getWidth(), (int)rturn.yInt);
-        floorRT.addPoint(getWidth(), (int)rMax.yInt);
+        floorRT.addPoint(windowWidth, (int)rturn.yInt);
+        floorRT.addPoint(windowWidth, (int)rMax.yInt);
         g2.setColor(Color.GRAY);
         g2.fillPolygon(floorRT);
         //draws line seperting floor from cieling along back wall
         g2.setColor(Color.BLACK);
-        g2.drawLine((int)rMax.xInt, (int)rMax.yInt, getWidth(), (int)rMax.yInt);
+        g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);
 
         Intersect lturn = intersectionsL.get(stepsToWallPolys-1);
         g2.setColor(Color.GREEN); 
@@ -227,8 +217,8 @@ public class Render {
         Polygon leftTurn = new Polygon();
 
         leftTurn.addPoint((int)rturn.xInt, (int)rturn.yInt);
-        leftTurn.addPoint(getWidth(), bottom);
-        leftTurn.addPoint(getWidth(), 0);
+        leftTurn.addPoint(windowWidth, bottom);
+        leftTurn.addPoint(windowWidth, 0);
         leftTurn.addPoint((int)rturn.xInt, 0);
         g2.setColor(Color.GRAY);
         g2.fillPolygon(leftTurn);
@@ -269,7 +259,7 @@ public class Render {
         g2.setColor(Color.BLACK);
         //line for skiring seperating floor and walls
         g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-        g2.drawLine(getWidth(), bottom, (int)rMax.xInt, (int)rMax.yInt);
+        g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
 
         for(Intersect i : intersectionsL) {
           g2.setColor(Color.BLACK);
@@ -283,24 +273,16 @@ public class Render {
 
       }
 
-    };
-
-    frame.add(renderPanel);
-
-    frame.setSize(400, 400);
-    frame.setVisible(true);
-
-
-
-
-  }
+    }
+  
 
 
 
 
 
 
-}
+
+
 
 class Vertex {
   int x;
