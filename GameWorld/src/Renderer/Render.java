@@ -1,6 +1,9 @@
 package Renderer;
 
 import javax.swing.*;
+
+import GameWorld.Player;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +11,7 @@ import java.util.Collections;
 public class Render {
 
   
-      public void renderGame(Graphics2D g2, int width, int height) {
+      public void renderGame(Graphics2D g2, int width, int height, Player player) {
 
         int windowWidth = width;
         int windowHeight = height;
