@@ -6,6 +6,13 @@
 
 package Applications;
 
+import GameWorld.Game;
+import GameWorld.Player;
+import GameWorld.Player.Direction;
+import GameWorld.Position;
+import MapEditor.MapEditor;
+import Renderer.Render;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,13 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
-import GameWorld.Game;
-import GameWorld.Player;
-import GameWorld.Player.Direction;
-import GameWorld.Position;
-import MapEditor.MapEditor;
-import Renderer.Render;
-
 /**
  * APPLICATION WINDOW.
  *
@@ -31,19 +31,15 @@ import Renderer.Render;
  */
 public class ApplicationWindow extends javax.swing.JFrame {
 
-  public static Player player = new Player(1, new Position(0, 0));
-  public static Game game = new Game(player);
-  public static Render render = new Render();
+  protected Player player = new Player(1, new Position(0, 0));
+  protected Game game = new Game(player);
+  // public static Render render = new Render();
   // public static Image startImage = render.loadImage("front.png");
   // public static BufferedImage img = (BufferedImage) startImage;
-  public static Image sovietUnion = loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
-  public static BufferedImage soviet = (BufferedImage) sovietUnion;
-  public static Image unitedState = loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
-  public static BufferedImage unitedStates = (BufferedImage) unitedState;
-  public static Image key = loadImage("keyImage.png");
-  public static BufferedImage keyImage = (BufferedImage) key;
- // public static imageIcon ooga = loadImage("ooga.gif");
-  // public static BufferedImage oogaBooga = (BufferedImage) ooga;
+  protected Image sovietUnion = loadImage("Screen Shot 2018-10-04 at 11.27.52 AM.png");
+  protected BufferedImage soviet = (BufferedImage) sovietUnion;
+  protected Image unitedState = loadImage("rsz_1280px-flag_of_the_united_statessvg.png");
+  protected BufferedImage unitedStates = (BufferedImage) unitedState;
 
   /**
    * CREATION OF GUI. Creates new form AppWindows
@@ -63,8 +59,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void initComponents() {
 
     inventory7 = new javax.swing.JLabel();
-    jFileChooserLoad = new javax.swing.JFileChooser();
-    jFileChooserSave = new javax.swing.JFileChooser();
+    chooserLoad = new javax.swing.JFileChooser();
+    chooserSave = new javax.swing.JFileChooser();
     jLabel1 = new javax.swing.JLabel();
     renderer = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
@@ -102,13 +98,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     jLabel1.setText("jLabel1");
 
-    jFileChooserLoad.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-    jFileChooserLoad.setApproveButtonToolTipText("");
-    jFileChooserLoad.setDialogTitle("Load");
+    chooserLoad.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    chooserLoad.setApproveButtonToolTipText("");
+    chooserLoad.setDialogTitle("Load");
 
-    jFileChooserSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
-    jFileChooserSave.setApproveButtonToolTipText("");
-    jFileChooserSave.setDialogTitle("Save");
+    chooserSave.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+    chooserSave.setApproveButtonToolTipText("");
+    chooserSave.setDialogTitle("Save");
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setBackground(new java.awt.Color(255, 51, 51));
@@ -128,7 +124,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     up.setText("FORWARD");
     up.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        UPActionPerformed(evt);
+        upActionPerformed(evt);
       }
     });
 
@@ -244,7 +240,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
-    inventory1.setIcon(new javax.swing.ImageIcon(this.keyImage));
+    inventory1.setText("      ");
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
                                                                                                       // 3
 
@@ -265,9 +261,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
     inventory6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     // URL url ApplicationWindow.class.getResource("\"ooga.gif\"")
-    //ImageIcon ooga = new ImageIcon(getClass().getResource("/Resources/ooga.gif"));
+    // ImageIcon ooga = new
+    // ImageIcon(getClass().getResource("/Resources/ooga.gif"));
     inventory7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ooga.gif")));
-   
 
     javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
     leftSidePanel.setLayout(leftSidePanelLayout);
@@ -469,74 +465,111 @@ public class ApplicationWindow extends javax.swing.JFrame {
    * New game invocation.
    * 
    * @param evt
-   *          - when new game called, call relevant methods to initialise game
+   * 
+   *          When new game called, call relevant methods to initialise game
    */
   private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    messageBoard.setText("You have started a New Game. Welcome :) \n");
+
+    messageBoard.setText("You have started a New Game. \n Welcome :) \n");
+
   }
 
   /**
    * Pick up invocation.
    * 
    * @param evt
-   *          - when pick up pressed calls this method which will invoke certain
+   *          
+   *          When pick up pressed calls this method which will invoke certain
    *          actions
    */
   private void pickUpActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    messageBoard.append("You have picked up an Item! \n");
+    //if item is key add new imageIcon to one of the invetory spaces same goes for the other things
 
+    // if there is an item you are on top of
+    messageBoard.append("You have picked up an Item! \n");
+    // else there is no item to pick up
   }
 
   /**
+   * Open MapEditor Action.
    * 
    * @param evt
+   * 
+   *          When this item is selected from the menu bar the Map editor GUI will
+   *          be made visible so that you may do what you wish from there.
    */
   private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
-    // TODO add your handling code here:
+
   }
 
   /**
+   * Open Action.
    * 
    * @param evt
+   * 
+   *          If the door is unlocked then you will be able to see the method call
+   *          the relevant methods to open the door.
    */
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+    // if you have key
+    messageBoard.append("You have opened the door, sir \n");
+    // else print message saying you need to find a key have a look around this base
   }
 
   /**
+   * Unlock Action.
    * 
    * @param evt
+   * 
+   *          When this method is called it will check whether you have the
+   *          relevant key for the relevant room. If so then you will be able to
+   *          unlock the door.
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
+    //calls whther the door is unlocked already etc
+    // does person have key in inventory
     messageBoard.append("KaCHINK... the door is now \n open... \n");
-    // TODO add your handling code here:
+
   }
 
   /**
+   * Discard Action.
    * 
    * @param evt
+   * 
+   *          When the player invokes this operation it will discard a Key from
+   *          your inventory and place it on the floor below you.
    */
   private void discardActionPerformed(java.awt.event.ActionEvent evt) {
     messageBoard.append("you have discarded an item \n");
-    // TODO add your handling code here:
+
   }
 
   /**
+   * Forward Movement Action.
    * 
    * @param evt
+   * 
+   *          When the forward button is pressed on the GUI this method will be
+   *          invoked. It will get the players current location check if the
+   *          movement is valid then move the player forward by using the relevant
+   *          methods from the gameWorld and the Renderer.
    */
-  private void UPActionPerformed(java.awt.event.ActionEvent evt) {
+  private void upActionPerformed(java.awt.event.ActionEvent evt) {
     player.movePlayer(Direction.NORTH);
 
   }
 
   /**
+   * Backwards movement Action.
    * 
    * @param evt
+   * 
+   *          If the player is in a location that allows for them to move
+   *          backwards then the player will be placed in a position they have
+   *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -545,8 +578,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
   }
 
   /**
+   * Right Movement Action.
    * 
    * @param evt
+   * 
+   *          when user click clockwise on the GUI, the user will then find its
+   *          orientation and rotate to the right.
    */
   private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -555,8 +592,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
   }
 
   /**
+   * Left Movement Action.
    * 
    * @param evt
+   * 
+   *          When user clicks antiClockwise on the GUI the user will then find
+   *          its orientation and rotate to the left.
    */
   private void leftActionPerformed(java.awt.event.ActionEvent evt) {
     player.setDirection(player.getLeft());
@@ -564,14 +605,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
   }
 
   /**
+   * Save Game Action.
    * 
    * @param evt
+   * 
+   *          When user clicks the save option in the menu bar a file chooser with
+   *          the save dialog will appear which will then give you option as what
+   *          to do next.
+   * 
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
 
-    int returnVal = jFileChooserSave.showSaveDialog(this);
+    int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      File file = jFileChooserSave.getSelectedFile();
+      //File file = chooserSave.getSelectedFile();
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
@@ -586,13 +633,18 @@ public class ApplicationWindow extends javax.swing.JFrame {
   }
 
   /**
+   * Load Game Action.
    * 
    * @param evt
+   * 
+   *          When the load option is selected in the menu bar a j file chooser
+   *          will appear which will allow the user to select which file they
+   *          would like to intergrate into the interface.
    */
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
-    int returnVal = jFileChooserLoad.showOpenDialog(this);
+    int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      File file = jFileChooserLoad.getSelectedFile();
+      //File file = chooserLoad.getSelectedFile();
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
@@ -608,32 +660,48 @@ public class ApplicationWindow extends javax.swing.JFrame {
   }
 
   /**
+   * Restart Action.
    * 
    * @param evt
+   * 
+   *          When the restart action is called a game will essentially begin a
+   *          new game. So everything called in new game will be called.
    */
   private void restartActionPerformed(java.awt.event.ActionEvent evt) {
     messageBoard.append("You have restarted the game \n");
   }
 
   /**
+   * Load Image.
    * 
-   * @param args
+   * @param fileName
+   * 
+   *          This method will load a image from the render resources folder.
    */
 
   public static Image loadImage(String fileName) {
-    java.net.URL imageURL = Render.class.getResource("images/" + fileName);
-    System.out.println("imageURL: " + imageURL.toString());
+    java.net.URL imageUrl = Render.class.getResource("images/" + fileName);
+    System.out.println("imageURL: " + imageUrl.toString());
     Image img;
     try {
-      img = ImageIO.read(imageURL);
+      img = ImageIO.read(imageUrl);
       return img;
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      
       e.printStackTrace();
       throw new RuntimeException("Unable to load image" + fileName);
     }
   }
 
+  /**
+   * Main method.
+   * 
+   * @param args
+   * 
+   *          This main will start the experience of our game for the user. Once
+   *          the GUI is operational all aspects from the other packages are able
+   *          to be seen.
+   */
   public static void main(String[] args) {
 
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -678,8 +746,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private javax.swing.JPanel rightSidePanel;
   private javax.swing.JMenuItem saveGame;
   private javax.swing.JButton unlock;
-  private javax.swing.JFileChooser jFileChooserLoad;
-  private javax.swing.JFileChooser jFileChooserSave;
+  private javax.swing.JFileChooser chooserLoad;
+  private javax.swing.JFileChooser chooserSave;
   private javax.swing.JLabel inventory7;
   // End of variables declaration
 }

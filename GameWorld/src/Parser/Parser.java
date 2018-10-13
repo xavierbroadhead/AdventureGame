@@ -1,5 +1,6 @@
 package Parser;
 
+import GameWorld.Book;
 import GameWorld.Key;
 import GameWorld.Door;
 import java.io.File;
@@ -21,39 +22,20 @@ import GameWorld.Item;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
+import GameWorld.Player.Direction;
 
 /**
- * DATA STRUCTURE FOR XML SAVE FILE: below outlines the hierarchy of the
- * elements in a valid XML save file TODO: add representation and relevant code
- * for storing data on Doors
- *
- * <Game>
- *
- * <Player startMap = int> <Position> <xVal>int</xVal> <yVal>int</yVal>
- * <Item>stuff; haven't done this part</Item> </Position>
- *
- * <Inventory> <Item>stuff; haven't done this part</Item> ++ (there can be any
- * number of items here) </Inventory> </Player>
- *
- * <Map> x 5; each game has 5 Maps <Position> x 25; there are 25 positions in a
- * Map, forming a 5x5 grid. It is important these positions are stored in a
- * specific order <xVal>int</xVal> <yVal>int</yVal> <Item>stuff; haven't done
- * this part</Item> </Position> </Map>
- *
- * </Game>
- *
- *
- *
- *
- *
- *
- * @author callum
- *
+ * Refer to Parser > savegameformat.txt for a detailed look at the XML hierarchy
  */
 public class Parser {
 
+  private List<Map> mapObjects = new ArrayList<>();
+  private List<Door> doorObjects = new ArrayList<>();
+
+
   /**
-   * Create a Game from an xml save file new Game
+   * Create a Game object from an xml save file
+   * new Game
    *
    * @param fname
    *          filename (obtained from a file chooser of some sort)
@@ -65,49 +47,52 @@ public class Parser {
 
     try {
       Document document = sBuilder.build(file);
-
       Element gameElement = document.getRootElement();
       Element playerElement = gameElement.getChild("Player");
       List<Element> maps = gameElement.getChildren("Map");
+      List<Element> doors = gameElement.getChildren("Door");
 
-      // calls parsePlayer, creating the player object
-      Player player = parsePlayer(playerElement);
-
-      // creates and fills List of Map objects. Currently these have nowhere to go and
+      // Fills List of Map objects. Currently these have nowhere to go and
       // just sit in the list. Later these will be passed to the game object
-      List<Map> mapObjects = new ArrayList<>();
+      // It is important that this step is done first
       for (Element mp : maps) {
         mapObjects.add(parseMap(mp));
       }
 
+      // Fills list of Door objects
+      for (Element door : doors) {
+        doorObjects.add(parseDoor(door));
+      }
+
+      // calls parsePlayer, creating the player object
+      Player player = parsePlayer(playerElement);
+
       Game game = new Game(player);
-      // need to construct a way of adding mapObjects to game (will involve a fair
+      // TODO: need to construct a way of adding mapObjects and doorObjects to game (will involve a fair
       // amount of coding in Game class)
       return game;
 
     } catch (JDOMException | IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
   }
 
+
   /**
-   * Logic for parsing the Player TODO: needs to determine if the position is
-   * already in a Map
-   * 
+   * Logic for parsing the Player
    * @param player
    * @return player object generated from file
    * @throws DataConversionException
    */
   private Player parsePlayer(Element player) throws DataConversionException {
 
-    int startMap = player.getAttribute("startMap").getIntValue();
-    Position pos = parsePosition(player.getChild("Position"));
+    int startMap = player.getAttribute("StartMap").getIntValue();
+    Position pos = parseFindPosition(player.getChild("FindPosition"));
 
     Player p = new Player(startMap, pos);
 
-    // fill the player's inventory (need to finish parseItem for this to work)
+    // fill the player's inventory
     Element inventory = player.getChild("Inventory");
     List<Element> items = inventory.getChildren("Item");
     for (Element i : items) {
@@ -117,9 +102,10 @@ public class Parser {
     return p;
   }
 
+
   /**
    * Logic for parsing a Map
-   * 
+   *
    * @param map
    * @return
    */
@@ -140,6 +126,7 @@ public class Parser {
 
     return new Map(grid);
   }
+
 
   /**
    * Logic for parsing a Position
@@ -168,8 +155,37 @@ public class Parser {
   }
 
   /**
+   * Finds a Position in the maps, based on the map, x and y value
+   */
+  private Position parseFindPosition(Element findPosition) {
+    Element map = findPosition.getChild("Map");
+    Element xVal = findPosition.getChild("xVal");
+    Element yVal = findPosition.getChild("yVal");
+
+    int mp = Integer.parseInt(map.getText());
+    int x = Integer.parseInt(xVal.getText());
+    int y = Integer.parseInt(yVal.getText());
+
+    // get the correct map as a 2D array of Positions
+    Position[][] currentMap = mapObjects.get(mp).getMap();
+
+    // iterate over the map; looking for a Position with the same coordinates as xVal and yVal
+    // and returning it
+    for (int row = 0; row < 5; row++) {
+      for (int col = 0; col < 5; col++) {
+        Position p = currentMap[row][col];
+        if (p != null) {           // may need to be .equals
+          if (p.getx() == x && p.gety() == y) {return p;}
+        }
+      }
+    }
+
+    // returns null if we can't find the position
+    return null;
+  }
+
+  /**
    * Logic for parsing an Item
-   *
    * @param item
    * @return
    */
@@ -177,9 +193,11 @@ public class Parser {
 
     String type = item.getAttribute("Type").getValue();
 
+    // returns null early if the Type of the item is 'Empty' (meaning the child elements do not exist)
+    if (type.equals("Empty")) {return null;}
+
     // extract the children
-    Element weight = item.getChild("Weight"); // int
-    Element position = item.getChild("Position"); // position
+    Element weight = item.getChild("Weight");  //int
     Element ID = item.getChild("ID");
     Element description = item.getChild("Description"); // string
     Element title = item.getChild("Title"); // string
@@ -188,29 +206,56 @@ public class Parser {
 
     // create parameter objects
     int w = Integer.parseInt(weight.getText());
-    Position pos = parsePosition(position);
     int id = Integer.parseInt(ID.getText());
     String descr = description.getText();
     String ttl = title.getText();
     Integer mp = Integer.getInteger(map.getText());
     Icon i = parseIcon(icon);
 
-    // Implementation specific parsing (uses parseDoor, which is unfinished)
+    // Implementation specific parsing
     if (type.equals("Key")) {
-      Door door = parseDoor(item.getChild("Door"));
-      return new Key(w, pos, id, descr, ttl, mp, door, i); // need ID
+      Element door = item.getChild("DoorID");
+      int doorID = Integer.parseInt(door.getText());
+      return new Key(w, id, descr, ttl, mp, doorID, i);
+    }
+    if (type.equals("Book")) {
+      String contents = item.getChild("Contents").getText();
+      boolean isMagical = Boolean.valueOf(item.getChild("Magical").getText());
+      return new Book(w, id, descr, ttl, mp, isMagical, contents, i);
     }
 
-    // add similar if blocks for other types of Item
-
-    // returns null if the type is not specified or type is invalid
+    // shouldn't get to here
     return null;
   }
 
-  // TODO: finish this (currently a stub)
-  private Door parseDoor(Element door) {
-    return null;
+
+  // Logic for parsing a Door
+  private Door parseDoor (Element door) {
+    Element locked = door.getChild("Locked");
+    Element map = door.getChild("Map");
+    Element ID = door.getChild("ID");
+    Element link = door.getChild("Link");
+    Element doorPosition = door.getChild("DoorPosition");
+    Element linkPosition = door.getChild("LinkPosition");
+    Element direction = door.getChild("Direction");
+
+    boolean isLocked = Boolean.valueOf(locked.getText());
+    int mapVal = new Integer(map.getText());
+    int id = Integer.parseInt(ID.getText());
+    Integer linkVal = new Integer(link.getText());
+    Position doorPos = parseFindPosition(doorPosition);
+    Position linkPos = parseFindPosition(linkPosition);
+
+    // determine the Direction (set to North as default)
+    Player.Direction dir = Direction.NORTH;
+    String dirStr = direction.getText();
+    if (dirStr.equals("SOUTH")) {dir = Direction.SOUTH;}
+    else if (dirStr.equals("EAST")) {dir = Direction.EAST;}
+    else if (dirStr.equals("WEST")) {dir = Direction.WEST;}
+
+    return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos, dir);
   }
+
 
   /**
    * Logic for parsing an Icon (filename of the image used is saved in xml file)

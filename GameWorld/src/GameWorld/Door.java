@@ -68,15 +68,15 @@ public class Door {
 
   /**
    * Checks if the player has the correct key to open this door.
-   * 
-   * 
+   *
+   *
    * @param player
    *          the player we are checking
    * @return true if the player has the correct key to open the door
    */
   public boolean hasKey(Player player) {
     for (Item item : player.getInventory()) {
-      if (item instanceof Key && ((Key) item).getDoor() == this) {
+      if (item instanceof Key && ((Key) item).getDoor() == doorID) {
         return true;
       }
     }
@@ -86,7 +86,7 @@ public class Door {
   /**
    * Checks if the player can open the door, and if it can, updates player's map
    * to the next one
-   * 
+   *
    * @param player
    *          the player that is opening the door
    * @return true if we could move to the next room
