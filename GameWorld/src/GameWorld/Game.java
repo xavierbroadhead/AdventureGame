@@ -105,32 +105,42 @@ public class Game {
 	 */
 	public int tilesTilWall() {
 		int i = 1;
-
-		Integer currentInteger = player.currentMapInteger();
-		Map map = maps.get(currentInteger);
-		Position[][] currentMap = map.getMap();
-
-		while(true) {
-			if (this.player.getDirection() == Player.Direction.NORTH) {
-				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() - i] != null) {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
+		Position[][] currentMap = this.maps.get(player.currentMapInteger()).getMap();
+		
+		if ((y == 0 && direction == Player.Direction.NORTH) ||
+				(x == 0 && y == 0 && (direction == Player.Direction.NORTH || direction == Player.Direction.WEST))||
+				(x == 4 && y == 0 && (direction == Player.Direction.NORTH || direction == Player.Direction.EAST))||
+				(x == 4 && direction == Player.Direction.EAST) ||
+				(x == 4 && y == 4 && (direction == Player.Direction.EAST || direction == Player.Direction.SOUTH)) ||
+				(y == 4 && direction == Player.Direction.SOUTH) ||
+				(x == 0 && y == 4 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST))||
+				(x == 0 && direction == Player.Direction.WEST))
+			return 0;
+		
+		while(!false) {
+			if (direction == Player.Direction.NORTH) {
+				if (currentMap[y - i][x] != null) {
 					i++;
 				}
 				else break;
 			}
-			else if (this.player.getDirection() == Player.Direction.EAST) {
-				if (currentMap[this.player.getPosition().getx() + i][this.player.getPosition().gety()] != null) {
+			else if (direction == Player.Direction.EAST) {
+				if (currentMap[y][x + i] != null) {
 					i++;
 				}
 				else break;
 			}
-			else if (this.player.getDirection() == Player.Direction.SOUTH) {
-				if (currentMap[this.player.getPosition().getx()][this.player.getPosition().gety() + i] != null) {
+			else if (direction == Player.Direction.SOUTH) {
+				if (currentMap[y + i][x] != null) {
 					i++;
 				}
 				else break;
 			}
-			else if (this.player.getDirection() == Player.Direction.WEST) {
-				if (currentMap[this.player.getPosition().getx() - i][this.player.getPosition().gety()] != null) {
+			else if (direction == Player.Direction.WEST) {
+				if (currentMap[y][x - i] != null) {
 					i++;
 				}
 				else break;
@@ -147,28 +157,33 @@ public class Game {
 	public boolean hasLeftCorner() {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
-		if (this.player.getDirection() == Player.Direction.NORTH) {
-			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() - wall] != null) {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Player.Direction direction = this.player.getDirection();
+		
+		if (direction == Player.Direction.NORTH) {
+			if (currentMap[y - wall][x - 1] != null) {
 				return true;
 			}
 		}
-		else if (this.player.getDirection() == Player.Direction.EAST) {
-			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() + 1] != null) {
+		else if (direction == Player.Direction.EAST) {
+			if (currentMap[y + 1][x + wall] != null) {
 				return true;
 			}
-		}
-		else if (this.player.getDirection() == Player.Direction.SOUTH) {
-			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() + wall] != null) {
+		}		
+		else if (direction == Player.Direction.SOUTH) {
+			if (currentMap[y + wall][x + 1] != null) {
 				return true;
 			}
-		}
-		else if (this.player.getDirection() == Player.Direction.WEST) {
-			if (currentMap[this.player.getPosition().getx() - wall][this.player.getPosition().gety() - 1] != null) {
+		}		
+		else if (direction == Player.Direction.WEST) {
+			if (currentMap[y - 1][x - wall] != null) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 
 	/** Check if there is a corner to the right of our current position within our vision.
 	 *
@@ -178,23 +193,27 @@ public class Game {
 	public boolean hasRightCorner() {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
-		if (this.player.getDirection() == Player.Direction.NORTH) {
-			if (currentMap[this.player.getPosition().getx() + 1][this.player.getPosition().gety() - wall] != null) {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Player.Direction direction = this.player.getDirection();
+		
+		if (direction == Player.Direction.NORTH) {
+			if (currentMap[y - wall][x + 1] != null) {
 				return true;
 			}
 		}
-		else if (this.player.getDirection() == Player.Direction.EAST) {
-			if (currentMap[this.player.getPosition().getx() + wall][this.player.getPosition().gety() - 1] != null) {
+		else if (direction == Player.Direction.EAST) {
+			if (currentMap[y - 1][x + wall] != null) {
 				return true;
 			}
-		}
-		else if (this.player.getDirection() == Player.Direction.SOUTH) {
-			if (currentMap[this.player.getPosition().getx() - 1][this.player.getPosition().gety() + wall] != null) {
+		}		
+		else if (direction == Player.Direction.SOUTH) {
+			if (currentMap[y + wall][x - 1] != null) {
 				return true;
 			}
-		}
-		else if (this.player.getDirection() == Player.Direction.WEST) {
-			if (currentMap[this.player.getPosition().getx() - wall][this.player.getPosition().gety() + 1] != null) {
+		}		
+		else if (direction == Player.Direction.WEST) {
+			if (currentMap[y + 1][x - wall] != null) {
 				return true;
 			}
 		}
