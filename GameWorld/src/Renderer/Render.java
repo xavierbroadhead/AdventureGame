@@ -35,6 +35,7 @@ public class Render {
       return;
     }
     */
+    /**
     Image img = loadImage("keyImage.png");
     //int keyWidth = img.getWidth(this);
     BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
@@ -44,7 +45,7 @@ public class Render {
     Image img2 = loadImage("scroll.png");
     //int keyWidth = img.getWidth(this);
     BufferedImage bi2 = new BufferedImage(img2.getWidth(null), img2.getHeight(null), BufferedImage.TYPE_INT_RGB);
-    
+    */
     //g2.drawImage(img2, 0, 0, null);//draws scroll image on tile
     /**
         //draws blank zoomed in wall when 0 steps away from a wall
