@@ -25,7 +25,7 @@ public class Render {
     int bottom = windowWidth;
     int mid = bottom/2;
     int y = bottom;
-    int stepsToWall = 4; //game.tilesTilWall();
+    int stepsToWall = game.tilesTilWall() + 1;
     int stepsToWallPolys = stepsToWall;
     
     /**
@@ -61,7 +61,7 @@ public class Render {
       stepsToWall--;
       if(stepsToWall < 0) break;
       //if(y < 0.3) break;
-      System.out.println("y: " + y);
+      //System.out.println("y: " + y);
       Vertex lil = new Vertex(0, y, 0);
       Vertex uzi = new Vertex(windowWidth,  y, 0);
       Edge e = new Edge(lil, uzi);
@@ -145,13 +145,13 @@ public class Render {
       poly.addPoint((int)intersectionsR.get(i+1).xInt, (int) intersectionsR.get(i+1).yInt);
       poly.addPoint((int)intersectionsL.get(i+1).xInt, (int) intersectionsL.get(i+1).yInt);
       polygons.add(poly);
-      System.out.println("Polygon created");
+      //System.out.println("Polygon created");
     }
 
     // drawing tile/polygon objects 
     for(Polygon p : polygons) {
-      System.out.println("Polygons");
-      System.out.println("Polygon: " + p.toString());
+      //System.out.println("Polygons");
+      //System.out.println("Polygon: " + p.toString());
       g2.setColor(Color.GRAY);
       g2.fillPolygon(p);
     }
@@ -170,8 +170,8 @@ public class Render {
         lMax = intersectionsL.get(i+1);
       }
     }
-    System.out.println("max is: " + lMax.yInt);
-    System.out.println("max should be: " + intersectionsL.get(stepsToWallPolys).yInt);
+    //System.out.println("max is: " + lMax.yInt);
+    //System.out.println("max should be: " + intersectionsL.get(stepsToWallPolys).yInt);
 
     //highest point on right
     for(int i = 0; i < intersectionsR.size()-1; i++) {
@@ -212,18 +212,17 @@ public class Render {
     backWallT.addPoint(windowWidth, (int)lMax.yInt);
     backWallT.addPoint(windowWidth, 0);
     g2.setColor(Color.GREEN);
-    g2.fillPolygon(backWallT);
+    //g2.fillPolygon(backWallT);//draws back wall all along display
 
 
     //draws left wall
     Polygon leftWall = new Polygon();
-
     leftWall.addPoint((int)topWL.xInt, (int)topWL.yInt);
     leftWall.addPoint(0, 0);
     leftWall.addPoint(0, bottom);
     leftWall.addPoint((int)lMax.xInt, (int)lMax.yInt);
     g2.setColor(Color.GRAY);
-    //g2.fillPolygon(leftWall);
+    g2.fillPolygon(leftWall);
     left.drawLine(g2);
     right.drawLine(g2);
 
@@ -244,20 +243,18 @@ public class Render {
     g2.fillPolygon(floorT);
     //draws line seperting floor from cieling along back wall
     g2.setColor(Color.BLACK);
-    g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);
+    g2.drawLine(0, (int)rMax.yInt, windowWidth, (int)rMax.yInt);
     
-    Polygon rightBackground = new Polygon();
     
     
     Intersect lturn = intersectionsL.get(stepsToWallPolys-1);
     g2.setColor(Color.GREEN); 
-    g2.drawLine((int)lturn.xInt, (int)lturn.yInt, (int)lturn.xInt, 0);
+    //g2.drawLine((int)lturn.xInt, (int)lturn.yInt, (int)lturn.xInt, 0);
 
 
     
     //draws right wall w/ right turn
     Polygon rightTurn = new Polygon();
-
     rightTurn.addPoint((int)rturn.xInt, (int)rturn.yInt);
     rightTurn.addPoint(windowWidth, bottom);
     rightTurn.addPoint(windowWidth, 0);
@@ -283,11 +280,36 @@ public class Render {
     rightWall.addPoint(windowWidth, bottom);
 
 
-
+        
     g2.setColor(Color.GREEN);
     //g2.fillPolygon(rightWall);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     left.drawLine(g2);
     right.drawLine(g2);
+    
+    if(game.tilesTilWall() == 0) {
+      //g2.setColor(Color.BLUE);
+      //g2.fillPolygon(rightTurn);
+      //g2.fillPolygon(leftTurn);
+      
+      g2.setColor(Color.BLACK);
+      //line for skiring seperating floor and walls
+      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.setColor(Color.RED);
+      g2.fillPolygon(backWallT);//draws back wall all along display
+
+
+      for(Intersect i : intersectionsL) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+
+      for(Intersect i : intersectionsR) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+      return;
+    }
     
     //draws right corner turn
     //if(game.hasRightCorner()) {
@@ -304,16 +326,16 @@ public class Render {
     g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
     g2.setColor(Color.GREEN);
     //g2.fillPolygon(leftTurn);//call to draw left turn
-    g2.fillPolygon(rightWall);
+    //g2.fillPolygon(rightWall);
     //}
     //}
     
     //draws back wall last to cover horizon guide lines
-    g2.setColor(Color.GREEN);  
+    g2.setColor(Color.RED);  
     g2.fillPolygon(backWall);
     //if(no turns on either side of corridor){
     g2.fillPolygon(leftWall);
-    g2.fillPolygon(rightWall);
+    //g2.fillPolygon(rightWall);
     //}
     
     //g2.drawLine(x1, y1, x2, y2);
@@ -447,11 +469,11 @@ class Edge {
     double x = (v2.x - v1.x);
     double y = (v2.y - v1.y);
     double gradient = y/x;
-    System.out.println("co-ords v1: " + v1.x + " : " + v1.y);
-    System.out.println("co-ords v2: " + v2.x + " : " + v2.y);
-    System.out.println("y calcs: " + (v2.y - v1.y));
-    System.out.println("x calcs: " + (v2.x - v1.x));
-    System.out.println("gradient of edge: " + gradient);
+    //System.out.println("co-ords v1: " + v1.x + " : " + v1.y);
+    //System.out.println("co-ords v2: " + v2.x + " : " + v2.y);
+    //System.out.println("y calcs: " + (v2.y - v1.y));
+    //System.out.println("x calcs: " + (v2.x - v1.x));
+    //System.out.println("gradient of edge: " + gradient);
     return this.slope = gradient;
   }
 
