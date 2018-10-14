@@ -3,6 +3,10 @@
  */
 package MapEditor;
 
+import GameWorld.Game;
+import GameWorld.Map;
+import GameWorld.Player;
+import GameWorld.Position;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +14,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-import GameWorld.Game;
-import GameWorld.Map;
-import GameWorld.Player;
-import GameWorld.Position;
+
 
 /**
  * TODO Look up all of the functions needed. 
@@ -61,12 +62,11 @@ public class MapEditor extends javax.swing.JFrame {
   private javax.swing.JMenuItem jMenuItem1;
   private javax.swing.JMenuItem jMenuItem2;
   private javax.swing.JPanel jPanel1;
-
   private javax.swing.JFileChooser jFileChooserLoad;
   private javax.swing.JFileChooser jFileChooserSave;
 
   /**
-   * Creates new form MapEditor using a pre-existing game
+   * Creates new form MapEditor using a pre-existing game.
    * 
    * @param game
    *          that is the game currently being played.
@@ -80,16 +80,15 @@ public class MapEditor extends javax.swing.JFrame {
   /**TODO NEED TO FINISH THIS METHOD to return or act on something
    * Saves the new modified game state into the existing game. This converts the
    * string array into a Game object which is the original game.
-   * 
    * void method and takes no arguments.
    */
-  public void saveGame() {
+ /* public void saveGame() {
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
     GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 5; j++) {
-        if (rooms.get(0)[i][j].equals("Wall")) {
+        if (this.rooms.get(0)[i][j].equals("Wall")) {
           map1[i][j] = new Position(i, j);
         } else {
           map1[i][j] = null;
@@ -119,7 +118,7 @@ public class MapEditor extends javax.swing.JFrame {
    * Takes a Game object and converts it into a string array so that modifications
    * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
-   */
+   
   public void convertGameToString(ArrayList<String[][]> rooms) {
     //this.originalGame = something from load method
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
@@ -145,7 +144,7 @@ public class MapEditor extends javax.swing.JFrame {
       }
     }
   }
-
+*/
   /**
    * This outputs the corresponding button value for a given item.
    * 
@@ -321,15 +320,17 @@ public class MapEditor extends javax.swing.JFrame {
     // Ensure the ApplicationWindow GUI does not close when this GUI is closed.
     setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Wall", "Empty", "Key", "Start", "End",
-        "RoomEnterPos", "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+        "Wall", "Empty", "Key", "Start", "End", "RoomEnterPos", 
+        "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
     jComboBox1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
 
       }
     });
 
-    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Room 1", "Room 2", "Room 3" }));
+    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+        "Room 1", "Room 2", "Room 3" }));
     jComboBox2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         resetJButtonValues(buttonList, rooms);
@@ -517,13 +518,16 @@ public class MapEditor extends javax.swing.JFrame {
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(
+        javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-            jPanel1Layout.createSequentialGroup().addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            jPanel1Layout.createSequentialGroup().addContainerGap(
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1).addGap(63, 63, 63))
         .addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, 
+                    jPanel1Layout.createSequentialGroup()
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(2, 2, 2)
@@ -537,11 +541,14 @@ public class MapEditor extends javax.swing.JFrame {
                         javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(2, 2, 2).addComponent(jButton5).addGap(44, 44, 44)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        javax.swing.GroupLayout.DEFAULT_SIZE, 
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(19, 19, 19))
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton21).addGap(2, 2, 2)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton21).addGap(2, 2, 2)
                             .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(2, 2, 2)
@@ -551,7 +558,8 @@ public class MapEditor extends javax.swing.JFrame {
                             .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(2, 2, 2).addComponent(jButton25))
-                        .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton16).addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton16).addGap(2, 2, 2)
                             .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(2, 2, 2)
@@ -566,8 +574,10 @@ public class MapEditor extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton11).addGap(2, 2, 2)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton11).addGap(2, 2, 2)
                             .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(2, 2, 2)
@@ -576,8 +586,10 @@ public class MapEditor extends javax.swing.JFrame {
                             .addGap(2, 2, 2)
                             .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2).addComponent(jButton15).addGap(59, 59, 59).addComponent(jLabel2))
-                        .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton6).addGap(2, 2, 2)
+                            .addGap(2, 2, 2).addComponent(jButton15).addGap(59, 59, 59)
+                            .addComponent(jLabel2))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton6).addGap(2, 2, 2)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 55,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(2, 2, 2)
@@ -592,27 +604,42 @@ public class MapEditor extends javax.swing.JFrame {
     jPanel1Layout
         .setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup().addGap(13, 13, 13).addComponent(jLabel1).addGap(3, 3, 3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1).addComponent(jButton2).addComponent(jButton3).addComponent(jButton4)
-                        .addComponent(jButton5).addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createSequentialGroup().addGap(13, 13, 13)
+                    .addComponent(jLabel1).addGap(3, 3, 3)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1).addComponent(jButton2)
+                        .addComponent(jButton3).addComponent(jButton4)
+                        .addComponent(jButton5).addComponent(jComboBox2, 
+                            javax.swing.GroupLayout.PREFERRED_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, 
+                            javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(3, 3, 3)
                     .addGroup(jPanel1Layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jButton7)
-                        .addComponent(jButton8).addComponent(jButton9).addComponent(jButton10).addComponent(jButton6))
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton7)
+                        .addComponent(jButton8).addComponent(jButton9).addComponent(jButton10)
+                        .addComponent(jButton6))
                     .addGap(3, 3, 3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton12).addComponent(jButton13).addComponent(jButton14).addComponent(jButton15)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton12).addComponent(jButton13)
+                        .addComponent(jButton14).addComponent(jButton15)
                         .addComponent(jButton11).addComponent(jLabel2))
                     .addGap(3, 3, 3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton17).addComponent(jButton18).addComponent(jButton19).addComponent(jButton20)
-                        .addComponent(jButton16).addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton17).addComponent(jButton18)
+                        .addComponent(jButton19).addComponent(jButton20)
+                        .addComponent(jButton16).addComponent(jComboBox1, 
+                            javax.swing.GroupLayout.PREFERRED_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, 
+                            javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(3, 3, 3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton22).addComponent(jButton23).addComponent(jButton24).addComponent(jButton25)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton22).addComponent(jButton23)
+                        .addComponent(jButton24).addComponent(jButton25)
                         .addComponent(jButton21))
                     .addGap(0, 29, Short.MAX_VALUE)));
 
@@ -662,8 +689,10 @@ public class MapEditor extends javax.swing.JFrame {
             .createSequentialGroup().addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, Short.MAX_VALUE)));
-    layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel1,
-        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+    layout.setVerticalGroup(layout.createParallelGroup(
+        javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel1,
+        javax.swing.GroupLayout.DEFAULT_SIZE, 
+        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
     pack();
 
@@ -671,7 +700,7 @@ public class MapEditor extends javax.swing.JFrame {
   
   /**
    * Opens the file options to save the file on the computer.
-   * @param evt
+   * @param evt that triggers the save file options 
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -690,8 +719,8 @@ public class MapEditor extends javax.swing.JFrame {
   }
 
   /**
-   * Opens the load options for the game to retrieve a file
-   * @param evt
+   * Opens the load options for the game to retrieve a file.
+   * @param evt that triggers the load file options
    */
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
     int returnVal = jFileChooserLoad.showOpenDialog(this);
@@ -716,11 +745,12 @@ public class MapEditor extends javax.swing.JFrame {
    *          Standard main arguments.
    * 
    */
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     Player player = null;
     Game game = new Game(player);
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
   }
+
 
 }
