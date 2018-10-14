@@ -6,8 +6,10 @@
 
 package Applications;
 
+import GameWorld.Door;
 import GameWorld.Game;
 import GameWorld.Item;
+import GameWorld.Key;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
@@ -24,7 +26,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -572,7 +576,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
     // if you have key
-    messageBoard.append("You have opened the door, sir \n");
+    HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
+    doors = this.game.getDoors();
+    Integer currentMap = this.player.currentMapInteger();
+    for (Map.Entry<Integer, GameWorld.Door> entry : doors.entrySet()) {
+      if (entry.getKey() == currentMap) {
+        Door current = entry.getValue();
+        if (current.isLocked()) {
+          messageBoard.append("Door " + currentMap + " is still locked, you \n you need to find the right key");
+        } else {
+          messageBoard.append("You have opened the door, sir \n");
+        }
+      }
+    }
+
     // else print message saying you need to find a key have a look around this base
   }
 
@@ -587,12 +604,33 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
     List<GameWorld.Item> inventory = player.getInventory();
+    HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
+    HashMap<Integer, GameWorld.Key> keys = new HashMap<Integer, GameWorld.Key>();
 
-    for (int i = 0; i < inventory.size(); i++) {
-      if (inventory.get(i) instanceof GameWorld.Key) {
-        // change the door status to unlocked
-        messageBoard.append("KaCHINK... the door is now \n open... \n");
+    for (Map.Entry<Integer, Door> entry : doors.entrySet()) {
+      Door currentDoor = entry.getValue();
+
+      if (this.player.getPosition().equals(currentDoor.getDoorPosition())) {
+
       }
+      for (int i = 0; i < inventory.size(); i++) {
+
+        if (inventory.get(i) instanceof GameWorld.Key) {
+          for (Map.Entry<Integer, GameWorld.Key> enter : keys.entrySet()) {
+            Key currentKey = enter.getValue();
+            if (inventory.get(i).getItemID() == currentKey.getDoor()) {
+              messageBoard.append("KaCHINK... the door is now \n open... \n");
+              return;
+            }
+
+          }
+          // change the door status to unlocked unsure how to do
+
+        }
+      }
+
+      messageBoard.append("You do not have any Key on \n " + "you! Go find one somewhere around the faculty");
+
     }
 
   }
@@ -606,6 +644,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          your inventory and place it on the floor below you.
    */
   private void discardActionPerformed(java.awt.event.ActionEvent evt) {
+
     messageBoard.append("you have discarded an item \n");
 
   }
@@ -621,11 +660,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          methods from the gameWorld and the Renderer.
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
-    //player.setDirection(player.getBehind());
-   // player.movePlayer(player.getDirection());
-   
+    // player.setDirection(player.getBehind());
+    // player.movePlayer(player.getDirection());
+
     wallaway--;
-   
+
     renderer.repaint();
 
   }
@@ -642,11 +681,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
 
     wallaway++;
-    
+
     renderer.repaint();
-    
-    //player.setDirection(player.getBehind());
-    //player.movePlayer(player.getDirection());
+
+    // player.setDirection(player.getBehind());
+    // player.movePlayer(player.getDirection());
   }
 
   /**
