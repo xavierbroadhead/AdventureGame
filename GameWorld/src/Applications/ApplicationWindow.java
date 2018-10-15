@@ -545,7 +545,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     javax.swing.JDialog warning = new javax.swing.JDialog();
     javax.swing.JLabel message = new javax.swing.JLabel(
-        "Are you sure you would like begin \n start a new game? All Progress \n will be LOST");
+        "Are you sure you would like begin start a new game? All Progress will be LOST");
 
     JButton yes = new JButton("yes");
     yes.addActionListener(new java.awt.event.ActionListener() {
@@ -572,7 +572,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     newGame.add(yes);
     newGame.add(no);
 
-    newGame.setSize(410, 80);
+    newGame.setSize(550, 80);
     newGame.setLayout(new FlowLayout());
     newGame.setResizable(false);
     newGame.setVisible(true);
