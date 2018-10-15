@@ -15,6 +15,7 @@ import GameWorld.Player.Direction;
 import GameWorld.Position;
 import mapEditor.MapEditor;
 import Renderer.Render;
+import Parser.Parser;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -46,6 +47,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class ApplicationWindow extends javax.swing.JFrame {
 
+  protected Parser parser = new Parser();
   protected Player player = new Player(1, new Position(0, 0));
   protected Game game = new Game(player);
   protected Render render = new Render();
@@ -858,7 +860,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      // File file = chooserSave.getSelectedFile();
+      File file = chooserSave.getSelectedFile();
+      parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player);
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
@@ -884,13 +887,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
     int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      // File file = chooserLoad.getSelectedFile();
-      // try {
-      // What to do with the file, e.g. display it in a TextArea
-      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
+       File file = chooserLoad.getSelectedFile();
+     String filename = file.getName();
+     Game loadedGame = parser.loadFromFile(filename);
+     this.game=loadedGame;
+     renderer.repaint(); //refreshes the players position etc
+     
     } else {
       System.out.println("File access cancelled by user.");
     }
