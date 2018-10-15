@@ -74,11 +74,17 @@ public class Game {
 	 */
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
+		
+		try {
 		Position[][] buffer = maps.get(mapNum).getMap();
 		int x = position.getx();
 		int y = position.gety();
 		if (buffer[x][y] != null) return true;
 		else return false;
+		}
+		catch (ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
 	}
 	
 	/** Takes in an array of Positions, returns a 5x5 2D array of Positions correctly ordered as a map.
