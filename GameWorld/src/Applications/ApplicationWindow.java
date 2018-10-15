@@ -799,7 +799,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
     player.movePlayer(player.getDirection(), this.game);
-    player.setDirection(player.getBehind());
+    //player.setDirection(player.getBehind());
     wallaway++;
 
     renderer.repaint();
