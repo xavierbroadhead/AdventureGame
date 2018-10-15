@@ -634,6 +634,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
+    game = editor.getGame();
     renderer.repaint();
   }
 

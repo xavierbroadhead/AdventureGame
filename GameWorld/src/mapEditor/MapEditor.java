@@ -81,6 +81,14 @@ public class MapEditor extends javax.swing.JFrame {
   }
 
   /**
+   * Returns the game that has been modified.
+   * @return the game 
+   */
+  public Game getGame() {
+    return this.originalGame;
+  }
+  
+  /**
    * Saves the new modified game state into the existing game. This converts the
    * string array into a Game object which is the original game.
    * void method and takes no arguments.
@@ -93,19 +101,19 @@ public class MapEditor extends javax.swing.JFrame {
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 5; j++) {
         if (rooms.get(0)[i][j].equals("Wall")) {
-          map1[i][j] = new Position(i, j);
-        } else {
           map1[i][j] = null;
+        } else {
+          map1[i][j] = new Position(i, j);
         }
         if (rooms.get(1)[i][j].equals("Wall")) {
-          map2[i][j] = new Position(i, j);
-        } else {
           map2[i][j] = null;
+        } else {
+          map2[i][j] = new Position(i, j);
         }
         if (rooms.get(2)[i][j].equals("Wall")) {
-          map3[i][j] = new Position(i, j);
-        } else {
           map3[i][j] = null;
+        } else {
+          map3[i][j] = new Position(i, j);
         }
       }
     }
@@ -225,6 +233,7 @@ public class MapEditor extends javax.swing.JFrame {
     rooms.get(roomNum)[x][y] = item;
     String buttonText = buttonChanger(item);
     button.setText(buttonText);
+    saveGame();
   }
 
   /**
@@ -308,23 +317,7 @@ public class MapEditor extends javax.swing.JFrame {
     jmenuItem2 = new javax.swing.JMenuItem();
     jfileChooserLoad = new javax.swing.JFileChooser();
     jfileChooserSave = new javax.swing.JFileChooser();
-    /*
-    // Create the room 2D arrays that correspond to the Game maps
-    String[][] room1 = new String[5][5];
-    String[][] room2 = new String[5][5];
-    String[][] room3 = new String[5][5];
-    for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < 5; j++) {
-        room1[i][j] = "Empty";
-        room2[i][j] = "Empty";
-        room3[i][j] = "Empty";
-      }
-    }
-    ArrayList<String[][]> rooms = new ArrayList<String[][]>();
-    rooms.add(room1);
-    rooms.add(room2);
-    rooms.add(room3);
-     */
+    
     // Create button list for easy access to all buttons
     ArrayList<JButton> buttonList = new ArrayList<JButton>();
     buttonList.add(jbutton1);
