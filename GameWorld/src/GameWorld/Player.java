@@ -171,6 +171,7 @@ public class Player {
     Position[][] buffer = game.getMaps().get(this.currentMap).getMap();
     int x = this.position.getx();
     int y = this.position.gety();
+    try{
     if (dir == null)
       return null;
     else if (dir == Direction.NORTH) {
@@ -184,6 +185,9 @@ public class Player {
     else {
       return buffer[y][x-1];
     }
+    }
+    catch(ArrayIndexOutOfBoundsException exception){
+      return this.position;
   }
 
   // used by Parser to fill inventory from file
