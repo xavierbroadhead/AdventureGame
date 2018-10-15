@@ -287,18 +287,13 @@ public class Render {
     left.drawLine(g2);
     right.drawLine(g2);
     
-    if(game.tilesTilWall() == 0) {
-      //g2.setColor(Color.BLUE);
-      //g2.fillPolygon(rightTurn);
-      //g2.fillPolygon(leftTurn);
-      
+    if(game.tilesTilWall() == 0) {//will draw a hallway wall when your're facing it
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall all along display
-
 
       for(Intersect i : intersectionsL) {
         g2.setColor(Color.BLACK);
@@ -311,6 +306,8 @@ public class Render {
       }
       return;
     }
+    
+    
     
     //draws right corner turn
     //if(game.hasRightCorner()) {
