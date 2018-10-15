@@ -137,7 +137,7 @@ public class Parser {
   private Position parsePosition(Element position) {
     Element xVal = position.getChild("xVal");
     Element yVal = position.getChild("yVal");
-    Item item = parseItem(position.getChild("Item"));
+
     // get x and y values
     int x = Integer.parseInt(xVal.getText());
     int y = Integer.parseInt(yVal.getText());
@@ -147,9 +147,9 @@ public class Parser {
     if (x < 0 || y < 0) {
       return null;
     }
-
     // otherwise create the position, add its item and return it
     Position pos = new Position(x, y);
+    Item item = parseItem(position.getChild("Item"));
     pos.addItem(item);
     return pos;
   }
@@ -269,26 +269,217 @@ public class Parser {
   }
 
 
+/////////////////////////////////SAVING/////////////////////////////////////////
+
 
   /**
    * Create an xml save file from a list of maps, doors, and a Player
-   * 
-   * Note from Christian - 
-   * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use 
-   * .values to get your lists. Also added the file the info will be saved to from the 
+   *
+   * Note from Christian -
+   * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use
+   * .values to get your lists. Also added the file the info will be saved to from the
    * selector in Mapeditor and ApplicationWindow classes.
    */
-  public void saveToFile(HashMap<Integer, Map> maps, HashMap<Integer, Door> doors, Player player, File file) {
-    // root element
-    Element gameElement = new Element("Game");
-    Document doc = new Document(gameElement);
+  public void saveToFile(List<Map> maps, List<Door> doors, Player player) {
+    // create root element
+    Element game = new Element("Game");
 
-    // Map element
-    //for (Map m : maps) {
-      //Element mapElement = new Element("Map");
-    
-    //}
+    for (Map m : maps) {
+      game.addContent(saveMap(m));
+    }
+
+    game.addContent(savePlayer(player));
+
+    for (Door d : doors) {
+      game.addContent(saveDoor(d));
+    }
+
+    // create document
+    Document doc = new Document(game);
+
+    //TODO: Save the document
+
   }
+
+  private Element savePlayer(Player p) {
+    Element player = new Element("Player");
+
+    player.setAttribute(new Attribute("StartMap", p.currentMapInteger().toString()));
+
+    // saves position
+    player.addContent(saveFindPosition(p.getPosition(), p.currentMapInteger(), "FindPosition"));
+
+    // saves inventory
+    player.addContent(saveInventory(p.getInventory()));
+    return player;
+  }
+
+  private Element saveInventory(List<Item> items) {
+    Element inventory = new Element("Inventory");
+    // saves the Items in the inventory
+    for (Item i : items) {inventory.addContent(saveItem(i));}
+    return inventory;
+  }
+
+  private Element saveMap(Map m) {
+    Element map = new Element("Map");
+
+    // save each Position in the map
+    for (int row = 0; row < 5; row++) {
+      for (int col = 0; col < 5; col++) {
+        map.addContent(savePosition(m.getMap()[row][col]));
+      }
+    }
+    return map;
+  }
+
+// if p is null, the position's xVal and yVal are saved as -1
+  private Element savePosition(Position p) {
+    Element position = new Element("Position");
+
+    if (p != null) {
+      // save x and y value
+      Element xVal = new Element("xVal");
+      Element yVal = new Element("yVal");
+      xVal.setText(Integer.toString(p.getx()));
+      yVal.setText(Integer.toString(p.gety()));
+      position.addContent(xVal);
+      position.addContent(yVal);
+
+      // save item
+      position.addContent(saveItem(p.getItem()));
+    }
+    // only x and y value are saved here, both set at -1
+    else {
+      Element xVal = new Element("xVal");
+      Element yVal = new Element("yVal");
+      xVal.setText("-1");
+      yVal.setText("-1");
+      position.addContent(xVal);
+      position.addContent(yVal);
+    }
+    return position;
+  }
+
+  // The title for this type of expression changes depending on where it is being called from,
+  // hence the parameter.
+  private Element saveFindPosition(Position p, int map, String title) {
+    Element findPosition = new Element(title);
+    Element mapVal = new Element("Map");
+    Element xVal = new Element("xVal");
+    Element yVal = new Element("yVal");
+    mapVal.setText(Integer.toString(map));
+    xVal.setText(Integer.toString(p.getx()));
+    yVal.setText(Integer.toString(p.gety()));
+    findPosition.addContent(mapVal);
+    findPosition.addContent(xVal);
+    findPosition.addContent(yVal);
+    return findPosition;
+  }
+
+  private Element saveItem (Item i) {
+    Element item = new Element("Item");
+
+    // if i is null, set the type and return early
+    if (i == null) {
+      item.setAttribute(new Attribute("Type", "Empty"));
+      return item;
+    }
+    // if i is a Key, set the type and add "DoorID" child
+    if (i instanceof Key) {
+      item.setAttribute(new Attribute("Type", "Key"));
+      Element doorID = new Element("DoorID");
+      Key k = (Key) i;
+      doorID.setText(Integer.toString(k.getDoor()));
+      item.addContent(doorID);
+    }
+    // if i is a Book, set the type and add "Contents" and "Magical" children
+    if (i instanceof Book) {
+      item.setAttribute(new Attribute("Type", "Book"));
+      Element contents = new Element("Contents");
+      Element magical = new Element("Magical");
+      Book b = (Book) i;
+      contents.setText(b.read());
+      magical.setText(Boolean.toString(b.isMagical()));
+      item.addContent(contents);
+      item.addContent(magical);
+    }
+
+    // create generic parameters
+    Element weight = new Element("Weight");
+    Element id = new Element("ID");
+    Element description = new Element("Description");
+    Element title = new Element("Title");
+    Element map = new Element("Map");
+    Element icon = saveIcon(i);
+
+    weight.setText(Integer.toString(i.getWeight()));
+    id.setText(Integer.toString(i.getItemID()));
+    description.setText(i.getDescription());
+    title.setText(i.toString());
+    map.setText(Integer.toString(i.currentMap()));
+
+    item.addContent(weight);
+    item.addContent(id);
+    item.addContent(description);
+    item.addContent(title);
+    item.addContent(map);
+    item.addContent(icon);
+
+    return item;
+  }
+
+  private Element saveDoor (Door d) {
+    Element door = new Element("Door");
+
+    Element locked = new Element("Locked");
+    Element map = new Element("Map");
+    Element id = new Element("ID");
+    Element link = new Element("Link");
+    Element doorPos = saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition");
+    Element linkPos = saveFindPosition(d.getLinkPosition(), d.getMap(), "LinkPosition");  // could have a problem here; map might be wrong
+    Element direction = new Element("Direction");
+
+    locked.setText(Boolean.toString(d.isLocked()));
+    map.setText(Integer.toString(d.getMap()));
+    id.setText(Integer.toString(d.getID()));
+    link.setText(Integer.toString(d.getLink()));
+    direction.setText(directionString(d.getDirection()));
+
+    door.addContent(locked);
+    door.addContent(map);
+    door.addContent(id);
+    door.addContent(link);
+    door.addContent(doorPos);
+    door.addContent(linkPos);
+    door.addContent(direction);
+
+    return door;
+  }
+
+  // used by saveDoor. Takes a Direction as a parameter and converts it to a String
+  private String directionString (Player.Direction d) {
+    if (d == Direction.NORTH) {return "NORTH";}
+    if (d == Direction.SOUTH) {return "SOUTH";}
+    if (d == Direction.EAST) {return "EAST";}
+    if (d == Direction.WEST) {return "WEST";}
+
+    return " ";       // shouldn't reach this bit
+  }
+
+  private Element saveIcon (Item i) {
+    Element icon = new Element("Icon");
+    if (i instanceof Key) {
+      icon.setText("/Resources/key.gif");
+    }
+
+    // Books aren't implemented; hence there is no Book image file to save
+    else {
+      icon.setText("something went wrong");
+    }
+    return icon;
+  }
+
 
 
 }

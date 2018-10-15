@@ -630,7 +630,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
-
+    renderer.repaint();
   }
 
   /**
@@ -642,6 +642,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          the relevant methods to open the door.
    */
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
+    
+    if(player.getPosition().getDoor != null) {
+      player.getPosition().getDoor().
+    }
     // if you have key
     HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
     doors = this.game.getDoors();
