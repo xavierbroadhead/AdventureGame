@@ -539,6 +539,43 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          When new game called, call relevant methods to initialise game
    */
   private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
+    javax.swing.JFrame newGame = new javax.swing.JFrame();
+
+    javax.swing.JDialog warning = new javax.swing.JDialog();
+    javax.swing.JLabel message = new javax.swing.JLabel(
+        "Are you sure you would like begin \n start a new game? All Progress \n will be LOST");
+
+    JButton yes = new JButton("yes");
+    yes.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) { // need to sort out
+        dispose();
+        newGame.dispose();
+        new ApplicationWindow().main(null);
+      }
+    });
+
+    JButton no = new JButton("no");
+    no.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) {
+        newGame.dispose();
+      }
+    });
+
+    javax.swing.JFrame buttons = new javax.swing.JFrame();
+    buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+    buttons.add(yes);
+    buttons.add(no);
+
+    newGame.add(message);
+    newGame.add(yes);
+    newGame.add(no);
+
+    newGame.setSize(410, 80);
+    newGame.setLayout(new FlowLayout());
+    newGame.setResizable(false);
+    newGame.setVisible(true);
+
+    messageBoard.append("You have restarted the game \n");
 
     messageBoard.setText("You have started a New Game. \n Welcome :) \n");
 
@@ -567,8 +604,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       if (item instanceof GameWorld.Key) {
         messageBoard.append("You have picked up a Key! \n");
+        // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
         messageBoard.append("You have picked up a Book! \n");
+        // inventory 1 .add icon
       }
 
       // if there is an item you are on top of
