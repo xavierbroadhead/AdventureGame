@@ -13,7 +13,7 @@ public class Player {
   public Player(int startMap, Position position) {
     this.currentMap = startMap;
     this.position = position;
-    this.direction = Direction.NORTH;
+    this.direction = Direction.SOUTH;
     inventory = new ArrayList<Item>();
   }
 
