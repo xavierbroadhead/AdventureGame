@@ -13,7 +13,7 @@ import GameWorld.Key;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
-import MapEditor.MapEditor;
+import mapEditor.MapEditor;
 import Renderer.Render;
 
 import java.awt.Color;
