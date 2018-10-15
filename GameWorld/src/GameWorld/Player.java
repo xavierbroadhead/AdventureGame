@@ -169,18 +169,20 @@ public class Player {
    */
   public Position requestPosition(Direction dir, Game game) {
     Position[][] buffer = game.getMaps().get(this.currentMap).getMap();
+    int x = this.position.getx();
+    int y = this.position.gety();
     if (dir == null)
       return null;
     else if (dir == Direction.NORTH) {
-      return buffer[this.position.getx()][this.position.gety() + 1];
+      return buffer[y+1][x];
     } else if (dir == Direction.EAST) {
-      return buffer[this.position.getx() + 1][this.position.gety()];
+      return buffer[y][x+1];
     } else if (dir == Direction.SOUTH) {
-      return buffer[this.position.getx()][this.position.gety() - 1];
+      return buffer[y-1][x];
     }
     // assumed west
     else {
-      return buffer[this.position.getx() - 1][this.position.gety()];
+      return buffer[y][x-1];
     }
   }
 
