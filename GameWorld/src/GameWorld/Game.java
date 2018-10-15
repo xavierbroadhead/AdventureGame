@@ -123,7 +123,7 @@ public class Game {
 		Position[][] currentMap = this.maps.get(player.currentMapInteger()).getMap();
 		Integer integer = player.currentMapInteger();
 		
-		/* if ((y == 0 && direction == Player.Direction.NORTH) ||
+		if ((y == 0 && direction == Player.Direction.NORTH) ||
 				(x == 0 && y == 0 && (direction == Player.Direction.NORTH || direction == Player.Direction.WEST))||
 				(x == 4 && y == 0 && (direction == Player.Direction.NORTH || direction == Player.Direction.EAST))||
 				(x == 4 && direction == Player.Direction.EAST) ||
@@ -132,9 +132,9 @@ public class Game {
 				(x == 0 && y == 4 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST))||
 				(x == 0 && direction == Player.Direction.WEST))
 			return 0;
-			*/
+		
 		try{
-		while(!false) {
+		while(true) {
 			if (direction == Player.Direction.NORTH) {
 				if (isAccessible(currentMap[y - i][x], integer)) {
 					i++;
@@ -181,7 +181,7 @@ public class Game {
 		Integer integer = player.currentMapInteger();
 		Player.Direction direction = this.player.getDirection();
 		
-		/*if ((y == 0 && (direction == Player.Direction.EAST || direction == Player.Direction.NORTH)) ||
+		if ((y == 0 && (direction == Player.Direction.EAST || direction == Player.Direction.NORTH)) ||
 				(x == 0 && y == 0 &&(direction == Player.Direction.NORTH || direction == Player.Direction.EAST))||
 				x == 4 && y == 0 &&(direction == Player.Direction.SOUTH || direction == Player.Direction.EAST)||
 				(x == 4 && (direction == Player.Direction.SOUTH || direction == Player.Direction.EAST)) ||
@@ -190,7 +190,7 @@ public class Game {
 				(x == 0 && y == 4 &&(direction==Player.Direction.NORTH || direction == Player.Direction.WEST))||
 				(x == 0 && direction == Player.Direction.NORTH || direction == Player.Direction.WEST))
 			return false;
-			*/
+		
 		try {
 		if (direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y - wall][x - 1], integer)) {
@@ -232,7 +232,7 @@ public class Game {
 		int y = this.player.getPosition().gety();
 		Player.Direction direction = this.player.getDirection();
 		Integer integer = player.currentMapInteger();
-		/*
+		
 		if ((y == 0 && (direction == Player.Direction.WEST || direction == Player.Direction.NORTH)) ||
 				(x == 0 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.SOUTH))||
 				x == 4 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.NORTH)||
@@ -242,7 +242,7 @@ public class Game {
 				(x == 0 && y == 4 &&(direction==Player.Direction.EAST || direction == Player.Direction.SOUTH))||
 				(x == 0 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST)))
 			return false;
-			*/
+			
 		try{
 		if (direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y - wall][x + 1], integer)) {
