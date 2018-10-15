@@ -17,6 +17,7 @@ import mapEditor.MapEditor;
 import Renderer.Render;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -31,8 +32,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -54,7 +58,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
   protected int wallaway = 6;
 
   // Variables declaration - do not modify
-  public javax.swing.JPanel renderer;
+  private javax.swing.JFrame discardPanel;
+  private javax.swing.JPanel renderer;
   private javax.swing.JButton up;
   private javax.swing.JButton backwards;
   private javax.swing.JPanel bottomPanel;
@@ -172,6 +177,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     setBackground(new java.awt.Color(255, 51, 51));
     setResizable(false);
 
+    // Renderer Panel
     renderer.setPreferredSize(new java.awt.Dimension(50, 512));
 
     // jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
@@ -183,6 +189,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     rendererLayout.setVerticalGroup(rendererLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE));
 
+    // Bottom Panel
     up.setText("FORWARD");
     up.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,6 +243,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
                 .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(46, 46, 46)));
+
+    // Right side panel
 
     unlock.setText("Unlock"); // set button text
     unlock.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +307,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
                             javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(open))));
 
-    // Create inventory aspects of the GUI
+    // Create inventory aspects of the GUI and Left side panel
 
     inventory.setText("INVENTORY");
 
@@ -546,10 +555,22 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void pickUpActionPerformed(java.awt.event.ActionEvent evt) {
     // if item is key add new imageIcon to one of the invetory spaces same goes for
     // the other things
+    List<Item> inventory = this.player.getInventory();
 
-    // if there is an item you are on top of
-    messageBoard.append("You have picked up an Item! \n");
-    // else there is no item to pick up
+    if (inventory.size() == 6) {
+      messageBoard.append("Your inventory is full \n please discard something");
+    }
+
+    if (this.player.pickup()) {
+
+      // what item am i on top of
+     // this.player.addItem(); // pass that in
+
+      // if there is an item you are on top of
+      messageBoard.append("You have picked up an Item! \n");
+      // else there is no item to pick up
+    }
+
   }
 
   /**
@@ -645,7 +666,70 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void discardActionPerformed(java.awt.event.ActionEvent evt) {
 
-    messageBoard.append("you have discarded an item \n");
+    List<Item> items = this.player.getInventory();
+
+    if (items.isEmpty()) {
+      System.out.println("inside");
+      messageBoard.append("You have no items to discard");
+      return;
+    }
+
+    // discard Panel
+    discardPanel = new javax.swing.JFrame();
+
+    JRadioButton key = new JRadioButton("Key");
+    JRadioButton scroll = new JRadioButton("Scroll");
+    JRadioButton healthPack = new JRadioButton("Health Pack");
+
+    JButton discard = new JButton("Discard");
+    discard.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+        if (key.isSelected() == true) {
+          messageBoard.append("You have discarded a Key");
+          for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) instanceof GameWorld.Key) {
+
+              items.remove(i);
+              // put on ground
+            }
+          }
+        } else if (scroll.isSelected() == true) {
+          messageBoard.append("You have discarded a Book");
+          for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) instanceof GameWorld.Book) {
+
+              items.remove(i);
+              // put on ground
+            }
+          }
+        } else if (healthPack.isSelected() == true) {
+          for (int i = 0; i < items.size(); i++) {
+            if (items.get(i) instanceof GameWorld.Key) {
+              items.remove(i);
+              // put on ground
+            }
+          }
+
+        } else {
+          messageBoard.append("Select a item to discard");
+        }
+        discardPanel.dispose();
+      }
+    });
+
+    ButtonGroup buttons = new ButtonGroup();
+    buttons.add(key);
+    buttons.add(scroll);
+    buttons.add(healthPack);
+    buttons.add(discard);
+    discardPanel.add(key);
+    discardPanel.add(scroll);
+    discardPanel.add(healthPack);
+    discardPanel.add(discard);
+    discardPanel.setSize(100, 150);
+    discardPanel.setLayout(new FlowLayout());
+    discardPanel.setVisible(true);
 
   }
 
@@ -661,7 +745,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-    // player.movePlayer(player.getDirection());
+     player.movePlayer(player.getDirection());
 
     wallaway--;
 
@@ -679,13 +763,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
-
+    player.movePlayer(player.getDirection());
+    player.setDirection(player.getBehind());
     wallaway++;
 
     renderer.repaint();
 
-    // player.setDirection(player.getBehind());
-    // player.movePlayer(player.getDirection());
+     
+    
   }
 
   /**
@@ -699,6 +784,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 
     player.setDirection(player.getRight());
+    renderer.repaint();
 
   }
 
@@ -712,6 +798,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void leftActionPerformed(java.awt.event.ActionEvent evt) {
     player.setDirection(player.getLeft());
+    renderer.repaint();
 
   }
 
@@ -779,7 +866,44 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          new game. So everything called in new game will be called.
    */
   private void restartActionPerformed(java.awt.event.ActionEvent evt) {
+    javax.swing.JFrame restart = new javax.swing.JFrame();
+
+    javax.swing.JDialog warning = new javax.swing.JDialog();
+    javax.swing.JLabel message = new javax.swing.JLabel(
+        "Are you sure you would like to restart? All Progress will be LOST");
+
+    JButton yes = new JButton("yes");
+    yes.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) { // need to sort out
+        dispose();
+        restart.dispose();
+        new ApplicationWindow().main(null);
+      }
+    });
+
+    JButton no = new JButton("no");
+    no.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) {
+        restart.dispose();
+      }
+    });
+
+    javax.swing.JFrame buttons = new javax.swing.JFrame();
+    buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+    buttons.add(yes);
+    buttons.add(no);
+
+    restart.add(message);
+    restart.add(yes);
+    restart.add(no);
+
+    restart.setSize(410, 80);
+    restart.setLayout(new FlowLayout());
+    restart.setResizable(false);
+    restart.setVisible(true);
+
     messageBoard.append("You have restarted the game \n");
+
   }
 
   /**

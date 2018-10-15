@@ -35,8 +35,7 @@ public class Parser {
 
   /**
    * Create a Game object from an xml save file
-   * new Game
-   *
+   * (call this to load from a file)
    * @param fname
    *          filename (obtained from a file chooser of some sort)
    * @return
@@ -78,9 +77,8 @@ public class Parser {
     return null;
   }
 
-
   /**
-   * Logic for parsing the Player
+   * Logic for parsing the Player (used by loadFromFile)
    * @param player
    * @return player object generated from file
    * @throws DataConversionException
@@ -102,10 +100,8 @@ public class Parser {
     return p;
   }
 
-
   /**
-   * Logic for parsing a Map
-   *
+   * Logic for parsing a Map (used by loadFromFile)
    * @param map
    * @return
    */
@@ -127,9 +123,8 @@ public class Parser {
     return new Map(grid);
   }
 
-
   /**
-   * Logic for parsing a Position
+   * Logic for parsing a Position (used by loadFromFile)
    *
    * @param position
    * @return
@@ -155,7 +150,7 @@ public class Parser {
   }
 
   /**
-   * Finds a Position in the maps, based on the map, x and y value
+   * Finds a Position in the maps, based on the map, x and y value (used by loadFromFile)
    */
   private Position parseFindPosition(Element findPosition) {
     Element map = findPosition.getChild("Map");
@@ -185,7 +180,7 @@ public class Parser {
   }
 
   /**
-   * Logic for parsing an Item
+   * Logic for parsing an Item (used by loadFromFile)
    * @param item
    * @return
    */
@@ -228,8 +223,11 @@ public class Parser {
     return null;
   }
 
-
-  // Logic for parsing a Door
+  /**
+   * Logic for parsing a Door (used by loadFromFile)
+   * @param door
+   * @return
+   */
   private Door parseDoor (Element door) {
     Element locked = door.getChild("Locked");
     Element map = door.getChild("Map");
@@ -256,9 +254,9 @@ public class Parser {
     return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos, dir);
   }
 
-
   /**
    * Logic for parsing an Icon (filename of the image used is saved in xml file)
+   * used by loadFromFile
    */
   private Icon parseIcon(Element icon) {
     String filename = icon.getText();
