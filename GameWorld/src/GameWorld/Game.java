@@ -116,8 +116,9 @@ public class Game {
 		int i = 1;
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
-		Player.Direction direction = player.getDirection();
+		Player.Direction direction = this.player.getDirection();
 		Position[][] currentMap = this.maps.get(player.currentMapInteger()).getMap();
+		Integer integer = player.currentMapInteger();
 		
 		if ((y == 0 && direction == Player.Direction.NORTH) ||
 				(x == 0 && y == 0 && (direction == Player.Direction.NORTH || direction == Player.Direction.WEST))||
@@ -131,25 +132,25 @@ public class Game {
 		
 		while(!false) {
 			if (direction == Player.Direction.NORTH) {
-				if (currentMap[y - i][x] != null) {
+				if (isAccessible(currentMap[y - i][x], integer)) {
 					i++;
 				}
 				else break;
 			}
 			else if (direction == Player.Direction.EAST) {
-				if (currentMap[y][x + i] != null) {
+				if (isAccessible(currentMap[y][x + i], integer)) {
 					i++;
 				}
 				else break;
 			}
 			else if (direction == Player.Direction.SOUTH) {
-				if (currentMap[y + i][x] != null) {
+				if (isAccessible(currentMap[y + i][x], integer)) {
 					i++;
 				}
 				else break;
 			}
 			else if (direction == Player.Direction.WEST) {
-				if (currentMap[y][x - i] != null) {
+				if (isAccessible(currentMap[y][x - i], integer)) {
 					i++;
 				}
 				else break;
@@ -157,10 +158,10 @@ public class Game {
 		}
 		return i - 1;
 	}
-
+	
 	/** Check if there is a left corner in front of our current position within our vision.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return - true if there is a left corner in front of player's current position and direction.
 	 */
 	public boolean hasLeftCorner() {
@@ -168,35 +169,45 @@ public class Game {
 		int wall = tilesTilWall();
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
+		Integer integer = player.currentMapInteger();
 		Player.Direction direction = this.player.getDirection();
 		
+		if ((y == 0 && direction == Player.Direction.EAST) ||
+				(x == 0 && y == 0 &&(direction == Player.Direction.NORTH || direction == Player.Direction.EAST))||
+				x == 4 && y == 0 &&(direction == Player.Direction.SOUTH || direction == Player.Direction.EAST)||
+				(x == 4 && direction == Player.Direction.SOUTH) ||
+				(x == 4 && y == 4 &&(direction == Player.Direction.SOUTH || direction == Player.Direction.WEST))||
+				(y == 4 && direction == Player.Direction.WEST)||
+				(x == 0 && y == 4 &&(direction==Player.Direction.NORTH || direction == Player.Direction.WEST))||
+				(x == 0 && direction == Player.Direction.NORTH))
+			return false;
+		
 		if (direction == Player.Direction.NORTH) {
-			if (currentMap[y - wall][x - 1] != null) {
+			if (isAccessible(currentMap[y - wall][x - 1], integer)) {
 				return true;
 			}
 		}
 		else if (direction == Player.Direction.EAST) {
-			if (currentMap[y + 1][x + wall] != null) {
+			if (isAccessible(currentMap[y + 1][x + wall], integer)) {
 				return true;
 			}
 		}		
 		else if (direction == Player.Direction.SOUTH) {
-			if (currentMap[y + wall][x + 1] != null) {
+			if (isAccessible(currentMap[y + wall][x + 1], integer)) {
 				return true;
 			}
 		}		
 		else if (direction == Player.Direction.WEST) {
-			if (currentMap[y - 1][x - wall] != null) {
+			if (isAccessible(currentMap[y - 1][x - wall], integer)) {
 				return true;
 			}
 		}
 		return false;
 	}
-
-
+	
 	/** Check if there is a corner to the right of our current position within our vision.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return - true if there is a right corner in front of the player's current position and direction.
 	 */
 	public boolean hasRightCorner() {
@@ -205,24 +216,35 @@ public class Game {
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
 		Player.Direction direction = this.player.getDirection();
+		Integer integer = player.currentMapInteger();
+		
+		if ((y == 0 && direction == Player.Direction.WEST) ||
+				(x == 0 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.SOUTH))||
+				x == 4 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.NORTH)||
+				(x == 4 && direction == Player.Direction.NORTH) ||
+				(x == 4 && y == 4 &&(direction == Player.Direction.EAST || direction == Player.Direction.NORTH))||
+				(y == 4 && direction == Player.Direction.EAST)||
+				(x == 0 && y == 4 &&(direction==Player.Direction.EAST || direction == Player.Direction.SOUTH))||
+				(x == 0 && direction == Player.Direction.SOUTH))
+			return false;
 		
 		if (direction == Player.Direction.NORTH) {
-			if (currentMap[y - wall][x + 1] != null) {
+			if (isAccessible(currentMap[y - wall][x + 1], integer)) {
 				return true;
 			}
 		}
 		else if (direction == Player.Direction.EAST) {
-			if (currentMap[y - 1][x + wall] != null) {
+			if (isAccessible(currentMap[y - 1][x + wall], integer)) {
 				return true;
 			}
 		}		
 		else if (direction == Player.Direction.SOUTH) {
-			if (currentMap[y + wall][x - 1] != null) {
+			if (isAccessible(currentMap[y + wall][x - 1], integer)) {
 				return true;
 			}
 		}		
 		else if (direction == Player.Direction.WEST) {
-			if (currentMap[y + 1][x - wall] != null) {
+			if (isAccessible(currentMap[y + 1][x - wall], integer)) {
 				return true;
 			}
 		}
