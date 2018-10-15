@@ -562,12 +562,17 @@ public class ApplicationWindow extends javax.swing.JFrame {
     }
 
     if (this.player.pickup()) {
+      GameWorld.Item item = this.player.getPosition().getItem();
+      this.player.addItem(item);
 
-      // what item am i on top of
-     // this.player.addItem(); // pass that in
+      if (item instanceof GameWorld.Key) {
+        messageBoard.append("You have picked up a Key! \n");
+      } else if (item instanceof GameWorld.Book) {
+        messageBoard.append("You have picked up a Book! \n");
+      }
 
       // if there is an item you are on top of
-      messageBoard.append("You have picked up an Item! \n");
+
       // else there is no item to pick up
     }
 
@@ -745,7 +750,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-     player.movePlayer(player.getDirection());
+    player.movePlayer(player.getDirection());
 
     wallaway--;
 
@@ -769,8 +774,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     renderer.repaint();
 
-     
-    
   }
 
   /**
