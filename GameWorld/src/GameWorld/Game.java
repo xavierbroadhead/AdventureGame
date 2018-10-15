@@ -53,6 +53,10 @@ public class Game {
     this.player = player;
   }
 
+  
+  public Player getPlayer() {
+    return this.player;
+  }
   public void setMaps(HashMap<Integer, Map> newMaps) {
     maps = newMaps;
   }
