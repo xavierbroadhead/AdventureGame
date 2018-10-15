@@ -142,7 +142,7 @@ public class Game {
 		return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
-			return false;
+			return true;
 		}
 	}	
 	
@@ -178,7 +178,7 @@ public class Game {
 		return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
-			return false;
+			return true;
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class Game {
 		return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
-			return false;
+			return true;
 		}
 	}	
 	
@@ -250,7 +250,7 @@ public class Game {
 		return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
-			return false;
+			return true;
 		}
 	}
 	
