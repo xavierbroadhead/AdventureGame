@@ -1,4 +1,4 @@
-package mapEditor;
+package MapEditor;
 
 import GameWorld.Game;
 import GameWorld.Map;
@@ -361,7 +361,7 @@ public class MapEditor extends javax.swing.JFrame {
         "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
     jcomboBox1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-
+        resetJButtonValues(buttonList, rooms);
       }
     });
 
@@ -768,6 +768,7 @@ public class MapEditor extends javax.swing.JFrame {
       System.out.println("File access cancelled by user.");
     }
   }
+  
 
   /**
    * Runs the Program with dummy game.

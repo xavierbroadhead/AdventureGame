@@ -1,9 +1,8 @@
 import Applications.ApplicationWindow;
 import GameWorld.Game;
 import GameWorld.Player;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import mapEditor.MapEditor;
+import GameWorld.Position;
+import MapEditor.MapEditor;
 import org.junit.Test;
 
 
@@ -22,7 +21,8 @@ public class Tests {
    */
   @Test
   public void appWindowInitialise() {
-    ApplicationWindow.main(null);
+    ApplicationWindow appWin = new ApplicationWindow();
+    appWin.main(null);
   }
   
   
@@ -31,16 +31,8 @@ public class Tests {
    */
   @Test
   public void checkbuttons() {
-    Player player = null;
+    Player player = new Player(1, new Position(0, 0));
     Game game = new Game(player);
     MapEditor mapEditor = new MapEditor(game);
-    ArrayList<JButton> buttons = mapEditor.getButtons();
-    for (JButton butt : buttons) {
-      butt.doClick();
-    }
-    mapEditor.setVisible(true);
-    for (JButton butt : mapEditor.getButtons()) {
-      butt.doClick();
-    }
   }
 }

@@ -13,7 +13,7 @@ import GameWorld.Key;
 import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
-import mapEditor.MapEditor;
+import MapEditor.MapEditor;
 import Renderer.Render;
 import Parser.Parser;
 
