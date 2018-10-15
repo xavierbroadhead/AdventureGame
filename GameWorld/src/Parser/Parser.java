@@ -274,13 +274,12 @@ public class Parser {
 
   /**
    * Create an xml save file from a list of maps, doors, and a Player
-   * 
-   * Note from Christian - 
-   * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use 
-   * .values to get your lists. Also added the file the info will be saved to from the 
+   *
+   * Note from Christian -
+   * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use
+   * .values to get your lists. Also added the file the info will be saved to from the
    * selector in Mapeditor and ApplicationWindow classes.
    */
-<<<<<<< HEAD
   public void saveToFile(List<Map> maps, List<Door> doors, Player player) {
     // create root element
     Element game = new Element("Game");
@@ -466,18 +465,6 @@ public class Parser {
     if (d == Direction.WEST) {return "WEST";}
 
     return " ";       // shouldn't reach this bit
-=======
-  public void saveToFile(HashMap<Integer, Map> maps, HashMap<Integer, Door> doors, Player player, File file) {
-    // root element
-    Element gameElement = new Element("Game");
-    Document doc = new Document(gameElement);
-
-    // Map element
-    //for (Map m : maps) {
-      //Element mapElement = new Element("Map");
-    
-    //}
->>>>>>> fa68fc35a63eb70b60afe2398ff146ab032c246e
   }
 
   private Element saveIcon (Item i) {
