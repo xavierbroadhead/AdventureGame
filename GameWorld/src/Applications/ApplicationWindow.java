@@ -561,9 +561,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
       messageBoard.append("Your inventory is full \n please discard something");
     }
 
-    // if there is an item you are on top of
-    messageBoard.append("You have picked up an Item! \n");
-    // else there is no item to pick up
+    if (this.player.pickup()) {
+
+      // what item am i on top of
+     // this.player.addItem(); // pass that in
+
+      // if there is an item you are on top of
+      messageBoard.append("You have picked up an Item! \n");
+      // else there is no item to pick up
+    }
+
   }
 
   /**
@@ -660,12 +667,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void discardActionPerformed(java.awt.event.ActionEvent evt) {
 
     List<Item> items = this.player.getInventory();
-    // int sizeInventory = items.size();
 
-    // if (sizeInventory == 0) {
-    // messageBoard.append("You have no items to discard");
-    // return;
-    // }
+    if (items.isEmpty()) {
+      System.out.println("inside");
+      messageBoard.append("You have no items to discard");
+      return;
+    }
 
     // discard Panel
     discardPanel = new javax.swing.JFrame();
@@ -677,25 +684,27 @@ public class ApplicationWindow extends javax.swing.JFrame {
     JButton discard = new JButton("Discard");
     discard.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        int sizeInventory = items.size();
-        if (key.isVisible() == true) {
-          for (int i = 0; i < sizeInventory; i++) {
+
+        if (key.isSelected() == true) {
+          messageBoard.append("You have discarded a Key");
+          for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Key) {
-              messageBoard.append("You have discarded a Key");
+
               items.remove(i);
               // put on ground
             }
           }
         } else if (scroll.isSelected() == true) {
-          for (int i = 0; i < sizeInventory; i++) {
+          messageBoard.append("You have discarded a Book");
+          for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Book) {
-              messageBoard.append("You have discarded a Book");
+
               items.remove(i);
               // put on ground
             }
           }
         } else if (healthPack.isSelected() == true) {
-          for (int i = 0; i < sizeInventory; i++) {
+          for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Key) {
               items.remove(i);
               // put on ground
@@ -736,7 +745,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-    // player.movePlayer(player.getDirection());
+     player.movePlayer(player.getDirection());
 
     wallaway--;
 
@@ -754,13 +763,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
-
+    player.movePlayer(player.getDirection());
+    player.setDirection(player.getBehind());
     wallaway++;
 
     renderer.repaint();
 
-    // player.setDirection(player.getBehind());
-    // player.movePlayer(player.getDirection());
+     
+    
   }
 
   /**
@@ -774,6 +784,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 
     player.setDirection(player.getRight());
+    renderer.repaint();
 
   }
 
@@ -787,6 +798,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void leftActionPerformed(java.awt.event.ActionEvent evt) {
     player.setDirection(player.getLeft());
+    renderer.repaint();
 
   }
 
