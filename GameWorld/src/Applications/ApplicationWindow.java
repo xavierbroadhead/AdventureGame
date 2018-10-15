@@ -600,14 +600,17 @@ public class ApplicationWindow extends javax.swing.JFrame {
       messageBoard.append("Your inventory is full \n please discard something");
     }
 
-    if (this.player.pickup()) {
+    if (this.player.getPosition().containsItem()) {
+      
       GameWorld.Item item = this.player.getPosition().getItem();
-      this.player.addItem(item);
+      
 
       if (item instanceof GameWorld.Key) {
+        this.player.pickup();
         messageBoard.append("You have picked up a Key! \n");
         // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
+        this.player.pickup();
         messageBoard.append("You have picked up a Book! \n");
         // inventory 1 .add icon
       }
