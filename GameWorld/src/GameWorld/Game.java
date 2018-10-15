@@ -110,68 +110,128 @@ public class Game {
 		return buffer;
 	}
 		
-	/** Checks if there is a wall to the north of the current position
+	/** Checks if there is a wall in front of the current position
 	 * 
 	 * 
-	 * @return true if there is a wall to the north
+	 * @return true if there is a wall in front of the player
 	 */
-	public boolean wallNorth() {
+	public boolean wallForward() {
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
-		if (isAccessible(currentMap[y-1][x], current)) {
-			return false;
+		if(direction == Player.Direction.NORTH) {
+			if (isAccessible(currentMap[y-1][x], current))
+				return false;
 		}
-		else return true;
+		else if(direction == Player.Direction.EAST) {
+			if (isAccessible(currentMap[y][x+1], current))
+				return false;
+		}
+		else if(direction == Player.Direction.SOUTH) {
+			if(isAccessible(currentMap[y+1][x], current))
+				return false;
+			
+		}
+		else if(direction == Player.Direction.WEST) {
+			if(isAccessible(currentMap[y][x-1], current))
+				return false;
+		}
+		return true;
 	}	
 	
-	/** Checks if there is a wall to the east of the current position
+	/** Checks if there is a wall to the right of the current position
 	 * 
 	 * 
-	 * @return true if there is a wall to the east
+	 * @return true if there is a wall to the right of the player
 	 */
-	public boolean wallEast() {
+	public boolean wallRight() {
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
-		if (isAccessible(currentMap[y][x+1], current)) {
-			return false;
+		if(direction == Player.Direction.NORTH) {
+			if (isAccessible(currentMap[y][x+1], current))
+				return false;
 		}
-		else return true;
+		else if(direction == Player.Direction.EAST) {
+			if (isAccessible(currentMap[y+1][x], current))
+				return false;
+		}
+		else if(direction == Player.Direction.SOUTH) {
+			if(isAccessible(currentMap[y][x-1], current))
+				return false;
+			
+		}
+		else if(direction == Player.Direction.WEST) {
+			if(isAccessible(currentMap[y-1][x], current))
+				return false;
+		}
+		return true;
+	}
+	
+	/** Check if there is a wall behind the current position
+	 * 
+	 * 
+	 * @return true if there is a wall behind player
+	 */
+	public boolean wallBehind() {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
+		Integer current = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(current).getMap();
+		if(direction == Player.Direction.NORTH) {
+			if (isAccessible(currentMap[y+1][x], current))
+				return false;
+		}
+		else if(direction == Player.Direction.EAST) {
+			if (isAccessible(currentMap[y][x-1], current))
+				return false;
+		}
+		else if(direction == Player.Direction.SOUTH) {
+			if(isAccessible(currentMap[y-1][x], current))
+				return false;
+			
+		}
+		else if(direction == Player.Direction.WEST) {
+			if(isAccessible(currentMap[y][x+1], current))
+				return false;
+		}
+		return true;
 	}	
 	
-	/** Check if there is a wall to the south of the current position
+	/** Check if there is a wall to the left of the current position
 	 * 
 	 * 
-	 * @return true if there is a wall to the south
+	 * @return true if there is a wall to the left of the player
 	 */
-	public boolean wallSouth() {
+	public boolean wallLeft() {
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
-		if (isAccessible(currentMap[y+1][x], current)) {
-			return false;
+		if(direction == Player.Direction.NORTH) {
+			if (isAccessible(currentMap[y][x-1], current))
+				return false;
 		}
-		else return true;
-	}	
-	
-	/** Check if there is a wall to the west of the current position
-	 * 
-	 * 
-	 * @return true if there is a wall
-	 */
-	public boolean wallWest() {
-		int x = this.player.getPosition().getx();
-		int y = this.player.getPosition().gety();
-		Integer current = player.currentMapInteger();
-		Position[][] currentMap = this.maps.get(current).getMap();
-		if (isAccessible(currentMap[y][x-1], current)) {
-			return false;
+		else if(direction == Player.Direction.EAST) {
+			if (isAccessible(currentMap[y-1][x], current))
+				return false;
 		}
-		else return true;
+		else if(direction == Player.Direction.SOUTH) {
+			if(isAccessible(currentMap[y][x+1], current))
+				return false;
+			
+		}
+		else if(direction == Player.Direction.WEST) {
+			if(isAccessible(currentMap[y+1][x], current))
+				return false;
+		}
+		return true;
 	}
 	
 	/** Checks how many tiles from player's current position and current direction until they hit a wall
