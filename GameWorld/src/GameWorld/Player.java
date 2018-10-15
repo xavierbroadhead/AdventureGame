@@ -1,5 +1,6 @@
 package GameWorld;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -13,6 +14,7 @@ public class Player {
     this.currentMap = startMap;
     this.position = position;
     this.direction = Direction.NORTH;
+    inventory = new ArrayList<Item>();
   }
 
   public enum Direction {
@@ -82,8 +84,8 @@ public class Player {
    *          - The direction to check if the move is valid in
    * @return - True if movement is allowed
    */
-  public boolean moveValid(Direction dir, Integer mapNum) {
-    return game.isAccessible(this.requestPosition(dir), this.currentMap);
+  public boolean moveValid(Direction dir, Integer mapNum, Game game) {
+    return game.isAccessible(this.requestPosition(dir, game), this.currentMap);
   }
 
   /**
@@ -93,9 +95,9 @@ public class Player {
    *          - direction in which we want to move the player
    * @return - True if movement was successful
    */
-  public boolean movePlayer(Direction dir) {
-    if (moveValid(dir, this.currentMap)) {
-      this.position = this.requestPosition(dir);
+  public boolean movePlayer(Direction dir, Game game) {
+    if (moveValid(dir, this.currentMap, game)) {
+      this.position = this.requestPosition(dir, game);
       return true;
     } else
       return false;
@@ -165,20 +167,27 @@ public class Player {
    *          - Direction you need the new position relative to the player's
    *          current position to be in
    */
-  public Position requestPosition(Direction dir) {
+  public Position requestPosition(Direction dir, Game game) {
     Position[][] buffer = game.getMaps().get(this.currentMap).getMap();
+    int x = this.position.getx();
+    int y = this.position.gety();
+    try{
     if (dir == null)
       return null;
     else if (dir == Direction.NORTH) {
-      return buffer[this.position.getx()][this.position.gety() + 1];
+      return buffer[y-1][x];
     } else if (dir == Direction.EAST) {
-      return buffer[this.position.getx() + 1][this.position.gety()];
+      return buffer[y][x+1];
     } else if (dir == Direction.SOUTH) {
-      return buffer[this.position.getx()][this.position.gety() - 1];
+      return buffer[y+1][x];
     }
     // assumed west
     else {
-      return buffer[this.position.getx() - 1][this.position.gety()];
+      return buffer[y][x-1];
+    }
+    }
+    catch(ArrayIndexOutOfBoundsException exception){
+      return this.position;
     }
   }
 

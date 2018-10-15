@@ -8,6 +8,7 @@ import GameWorld.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,16 +38,42 @@ public class Render {
     */
     /**
     Image img = loadImage("keyImage.png");
+    File input = new File("images/keyImage.png");
+    BufferedImage key = null;
+    try {
+      key = ImageIO.read(input);
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    
+    
     //int keyWidth = img.getWidth(this);
     BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
-    Graphics bg = bi.getGraphics();
-    //g2.drawImage(img, 0, 0, null);//draws scroll image on tile
+    //Graphics bg = bi.getGraphics();
+    //g2.drawImage(key, 0, 0, null);//draws scroll image on tile
     
     Image img2 = loadImage("scroll.png");
     //int keyWidth = img.getWidth(this);
-    BufferedImage bi2 = new BufferedImage(img2.getWidth(null), img2.getHeight(null), BufferedImage.TYPE_INT_RGB);
-    */
+    BufferedImage bi2 = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+    //BufferedImage bi2 = (BufferedImage) img3;
+    
+    
+    Image img3 = loadImage("newKeyImage1.png");
+    BufferedImage bi3 = toBufferedImage(img3);
+    
+    
+    
+    Graphics newG = bi3.createGraphics();
+    //newG.drawImage(img3, x, stepsToWallPolys, observer)
+    
+    //BufferedImage bi3 = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+    
+    //img3.getScaledInstance(edgeWidth, tileHeight, hints);
+        
     //g2.drawImage(img2, 0, 0, null);//draws scroll image on tile
+    */
+    
     /**
         //draws blank zoomed in wall when 0 steps away from a wall
         if(steps == 0) {
@@ -286,7 +313,7 @@ public class Render {
     //g2.fillPolygon(rightWall);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     left.drawLine(g2);
     right.drawLine(g2);
-    
+    /**
     if(game.tilesTilWall() == 0) {//will draw a hallway wall when your're facing it
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
@@ -306,33 +333,106 @@ public class Render {
       }
       return;
     }
-    
+    */
+    /**
+    //end of wall is on the right
+    if(game.tilesTilWall() == 0) {
+      g2.setColor(Color.BLACK);
+      //line for skiring seperating floor and walls
+      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.setColor(Color.RED);
+      g2.fillPolygon(backWallT);//draws back wall all along display
+      g2.fillPolygon(rightWall);
+
+      for(Intersect i : intersectionsL) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+
+      for(Intersect i : intersectionsR) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+      return;
+    }
+    */
+    /**
+    //end of wall is on the left
+    if(game.tilesTilWall() == 0) {//&& game.hasLeftCorner() == false
+      g2.setColor(Color.BLACK);
+      //line for skiring seperating floor and walls
+      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.setColor(Color.RED);
+      g2.fillPolygon(backWallT);//draws back wall all along display
+      g2.fillPolygon(leftWall);
+
+      for(Intersect i : intersectionsL) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+
+      for(Intersect i : intersectionsR) {
+        g2.setColor(Color.BLACK);
+        g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+      }
+      return;
+    }
+    */
     
     
     //draws right corner turn
-    //if(game.hasRightCorner()) {
+    if(game.tilesTilWall() == 2 ) {
     g2.setColor(Color.RED);
     g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);//draws line seperating back wall from floor
     g2.fillPolygon(rightTurn);//call to draw right turn//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     g2.fillPolygon(leftWall);
-    // }
+    g2.fillPolygon(backWallT);
+    
+    g2.setColor(Color.BLACK); 
+
+    //line for wall turn
+    g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
+
+    g2.setColor(Color.BLACK);
+    //line for skiring seperating floor and walls
+    g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+    g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+
+    for(Intersect i : intersectionsL) {
+      g2.setColor(Color.BLACK);
+      g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+    }
+
+    for(Intersect i : intersectionsR) {
+      g2.setColor(Color.BLACK);
+      g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+    }
+    
+    //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
+    return;
+     }
+    
+    //if(door in front){
+    //}
 
 
      //draws left corner turn
-    //if(game.hasLeftCorner()) {
+    if(game.hasLeftCorner()) {
     g2.setColor(Color.BLACK);
     g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
     g2.setColor(Color.GREEN);
-    //g2.fillPolygon(leftTurn);//call to draw left turn
-    //g2.fillPolygon(rightWall);
-    //}
+    g2.fillPolygon(leftTurn);//call to draw left turn
+    g2.fillPolygon(rightWall);
+    }
     //}
     
     //draws back wall last to cover horizon guide lines
     g2.setColor(Color.RED);  
-    g2.fillPolygon(backWall);
+    //g2.fillPolygon(backWall);
     //if(no turns on either side of corridor){
-    g2.fillPolygon(leftWall);
+    //g2.fillPolygon(leftWall);
     //g2.fillPolygon(rightWall);
     //}
     
@@ -367,7 +467,8 @@ public class Render {
     
     //g2.drawImage(img, 0, 0, null);//draws key image on tile
     //g2.drawImage(img2, 0, 0, null);//draws scroll image on tile
-
+    //g2.drawImage(bi3, 0, 0, null);//draws scroll image on tile
+    //g2.drawImage(key, 0, 0, null);
   }
   
   public static Image loadImage(String fileName) {
@@ -383,6 +484,35 @@ public class Render {
       throw new RuntimeException("Unable to load image" + fileName);
     }
   }
+  
+  public BufferedImage toBufferedImage(Image img){
+      if (img instanceof BufferedImage)
+      {
+          return (BufferedImage) img;
+      }
+
+      // Create a buffered image with transparency
+      BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+      // Draw the image on to the buffered image
+      Graphics2D bGr = bimage.createGraphics();
+      bGr.drawImage(img, 0, 0, null);
+      bGr.dispose();
+
+      // Return the buffered image
+      return bimage;
+  }
+  
+  public BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+    BufferedImage scaledImage = null;
+    if (imageToScale != null) {
+        scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+        Graphics2D graphics2D = scaledImage.createGraphics();
+        graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+        graphics2D.dispose();
+    }
+    return scaledImage;
+}
 
 }
 

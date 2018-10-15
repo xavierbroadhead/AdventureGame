@@ -4,6 +4,7 @@ public class Position {
   private int x;
   private int y;
   private Item item = null;
+  private Door door = null;
   private Camera camera;
 
   public Position(int x, int y) {
@@ -14,7 +15,12 @@ public class Position {
   public int getx() {
     return x;
   }
-
+  public void setDoor(Door door) {
+	  this.door = door;
+  }
+  public Door getDoor() {
+	  return door;
+  }
   public int gety() {
     return y;
   }

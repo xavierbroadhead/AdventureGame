@@ -15,6 +15,7 @@ import GameWorld.Player.Direction;
 import GameWorld.Position;
 import mapEditor.MapEditor;
 import Renderer.Render;
+import Parser.Parser;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -46,6 +47,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class ApplicationWindow extends javax.swing.JFrame {
 
+  protected Parser parser = new Parser();
   protected Player player = new Player(1, new Position(0, 0));
   protected Game game = new Game(player);
   protected Render render = new Render();
@@ -539,6 +541,43 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          When new game called, call relevant methods to initialise game
    */
   private void newGameActionPerformed(java.awt.event.ActionEvent evt) {
+    javax.swing.JFrame newGame = new javax.swing.JFrame();
+
+    javax.swing.JDialog warning = new javax.swing.JDialog();
+    javax.swing.JLabel message = new javax.swing.JLabel(
+        "Are you sure you would like begin start a new game? All Progress will be LOST");
+
+    JButton yes = new JButton("yes");
+    yes.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) { // need to sort out
+        dispose();
+        newGame.dispose();
+        new ApplicationWindow().main(null);
+      }
+    });
+
+    JButton no = new JButton("no");
+    no.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent ev) {
+        newGame.dispose();
+      }
+    });
+
+    javax.swing.JFrame buttons = new javax.swing.JFrame();
+    buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+    buttons.add(yes);
+    buttons.add(no);
+
+    newGame.add(message);
+    newGame.add(yes);
+    newGame.add(no);
+
+    newGame.setSize(550, 80);
+    newGame.setLayout(new FlowLayout());
+    newGame.setResizable(false);
+    newGame.setVisible(true);
+
+    messageBoard.append("You have restarted the game \n");
 
     messageBoard.setText("You have started a New Game. \n Welcome :) \n");
 
@@ -562,12 +601,19 @@ public class ApplicationWindow extends javax.swing.JFrame {
     }
 
     if (this.player.pickup()) {
+      GameWorld.Item item = this.player.getPosition().getItem();
+      this.player.addItem(item);
 
-      // what item am i on top of
-     // this.player.addItem(); // pass that in
+      if (item instanceof GameWorld.Key) {
+        messageBoard.append("You have picked up a Key! \n");
+        // invetory1 .add icon ....
+      } else if (item instanceof GameWorld.Book) {
+        messageBoard.append("You have picked up a Book! \n");
+        // inventory 1 .add icon
+      }
 
       // if there is an item you are on top of
-      messageBoard.append("You have picked up an Item! \n");
+
       // else there is no item to pick up
     }
 
@@ -584,7 +630,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openMapEditorActionPerformed(java.awt.event.ActionEvent evt) {
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
-
+    renderer.repaint();
   }
 
   /**
@@ -596,6 +642,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          the relevant methods to open the door.
    */
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
+    
+    if(player.getPosition().getDoor != null) {
+      player.getPosition().getDoor().
+    }
     // if you have key
     HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
     doors = this.game.getDoors();
@@ -745,7 +795,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-     player.movePlayer(player.getDirection());
+    player.movePlayer(player.getDirection(), this.game);
 
     wallaway--;
 
@@ -763,14 +813,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
-    player.movePlayer(player.getDirection());
+    player.movePlayer(player.getDirection(), this.game);
     player.setDirection(player.getBehind());
     wallaway++;
 
     renderer.repaint();
 
-     
-    
   }
 
   /**
@@ -816,13 +864,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      // File file = chooserSave.getSelectedFile();
-      // try {
-      // What to do with the file, e.g. display it in a TextArea
-      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
+      File file = chooserSave.getSelectedFile();
+      parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player, file);
+
     } else {
       System.out.println("File access cancelled by user.");
     }
@@ -842,13 +886,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void loadActionPerformed(java.awt.event.ActionEvent evt) {
     int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-      // File file = chooserLoad.getSelectedFile();
-      // try {
-      // What to do with the file, e.g. display it in a TextArea
-      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
+      File file = chooserLoad.getSelectedFile();
+      String filename = file.getName();
+      Game loadedGame = parser.loadFromFile(filename);
+      this.game = loadedGame;
+      renderer.repaint(); // refreshes the players position etc
+
     } else {
       System.out.println("File access cancelled by user.");
     }

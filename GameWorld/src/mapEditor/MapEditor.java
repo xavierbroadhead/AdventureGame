@@ -4,11 +4,12 @@ import GameWorld.Game;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
+import Parser.Parser;
 
+import java.awt.List;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -16,7 +17,7 @@ import javax.swing.JFileChooser;
 
 /**
  * The Map Editor Class that handles editing the map when in play.
- * @author Christian Lee
+ * @author Christian Lee 300417339
  */
 public class MapEditor extends javax.swing.JFrame {
 
@@ -26,6 +27,7 @@ public class MapEditor extends javax.swing.JFrame {
   private static final long serialVersionUID = 1L;
   
   // MapEditor variables
+  private Parser parser;
   private Game originalGame;
   private ArrayList<JButton> buttonList;
   private ArrayList<String[][]> rooms;
@@ -268,8 +270,9 @@ public class MapEditor extends javax.swing.JFrame {
    * components.
    */
   private void initComponents() {
-
+    
     // Create all of the variables.
+    parser = new Parser();
     jpanel1 = new javax.swing.JPanel();
     jcomboBox1 = new javax.swing.JComboBox<>();
     jbutton1 = new javax.swing.JButton();
@@ -740,12 +743,10 @@ public class MapEditor extends javax.swing.JFrame {
 
     int returnVal = jfileChooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
+      saveGame();
       File file = jfileChooserSave.getSelectedFile();
-      // try {
-      // Set loaded game as this.originalgame.
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
+      parser.saveToFile(this.originalGame.getMaps(), this.originalGame.getDoors(), 
+          this.originalGame.getPlayer(), file); //Method not finished yet. 
     } else {
       System.out.println("File access cancelled by user.");
     }
@@ -760,14 +761,10 @@ public class MapEditor extends javax.swing.JFrame {
     int returnVal = jfileChooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = jfileChooserLoad.getSelectedFile();
-      saveGame();
-      // try {
-      // What to do with the file, e.g. display it in a TextArea
-      // textarea.read( new FileReader( file.getAbsolutePath() ), null );
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
-      //
+      String filename = file.getName();
+      Game loadedGame = parser.loadFromFile(filename);
+      this.originalGame = loadedGame;
+      convertGameToString();
     } else {
       System.out.println("File access cancelled by user.");
     }
