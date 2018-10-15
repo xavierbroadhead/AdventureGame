@@ -42,8 +42,8 @@ public class Game {
 		doors.put(3, door3);
 		doors.put(4, door4);
     
-		Key key1 = new Key(1, map1[2][2], 1, "A key with no markings." , "Key", 1, 1, new ImageIcon());
-		Key key2 = new Key(1, map2[2][4], 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, 3, new ImageIcon());
+		Key key1 = new Key(1, 1, "A key with no markings." , "Key", 1, 1, new ImageIcon());
+		Key key2 = new Key(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, 3, new ImageIcon());
 		map1[2][2].addItem(key1);
 		map2[2][4].addItem(key2);
 		keys.put(1, key1);
