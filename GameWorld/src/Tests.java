@@ -28,15 +28,15 @@ public class Tests {
   
   /**
    * First buttons work.
-   
+   */
   @Test
   public void checkbuttons() {
     Player player = null;
     Game game = new Game(player);
     MapEditor mapEditor = new MapEditor(game);
-    ArrayList<JButton> buttons = mapEditor.getButtons();
-    for (JButton butt : buttons) {
+    mapEditor.setVisible(true);
+    for (JButton butt : mapEditor.getButtons()) {
       butt.doClick();
     }
-  }*/
+  }
 }

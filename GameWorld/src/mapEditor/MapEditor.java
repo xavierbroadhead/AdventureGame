@@ -1,13 +1,10 @@
-/*
- * The Map Editor Class that handles editing the map when in play.
- */
-
 package mapEditor;
 
 import GameWorld.Game;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +15,16 @@ import javax.swing.JFileChooser;
 
 
 /**
- * TODO Look up all of the functions needed. 
- * walls are in the game.
- * 
+ * The Map Editor Class that handles editing the map when in play.
  * @author Christian Lee
  */
 public class MapEditor extends javax.swing.JFrame {
 
+  /**
+   * Declaration to remove error that does not change any functionality. 
+   */
+  private static final long serialVersionUID = 1L;
+  
   // MapEditor variables
   private Game originalGame;
   private ArrayList<JButton> buttonList;
@@ -76,15 +76,16 @@ public class MapEditor extends javax.swing.JFrame {
     this.originalGame = game;
     initComponents();
     this.rooms = convertGameToString();
+    saveGame();
   }
 
-  /**TODO NEED TO FINISH THIS METHOD to return or act on something
+  /**
    * Saves the new modified game state into the existing game. This converts the
    * string array into a Game object which is the original game.
    * void method and takes no arguments.
    */
   public void saveGame() {
-
+  
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
     GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
@@ -113,11 +114,10 @@ public class MapEditor extends javax.swing.JFrame {
     newMaps.put(3, new Map(map3));
     
     this.originalGame.setMaps(newMaps);
-    
-    // Convert rooms string back into a game and assign to this.originalGame
-  }
 
-  /**TODO NEED TO FINISH THIS METHOD to take in a game and check NullpointerExceptions
+  }
+   
+  /**
    * Takes a Game object and converts it into a string array so that modifications
    * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
@@ -760,6 +760,7 @@ public class MapEditor extends javax.swing.JFrame {
     int returnVal = jfileChooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = jfileChooserLoad.getSelectedFile();
+      saveGame();
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
