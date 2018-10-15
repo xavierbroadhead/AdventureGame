@@ -121,6 +121,7 @@ public class Game {
 		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
+		try {
 		if(direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y-1][x], current))
 				return false;
@@ -139,6 +140,10 @@ public class Game {
 				return false;
 		}
 		return true;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
 	}	
 	
 	/** Checks if there is a wall to the right of the current position
@@ -152,6 +157,7 @@ public class Game {
 		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
+		try {
 		if(direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y][x+1], current))
 				return false;
@@ -170,6 +176,10 @@ public class Game {
 				return false;
 		}
 		return true;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
 	}
 	
 	/** Check if there is a wall behind the current position
@@ -183,6 +193,7 @@ public class Game {
 		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
+		try {
 		if(direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y+1][x], current))
 				return false;
@@ -201,6 +212,10 @@ public class Game {
 				return false;
 		}
 		return true;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
 	}	
 	
 	/** Check if there is a wall to the left of the current position
@@ -214,6 +229,7 @@ public class Game {
 		Player.Direction direction = player.getDirection();
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
+		try {
 		if(direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y][x-1], current))
 				return false;
@@ -232,6 +248,10 @@ public class Game {
 				return false;
 		}
 		return true;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
 	}
 	
 	/** Checks how many tiles from player's current position and current direction until they hit a wall
