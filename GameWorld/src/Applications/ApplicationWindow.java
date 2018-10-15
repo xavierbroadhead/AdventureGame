@@ -313,7 +313,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
-    inventory1.setText("      ");
+    inventory1.setText("");
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
 
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -326,10 +326,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
     inventory4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
     inventory4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory5.setText("           ");
+    inventory5.setText("");
     inventory5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory6.setText("           ");
+    inventory6.setText("");
     inventory6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     // URL url ApplicationWindow.class.getResource("\"ooga.gif\"")
@@ -607,6 +607,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       if (item instanceof GameWorld.Key) {
         this.player.pickup();
+        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
         messageBoard.append("You have picked up a Key! \n");
         // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
@@ -678,6 +679,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       if (door.getDirection() == player.getDirection()) {
         if (door.hasKey(player)) {
           messageBoard.append("KaCHINK... the door is now \n open... \n");
+          door.setLock(false);
         } else {
           messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere around the faculty");
         }
