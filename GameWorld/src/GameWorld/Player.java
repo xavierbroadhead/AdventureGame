@@ -174,11 +174,11 @@ public class Player {
     if (dir == null)
       return null;
     else if (dir == Direction.NORTH) {
-      return buffer[y+1][x];
+      return buffer[y-1][x];
     } else if (dir == Direction.EAST) {
       return buffer[y][x+1];
     } else if (dir == Direction.SOUTH) {
-      return buffer[y-1][x];
+      return buffer[y+1][x];
     }
     // assumed west
     else {
