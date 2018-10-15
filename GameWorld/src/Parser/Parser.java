@@ -275,9 +275,10 @@ public class Parser {
    * 
    * Note from Christian - 
    * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use 
-   * .values to get your lists.
+   * .values to get your lists. Also added the file the info will be saved to from the 
+   * selector in Mapeditor and ApplicationWindow classes.
    */
-  public void saveToFile(HashMap<Integer, Map> maps, HashMap<Integer, Door> doors, Player player) {
+  public void saveToFile(HashMap<Integer, Map> maps, HashMap<Integer, Door> doors, Player player, File file) {
     // root element
     Element gameElement = new Element("Game");
     Document doc = new Document(gameElement);

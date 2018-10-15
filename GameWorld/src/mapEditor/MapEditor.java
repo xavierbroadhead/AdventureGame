@@ -746,12 +746,7 @@ public class MapEditor extends javax.swing.JFrame {
       saveGame();
       File file = jfileChooserSave.getSelectedFile();
       parser.saveToFile(this.originalGame.getMaps(), this.originalGame.getDoors(), 
-          this.originalGame.getPlayer()); //Method not finished yet. 
-      // try {
-      // Set loaded game as this.originalgame.
-      // } catch (IOException ex) {
-      // System.out.println("problem accessing file"+file.getAbsolutePath());
-      // }
+          this.originalGame.getPlayer(), file); //Method not finished yet. 
     } else {
       System.out.println("File access cancelled by user.");
     }

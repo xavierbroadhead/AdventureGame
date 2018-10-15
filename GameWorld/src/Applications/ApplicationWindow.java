@@ -861,7 +861,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = chooserSave.getSelectedFile();
-      parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player);
+      parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player, file);
       // try {
       // What to do with the file, e.g. display it in a TextArea
       // textarea.read( new FileReader( file.getAbsolutePath() ), null );
