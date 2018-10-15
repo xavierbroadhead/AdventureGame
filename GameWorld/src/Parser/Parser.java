@@ -13,9 +13,12 @@ import javax.swing.ImageIcon;
 
 import org.jdom2.DataConversionException;
 import org.jdom2.Document;
+import org.jdom2.Attribute;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import GameWorld.Game;
 import GameWorld.Item;
@@ -36,6 +39,7 @@ public class Parser {
   /**
    * Create a Game object from an xml save file
    * (call this to load from a file)
+   * TODO: May need to add Furniture functionality
    * @param fname
    *          filename (obtained from a file chooser of some sort)
    * @return
@@ -262,5 +266,27 @@ public class Parser {
     String filename = icon.getText();
     return new ImageIcon(filename);
   }
+
+
+
+  /**
+   * Create an xml save file from a list of maps, doors, and a Player
+   */
+  public void saveToFile(List<Map> maps, List<Door> doors, Player player) {
+    try {
+
+      // root element
+      Element gameElement = new Element("Game");
+      Document doc = new Document(gameElement);
+
+      // Map element
+      for (Map m : maps) {
+        Element mapElement = new Element("Map");
+      
+      }
+
+    } catch(IOException e) {e.printStackTrace();}
+  }
+
 
 }

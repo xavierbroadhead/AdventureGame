@@ -5,73 +5,78 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 public class Game {
-	private HashMap<Integer, Map> maps;
-	private Player player;
-	private HashMap<Integer, Key> keys;
-	private HashMap<Integer, Door> doors;
+  private HashMap<Integer, Map> maps;
+  private Player player;
+  private HashMap<Integer, Key> keys;
+  private HashMap<Integer, Door> doors;
 
-	public Game(Player player) {
-		maps = new HashMap<Integer, Map>();
-		this.keys = new HashMap<Integer, Key>();
-		this.doors = new HashMap<Integer, Door>();
-		Position[][] map1 = {{new Position(0,0), null, new Position(2,0), new Position(3,0), null},
-							{new Position(0,1), null, new Position(2,1), null, null},
-							{new Position(0,2), new Position(1,2), new Position(2,2), null, null}
-							,{null, null, null, null, null}
-							,{null, null, null, null, null}};
+  /**
+   * The constructor for a Game class object.
+   * @param player The active player.
+   */
+  public Game(Player player) {
+    maps = new HashMap<Integer, Map>();
+    this.keys = new HashMap<Integer, Key>();
+    this.doors = new HashMap<Integer, Door>();
+    Position[][] map1 = {{new Position(0,0), null, new Position(2,0), new Position(3,0), null},
+      {new Position(0,1), null, new Position(2,1), null, null},
+      {new Position(0,2), new Position(1,2), new Position(2,2), null, null},
+      {null, null, null, null, null},
+      {null, null, null, null, null}};
 
-		Position[][] map2 = {{new Position(0,0), null, null, null, null},
-							{new Position(0,1), null, null, null, null},
-							{new Position(0,2), new Position(1,2), null, null, null},
-							{null, new Position(1,3), null, new Position(3,3), new Position(4,3)},
-							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
+    Position[][] map2 = {{new Position(0,0), null, null, null, null},
+      {new Position(0,1), null, null, null, null},
+      {new Position(0,2), new Position(1,2), null, null, null},
+      {null, new Position(1,3), null, new Position(3,3), new Position(4,3)},
+      {null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
 
-		Position[][] map3 = {{new Position(0,0), new Position(1,0), new Position(2,0), null, null},
-							{null, null, new Position(2,1), null, new Position(4,1)},
-							{null, new Position(1,2), new Position(2,2), null, new Position(4,2)},
-							{null, new Position(1,3), null, new Position(3,3), new Position (4,3)},
-							{new Position(0,4), new Position(1,4), new Position(2,4), new Position(3,4), null}};
+    Position[][] map3 = {{new Position(0,0), new Position(1,0), new Position(2,0), null, null},
+      {null, null, new Position(2,1), null, new Position(4,1)},
+      {null, new Position(1,2), new Position(2,2), null, new Position(4,2)},
+      {null, new Position(1,3), null, new Position(3,3), new Position(4,3)},
+      {new Position(0,4), new Position(1,4), new Position(2,4), new Position(3,4), null}};
 
-		Door door1 = new Door(true, 1, 1, 2, map1[3][0], map2[0][0], Player.Direction.NORTH);
-		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0], Player.Direction.NORTH);
-		Door door3 = new Door(true, 2, 3, 3, map2[4][3], map3[0][0], Player.Direction.EAST);
-		Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[4][3], Player.Direction.NORTH);
-		this.doors.put(1, door1);
-		this.doors.put(2, door2);
-		this.doors.put(3, door3);
-		this.doors.put(4, door4);
+    Door door1 = new Door(true, 1, 1, 2, map1[3][0], map2[0][0], Player.Direction.NORTH);
+    Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0], Player.Direction.NORTH);
+    Door door3 = new Door(true, 2, 3, 3, map2[4][3], map3[0][0], Player.Direction.EAST);
+    Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[4][3], Player.Direction.NORTH);
+    this.doors.put(1, door1);
+    this.doors.put(2, door2);
+    this.doors.put(3, door3);
+    this.doors.put(4, door4);
 
+    
+    maps.put(1, new Map(map1));
+    maps.put(2, new Map(map2));
+    maps.put(3, new Map(map3));
+    
+    this.player = player;
+  }
 
-		maps.put(1, new Map(map1));
-		maps.put(2, new Map(map2));
-		maps.put(3, new Map(map3));
-
-		this.player = player;
-	}
-
-	public void setMaps(HashMap<Integer, Map> newMaps){
+  public void setMaps(HashMap<Integer, Map> newMaps) {
     maps = newMaps;
   }
-	
-	public HashMap<Integer, Map> getMaps(){
-		return maps;
-	}
 
-	public HashMap<Integer, Key> getKeys(){
+  public HashMap<Integer, Map> getMaps() {
+    return maps;
+  }
+
+  public HashMap<Integer, Key> getKeys() {
     return keys;
   }
 
-	public HashMap<Integer, Door> getDoors(){
+  public HashMap<Integer, Door> getDoors() {
     return doors;
   }
-	/** Returns true if the position on the given map number is accessible
+  
+  /** Returns true if the position on the given map number is accessible.
 	 *
 	 *
 	 * @param position - The position we are checking
 	 * @param mapNum - The map we want to check
 	 * @return - True if the position is within the accessible array stored in the given map
 	 */
-	public boolean isAccessible(Position position, Integer mapNum) {
+  public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
 		Position[][] buffer = maps.get(mapNum).getMap();
 		int x = position.getx();
