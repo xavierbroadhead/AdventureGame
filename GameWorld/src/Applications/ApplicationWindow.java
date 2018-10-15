@@ -642,26 +642,21 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          the relevant methods to open the door.
    */
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
-    
-    if(player.getPosition().getDoor != null) {
-      player.getPosition().getDoor().
-    }
-    // if you have key
-    HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
-    doors = this.game.getDoors();
-    Integer currentMap = this.player.currentMapInteger();
-    for (Map.Entry<Integer, GameWorld.Door> entry : doors.entrySet()) {
-      if (entry.getKey() == currentMap) {
-        Door current = entry.getValue();
-        if (current.isLocked()) {
-          messageBoard.append("Door " + currentMap + " is still locked, you \n you need to find the right key");
-        } else {
+    Door door = player.getPosition().getDoor();
+    if (door != null) {
+      if (door.getDirection() == player.getDirection()) {
+        if (door.isLocked()==false) {
           messageBoard.append("You have opened the door, sir \n");
+        } else {
+          messageBoard.append("Door is still locked, you \n you need to find the right key");
         }
+      } else {
+        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "");
       }
+    } else {
+      messageBoard.append("You are not near a door!");
     }
 
-    // else print message saying you need to find a key have a look around this base
   }
 
   /**
@@ -674,35 +669,25 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          unlock the door.
    */
   private void unlockActionPerformed(java.awt.event.ActionEvent evt) {
-    List<GameWorld.Item> inventory = player.getInventory();
-    HashMap<Integer, GameWorld.Door> doors = new HashMap<Integer, GameWorld.Door>();
-    HashMap<Integer, GameWorld.Key> keys = new HashMap<Integer, GameWorld.Key>();
 
-    for (Map.Entry<Integer, Door> entry : doors.entrySet()) {
-      Door currentDoor = entry.getValue();
-
-      if (this.player.getPosition().equals(currentDoor.getDoorPosition())) {
-
-      }
-      for (int i = 0; i < inventory.size(); i++) {
-
-        if (inventory.get(i) instanceof GameWorld.Key) {
-          for (Map.Entry<Integer, GameWorld.Key> enter : keys.entrySet()) {
-            Key currentKey = enter.getValue();
-            if (inventory.get(i).getItemID() == currentKey.getDoor()) {
-              messageBoard.append("KaCHINK... the door is now \n open... \n");
-              return;
-            }
-
-          }
-          // change the door status to unlocked unsure how to do
-
+    Door door = player.getPosition().getDoor();
+    if (door != null) {
+      if (door.getDirection() == player.getDirection()) {
+        if (door.hasKey(player)) {
+          messageBoard.append("KaCHINK... the door is now \n open... \n");
+        } else {
+          messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere around the faculty");
         }
+      } else {
+        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "");
       }
-
-      messageBoard.append("You do not have any Key on \n " + "you! Go find one somewhere around the faculty");
-
+    } else {
+      messageBoard.append("You are not near a door!");
     }
+
+   
+
+   
 
   }
 
