@@ -188,6 +188,7 @@ public class Player {
     }
     catch(ArrayIndexOutOfBoundsException exception){
       return this.position;
+    }
   }
 
   // used by Parser to fill inventory from file
