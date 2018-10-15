@@ -30,11 +30,11 @@ import GameWorld.Player.Direction;
 /**
  * Refer to Parser > savegameformat.txt for a detailed look at the XML hierarchy
  */
+
 public class Parser {
 
   private List<Map> mapObjects = new ArrayList<>();
   private List<Door> doorObjects = new ArrayList<>();
-
 
   /**
    * Create a Game object from an xml save file
@@ -273,19 +273,15 @@ public class Parser {
    * Create an xml save file from a list of maps, doors, and a Player
    */
   public void saveToFile(List<Map> maps, List<Door> doors, Player player) {
-    try {
+    // root element
+    Element gameElement = new Element("Game");
+    Document doc = new Document(gameElement);
 
-      // root element
-      Element gameElement = new Element("Game");
-      Document doc = new Document(gameElement);
-
-      // Map element
-      for (Map m : maps) {
-        Element mapElement = new Element("Map");
-      
-      }
-
-    } catch(IOException e) {e.printStackTrace();}
+    // Map element
+    for (Map m : maps) {
+      Element mapElement = new Element("Map");
+    
+    }
   }
 
 
