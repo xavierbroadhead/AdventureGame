@@ -128,7 +128,7 @@ public class Game {
 				(x == 0 && y == 4 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST))||
 				(x == 0 && direction == Player.Direction.WEST))
 			return 0;
-		
+		try{
 		while(!false) {
 			if (direction == Player.Direction.NORTH) {
 				if (isAccessible(currentMap[y - i][x], integer)) {
@@ -156,6 +156,10 @@ public class Game {
 			}
 		}
 		return i - 1;
+		}
+		catch (ArrayIndexOutOfBoundsException exception){
+			return 0;
+		}
 	}
 	
 	/** Check if there is a left corner in front of our current position within our vision.
@@ -180,7 +184,7 @@ public class Game {
 				(x == 0 && y == 4 &&(direction==Player.Direction.NORTH || direction == Player.Direction.WEST))||
 				(x == 0 && direction == Player.Direction.NORTH || direction == Player.Direction.WEST))
 			return false;
-		
+		try {
 		if (direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y - wall][x - 1], integer)) {
 				return true;
@@ -202,6 +206,10 @@ public class Game {
 			}
 		}
 		return false;
+		}
+		catch (ArrayIndexOutOfBoundsException exception){
+			return false;
+		}
 	}
 	
 	/** Check if there is a corner to the right of our current position within our vision.
@@ -226,7 +234,7 @@ public class Game {
 				(x == 0 && y == 4 &&(direction==Player.Direction.EAST || direction == Player.Direction.SOUTH))||
 				(x == 0 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST)))
 			return false;
-		
+		try{
 		if (direction == Player.Direction.NORTH) {
 			if (isAccessible(currentMap[y - wall][x + 1], integer)) {
 				return true;
@@ -248,6 +256,10 @@ public class Game {
 			}
 		}
 		return false;
+		}
+		catch (ArrayIndexOutOfBoundsException exception){
+			return false;
+		}
 	}
 	
 	/**
