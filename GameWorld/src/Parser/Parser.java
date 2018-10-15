@@ -5,6 +5,7 @@ import GameWorld.Key;
 import GameWorld.Door;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +39,10 @@ public class Parser {
   private List<Door> doorObjects = new ArrayList<>();
 
   /**
-   * Create a Game object from an xml save file
+   * Create a Game object from an XML save file
    * (call this to load from a file)
-   * TODO: May need to add Furniture functionality
-   * @param fname
-   *          filename (obtained from a file chooser of some sort)
-   * @return
+   * @param fname filename (obtained from a file chooser of some sort)
+   * @return complete Game object
    */
   public Game loadFromFile(String fname) {
     File file = new File(fname);
@@ -71,9 +70,8 @@ public class Parser {
       // calls parsePlayer, creating the player object
       Player player = parsePlayer(playerElement);
 
-      Game game = new Game(player);
-      // TODO: need to construct a way of adding mapObjects and doorObjects to game (will involve a fair
-      // amount of coding in Game class)
+      // uses alternate constructor for Game
+      Game game = new Game(mapObjects, doorObjects, player);
       return game;
 
     } catch (JDOMException | IOException e) {
@@ -130,7 +128,6 @@ public class Parser {
 
   /**
    * Logic for parsing a Position (used by loadFromFile)
-   *
    * @param position
    * @return
    */
@@ -156,6 +153,8 @@ public class Parser {
 
   /**
    * Finds a Position in the maps, based on the map, x and y value (used by loadFromFile)
+   * @param findPosition
+   * @return
    */
   private Position parseFindPosition(Element findPosition) {
     Element map = findPosition.getChild("Map");
@@ -273,14 +272,17 @@ public class Parser {
 
 
   /**
-   * Create an xml save file from a list of maps, doors, and a Player
-   *
-   * Note from Christian -
-   * CHANGED THE INPUT TO FIT THE REST OF THE PROGRAM and you can just use
-   * .values to get your lists. Also added the file the info will be saved to from the
-   * selector in Mapeditor and ApplicationWindow classes.
+   * Save the current game state (maps, doors and the player) in an XML file
+   * @param mapHash HashMap of all Maps (passed in this format to match the rest of the program) however here it is immediately converted to a List
+   * @param doorHash HashMap of all Doors (passed in this format to match the rest of the program) however here it is immediately converted to a List
+   * @param player object representing the player
+   * @param file file where the data is to be saved to
    */
-  public void saveToFile(List<Map> maps, List<Door> doors, Player player, File file) {
+  public void saveToFile(HashMap<Integer, Map> mapHash, HashMap<Integer, Door> doorHash, Player player, File file) {
+    // change HashMaps to Lists for easier use
+    List<Map> maps = (List<Map>) mapHash.values();
+    List<Door> doors = (List<Door>) doorHash.values();
+    
     // create root element
     Element game = new Element("Game");
 
@@ -297,10 +299,23 @@ public class Parser {
     // create document
     Document doc = new Document(game);
 
-    //TODO: Save the document
+    // save the document
+    XMLOutputter xmlOutput = new XMLOutputter();
+    xmlOutput.setFormat(Format.getPrettyFormat());
+    try {
+      xmlOutput.output(doc, new FileWriter(file));
+    } catch (IOException e) {
+      System.out.println("Error saving file");
+      e.printStackTrace();
+    }
 
   }
 
+  /**
+   * saves a Player object as an XML element (used by saveToFile)
+   * @param p
+   * @return
+   */
   private Element savePlayer(Player p) {
     Element player = new Element("Player");
 
@@ -314,6 +329,11 @@ public class Parser {
     return player;
   }
 
+  /**
+   * saves the player's inventory as an XML element (used by saveToFile)
+   * @param items
+   * @return
+   */
   private Element saveInventory(List<Item> items) {
     Element inventory = new Element("Inventory");
     // saves the Items in the inventory
@@ -321,6 +341,11 @@ public class Parser {
     return inventory;
   }
 
+  /**
+   * saves a Map object as an XML element (used by saveToFile)
+   * @param m
+   * @return
+   */
   private Element saveMap(Map m) {
     Element map = new Element("Map");
 
@@ -333,7 +358,11 @@ public class Parser {
     return map;
   }
 
-// if p is null, the position's xVal and yVal are saved as -1
+  /**
+   * Saves a Position object as an XML element (used by saveToFile)
+   * @param p if p is null, the position's xVal and yVal are saved as -1
+   * @return
+   */
   private Element savePosition(Position p) {
     Element position = new Element("Position");
 
@@ -361,8 +390,13 @@ public class Parser {
     return position;
   }
 
-  // The title for this type of expression changes depending on where it is being called from,
-  // hence the parameter.
+  /**
+   * Another way of saving a Position; used to save the position of Doors and the player. It is essentially a reference to a Position saved in a given map
+   * @param p the position this element is pointing to
+   * @param map the map where the position is located
+   * @param title the title for this type of expression changes depending on where it is being called from, hence the parameter.
+   * @return an Element object
+   */
   private Element saveFindPosition(Position p, int map, String title) {
     Element findPosition = new Element(title);
     Element mapVal = new Element("Map");
@@ -377,6 +411,11 @@ public class Parser {
     return findPosition;
   }
 
+  /**
+   * Saves an Item object as an XML element
+   * @param i
+   * @return
+   */
   private Element saveItem (Item i) {
     Element item = new Element("Item");
 
@@ -437,7 +476,7 @@ public class Parser {
     Element id = new Element("ID");
     Element link = new Element("Link");
     Element doorPos = saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition");
-    Element linkPos = saveFindPosition(d.getLinkPosition(), d.getMap(), "LinkPosition");  // could have a problem here; map might be wrong
+    Element linkPos = saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition");  // TODO could have a problem here; map might be wrong
     Element direction = new Element("Direction");
 
     locked.setText(Boolean.toString(d.isLocked()));
@@ -457,7 +496,11 @@ public class Parser {
     return door;
   }
 
-  // used by saveDoor. Takes a Direction as a parameter and converts it to a String
+  /**
+   * used by saveDoor. Takes a Direction as a parameter and converts it to a String
+   * @param d
+   * @return
+   */
   private String directionString (Player.Direction d) {
     if (d == Direction.NORTH) {return "NORTH";}
     if (d == Direction.SOUTH) {return "SOUTH";}
@@ -467,6 +510,11 @@ public class Parser {
     return " ";       // shouldn't reach this bit
   }
 
+  /**
+   * Saves the file path for an icon
+   * @param i
+   * @return
+   */
   private Element saveIcon (Item i) {
     Element icon = new Element("Icon");
     if (i instanceof Key) {

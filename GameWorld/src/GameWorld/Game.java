@@ -1,6 +1,7 @@
 package GameWorld;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -58,6 +59,29 @@ public class Game {
 		maps.put(3, new Map(map3));
 		
 		this.player = player;
+	}
+	
+	
+	/**
+	 * Alternative constructor used when game is being created from an XML file. Sets the fields based on parameters passed into the constructor
+	 * TODO: Keys currently doesn't get filled as the XML file does not store a list of all the keys
+	 * @param mapList
+	 * @param doorList
+	 * @param p
+	 */
+	public Game(List<Map> mapList, List<Door> doorList, Player p) {
+	  // fill maps
+	  for (int i = 0; i < mapList.size(); i++) {
+	    maps.put(i, mapList.get(i));
+	  }
+	  
+	  // fill doors
+	  for (int i = 0; i < doorList.size(); i++) {
+      doors.put(i, doorList.get(i));
+    }
+	  
+	  // set player
+	  this.player = p;
 	}
 	
 	public HashMap<Integer, Map> getMaps(){
