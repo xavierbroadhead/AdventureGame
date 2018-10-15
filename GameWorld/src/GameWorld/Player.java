@@ -84,8 +84,8 @@ public class Player {
    *          - The direction to check if the move is valid in
    * @return - True if movement is allowed
    */
-  public boolean moveValid(Direction dir, Integer mapNum) {
-    return game.isAccessible(this.requestPosition(dir), this.currentMap);
+  public boolean moveValid(Direction dir, Integer mapNum, Game game) {
+    return game.isAccessible(this.requestPosition(dir, game), this.currentMap);
   }
 
   /**
@@ -95,9 +95,9 @@ public class Player {
    *          - direction in which we want to move the player
    * @return - True if movement was successful
    */
-  public boolean movePlayer(Direction dir) {
-    if (moveValid(dir, this.currentMap)) {
-      this.position = this.requestPosition(dir);
+  public boolean movePlayer(Direction dir, Game game) {
+    if (moveValid(dir, this.currentMap, game)) {
+      this.position = this.requestPosition(dir, game);
       return true;
     } else
       return false;
@@ -167,7 +167,7 @@ public class Player {
    *          - Direction you need the new position relative to the player's
    *          current position to be in
    */
-  public Position requestPosition(Direction dir) {
+  public Position requestPosition(Direction dir, Game game) {
     Position[][] buffer = game.getMaps().get(this.currentMap).getMap();
     if (dir == null)
       return null;
