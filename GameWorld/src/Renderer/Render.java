@@ -419,13 +419,13 @@ public class Render {
 
 
      //draws left corner turn
-    //if(game.hasLeftCorner()) {
+    if(game.hasLeftCorner()) {
     g2.setColor(Color.BLACK);
     g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
     g2.setColor(Color.GREEN);
-    //g2.fillPolygon(leftTurn);//call to draw left turn
-    //g2.fillPolygon(rightWall);
-    //}
+    g2.fillPolygon(leftTurn);//call to draw left turn
+    g2.fillPolygon(rightWall);
+    }
     //}
     
     //draws back wall last to cover horizon guide lines
