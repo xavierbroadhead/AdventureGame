@@ -163,7 +163,7 @@ public class Game {
 		return i - 1;
 		}
 		catch (ArrayIndexOutOfBoundsException exception){
-			return 0;
+			return i - 1;
 		}
 	}
 	
