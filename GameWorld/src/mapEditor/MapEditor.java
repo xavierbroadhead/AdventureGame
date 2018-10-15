@@ -1,4 +1,4 @@
-package MapEditor;
+package mapEditor;
 
 import GameWorld.Game;
 import GameWorld.Map;
