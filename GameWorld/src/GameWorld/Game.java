@@ -81,11 +81,11 @@ public class Game {
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
 		try {
-		Position[][] buffer = maps.get(mapNum).getMap();
-		int x = position.getx();
-		int y = position.gety();
-		if (buffer[y][x] != null) return true;
-		else return false;
+			Position[][] buffer = maps.get(mapNum).getMap();
+			int x = position.getx();
+			int y = position.gety();
+			if (buffer[y][x] != null) return true;
+			else return false;
 		}
 		catch (ArrayIndexOutOfBoundsException exception) {
 			return false;
@@ -122,24 +122,24 @@ public class Game {
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
 		try {
-		if(direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y-1][x], current))
-				return false;
-		}
-		else if(direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y][x+1], current))
-				return false;
-		}
-		else if(direction == Player.Direction.SOUTH) {
-			if(isAccessible(currentMap[y+1][x], current))
-				return false;
+			if(direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y-1][x], current))
+					return false;
+			}
+			else if(direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y][x+1], current))
+					return false;
+			}
+			else if(direction == Player.Direction.SOUTH) {
+				if(isAccessible(currentMap[y+1][x], current))
+					return false;
 			
-		}
-		else if(direction == Player.Direction.WEST) {
-			if(isAccessible(currentMap[y][x-1], current))
-				return false;
-		}
-		return true;
+			}
+			else if(direction == Player.Direction.WEST) {
+				if(isAccessible(currentMap[y][x-1], current))
+					return false;
+			}
+			return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
 			return true;
@@ -158,24 +158,24 @@ public class Game {
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
 		try {
-		if(direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y][x+1], current))
-				return false;
-		}
-		else if(direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y+1][x], current))
-				return false;
-		}
-		else if(direction == Player.Direction.SOUTH) {
-			if(isAccessible(currentMap[y][x-1], current))
-				return false;
+			if(direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y][x+1], current))
+					return false;
+			}
+			else if(direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y+1][x], current))
+					return false;
+			}
+			else if(direction == Player.Direction.SOUTH) {
+				if(isAccessible(currentMap[y][x-1], current))
+					return false;
 			
-		}
-		else if(direction == Player.Direction.WEST) {
-			if(isAccessible(currentMap[y-1][x], current))
-				return false;
-		}
-		return true;
+			}
+			else if(direction == Player.Direction.WEST) {
+				if(isAccessible(currentMap[y-1][x], current))
+					return false;
+			}
+			return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
 			return true;
@@ -194,24 +194,23 @@ public class Game {
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
 		try {
-		if(direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y+1][x], current))
-				return false;
-		}
-		else if(direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y][x-1], current))
-				return false;
-		}
-		else if(direction == Player.Direction.SOUTH) {
-			if(isAccessible(currentMap[y-1][x], current))
-				return false;
-			
-		}
-		else if(direction == Player.Direction.WEST) {
-			if(isAccessible(currentMap[y][x+1], current))
-				return false;
-		}
-		return true;
+			if(direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y+1][x], current))
+					return false;
+			}
+			else if(direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y][x-1], current))
+					return false;
+			}
+			else if(direction == Player.Direction.SOUTH) {
+				if(isAccessible(currentMap[y-1][x], current))
+					return false;		
+			}
+			else if(direction == Player.Direction.WEST) {
+				if(isAccessible(currentMap[y][x+1], current))
+					return false;
+			}
+			return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
 			return true;
@@ -230,24 +229,24 @@ public class Game {
 		Integer current = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(current).getMap();
 		try {
-		if(direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y][x-1], current))
-				return false;
-		}
-		else if(direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y-1][x], current))
-				return false;
-		}
-		else if(direction == Player.Direction.SOUTH) {
-			if(isAccessible(currentMap[y][x+1], current))
-				return false;
-			
-		}
-		else if(direction == Player.Direction.WEST) {
-			if(isAccessible(currentMap[y+1][x], current))
-				return false;
-		}
-		return true;
+			if(direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y][x-1], current))
+					return false;
+			}
+			else if(direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y-1][x], current))
+					return false;
+			}
+			else if(direction == Player.Direction.SOUTH) {
+				if(isAccessible(currentMap[y][x+1], current))
+					return false;
+
+			}
+			else if(direction == Player.Direction.WEST) {
+				if(isAccessible(currentMap[y+1][x], current))
+					return false;
+			}
+			return true;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
 			return true;
@@ -278,33 +277,33 @@ public class Game {
 			return 0;
 		
 		try{
-		while(true) {
-			if (direction == Player.Direction.NORTH) {
-				if (isAccessible(currentMap[y - i][x], integer)) {
-					i++;
+			while(true) {
+				if (direction == Player.Direction.NORTH) {
+					if (isAccessible(currentMap[y - i][x], integer)) {
+						i++;
+					}
+					else break;
 				}
-				else break;
-			}
-			else if (direction == Player.Direction.EAST) {
-				if (isAccessible(currentMap[y][x + i], integer)) {
-					i++;
+				else if (direction == Player.Direction.EAST) {
+					if (isAccessible(currentMap[y][x + i], integer)) {
+						i++;
+					}
+					else break;
 				}
-				else break;
-			}
-			else if (direction == Player.Direction.SOUTH) {
-				if (isAccessible(currentMap[y + i][x], integer)) {
-					i++;
+				else if (direction == Player.Direction.SOUTH) {
+					if (isAccessible(currentMap[y + i][x], integer)) {
+						i++;
+					}
+					else break;
 				}
-				else break;
-			}
-			else if (direction == Player.Direction.WEST) {
-				if (isAccessible(currentMap[y][x - i], integer)) {
-					i++;
+				else if (direction == Player.Direction.WEST) {
+					if (isAccessible(currentMap[y][x - i], integer)) {
+						i++;
+					}
+					else break;
 				}
-				else break;
 			}
-		}
-		return i - 1;
+			return i - 1;
 		}
 		catch (ArrayIndexOutOfBoundsException exception){
 			return i - 1;
@@ -336,27 +335,27 @@ public class Game {
 			return false;
 		
 		try {
-		if (direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y - wall][x - 1], integer)) {
-				return true;
+			if (direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y - wall][x - 1], integer)) {
+					return true;
+				}
 			}
-		}
-		else if (direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y - 1][x + wall], integer)) {
-				return true;
+			else if (direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y - 1][x + wall], integer)) {
+					return true;
+				}
+			}		
+			else if (direction == Player.Direction.SOUTH) {
+				if (isAccessible(currentMap[y + wall][x + 1], integer)) {
+					return true;
+				}
+			}		
+			else if (direction == Player.Direction.WEST) {
+				if (isAccessible(currentMap[y + 1][x - wall], integer)) {
+					return true;
+				}
 			}
-		}		
-		else if (direction == Player.Direction.SOUTH) {
-			if (isAccessible(currentMap[y + wall][x + 1], integer)) {
-				return true;
-			}
-		}		
-		else if (direction == Player.Direction.WEST) {
-			if (isAccessible(currentMap[y + 1][x - wall], integer)) {
-				return true;
-			}
-		}
-		return false;
+			return false;
 		}
 		catch (ArrayIndexOutOfBoundsException exception){
 			return false;
@@ -388,27 +387,27 @@ public class Game {
 			return false;
 			
 		try{
-		if (direction == Player.Direction.NORTH) {
-			if (isAccessible(currentMap[y - wall][x + 1], integer)) {
-				return true;
+			if (direction == Player.Direction.NORTH) {
+				if (isAccessible(currentMap[y - wall][x + 1], integer)) {
+					return true;
+				}
 			}
-		}
-		else if (direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y + 1][x + wall], integer)) {
-				return true;
+			else if (direction == Player.Direction.EAST) {
+				if (isAccessible(currentMap[y + 1][x + wall], integer)) {
+					return true;
+				}
+			}		
+			else if (direction == Player.Direction.SOUTH) {
+				if (isAccessible(currentMap[y + wall][x - 1], integer)) {
+					return true;
+				}
+			}		
+			else if (direction == Player.Direction.WEST) {
+				if (isAccessible(currentMap[y - 1][x - wall], integer)) {
+					return true;
+				}
 			}
-		}		
-		else if (direction == Player.Direction.SOUTH) {
-			if (isAccessible(currentMap[y + wall][x - 1], integer)) {
-				return true;
-			}
-		}		
-		else if (direction == Player.Direction.WEST) {
-			if (isAccessible(currentMap[y - 1][x - wall], integer)) {
-				return true;
-			}
-		}
-		return false;
+			return false;
 		}
 		catch (ArrayIndexOutOfBoundsException exception){
 			return false;
