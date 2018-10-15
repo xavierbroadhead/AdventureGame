@@ -289,4 +289,13 @@ public class Game {
 		}
 		else return false;
 	}
+
+  public void setMaps(HashMap<Integer, Map> newMaps) {
+    maps = newMaps;
+    
+  }
+
+  public Player getPlayer() {
+    return this.player;
+  }
 }
