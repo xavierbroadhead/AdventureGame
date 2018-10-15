@@ -34,61 +34,29 @@ public class Render {
     int y = bottom;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
-
-    /**
-    if(game.tilesTilWall() == 0) {
-      g2.setColor(Color.GRAY);
-      g2.fillRect(0, 0, windowWidth, windowHeight);
-      return;
-    }
-     */
-    /**
-    Image img = loadImage("keyImage.png");
-    File input = new File("images/keyImage.png");
-    BufferedImage key = null;
-    try {
-      key = ImageIO.read(input);
-    } catch (IOException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-
-
-    //int keyWidth = img.getWidth(this);
-    BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
-    //Graphics bg = bi.getGraphics();
-    //g2.drawImage(key, 0, 0, null);//draws scroll image on tile
-
+    boolean keyItem = false;
+    
+    
+    Image img1 = loadImage("newKeyImage1.png");
+    //BufferedImage key = scale((BufferedImage)img1, 60, 40);
+    BufferedImage image = null;
     Image img2 = loadImage("scroll.png");
-    //int keyWidth = img.getWidth(this);
-    BufferedImage bi2 = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-    //BufferedImage bi2 = (BufferedImage) img3;
-
-
-    Image img3 = loadImage("newKeyImage1.png");
-    BufferedImage bi3 = toBufferedImage(img3);
-
-
-
-    Graphics newG = bi3.createGraphics();
-    //newG.drawImage(img3, x, stepsToWallPolys, observer)
-
-    //BufferedImage bi3 = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-
-    //img3.getScaledInstance(edgeWidth, tileHeight, hints);
-
-    //g2.drawImage(img2, 0, 0, null);//draws scroll image on tile
-     */
-
-    /**
-        //draws blank zoomed in wall when 0 steps away from a wall
-        if(steps == 0) {
-          //g2.setColor(Color.GRAY);
-          //g2.fillRect(0, 0, windowWidth, windowHeight);
-          return;
-        }
-     */
-
+    //BufferedImage scroll = scale((BufferedImage)img2, 70, 40);
+    
+    //check if item is a key, if so it will get the key image. if not it gets the scroll image
+    if(keyItem) {
+      image = scale((BufferedImage)img1, 60, 40);
+    }
+    else {
+      image = scale((BufferedImage)img2, 70, 40);
+    }
+    
+    
+    //to render object
+    //check if object is in squares in front of player: boolean
+    //if true, return how many steps away it is 
+    
+    
     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
     for(int j = bottom; j > windowHeight/2; j--) {
       y = y/2;
@@ -186,12 +154,32 @@ public class Render {
     for(Polygon p : polygons) {
       //System.out.println("Polygons");
       //System.out.println("Polygon: " + p.toString());
-      g2.setColor(Color.GRAY);
+      g2.setColor(Color.ORANGE);
+      
       g2.fillPolygon(p);
     }
-
-
-
+    
+    for(Tile t: tiles) {
+      g2.setColor(Color.RED);
+      g2.fillOval((int)t.v1.xInt+10, (int)t.v1.yInt - 10, 5, 5);
+      System.out.println("drawn");
+    }
+    System.out.println("Polygons: " + polygons.size());
+    System.out.println("Tiles: " + tiles.size());
+    
+    g2.setColor(Color.ORANGE);
+    Polygon small = polygons.get(polygons.size()-1);
+    g2.fillPolygon(small);
+    Tile last = tiles.get(tiles.size()-1);
+    int sideLength = ((int)last.v3.xInt - (int)last.v1.xInt);
+    int xT = (int)last.v3.xInt - (sideLength/2) - 20;
+    int yT = (int)last.v1.yInt - (int)last.v2.yInt;
+    System.out.println("xt: " + xT);
+    System.out.println("yt: " + yT);
+    g2.drawImage(image, xT, yT, null);
+    g2.setColor(Color.ORANGE);
+    g2.drawOval(xT, yT, 8, 8);
+    g2.drawImage(image, windowWidth-10, 0, null);
     //finding highest tile, where wall will be drawn
     Intersect lMax = null;
     Intersect rMax = null;
@@ -251,7 +239,7 @@ public class Render {
 
     //draws left wall
     Polygon leftWall = new Polygon();
-    leftWall.addPoint((int)topWL.xInt, (int)topWL.yInt);
+    leftWall.addPoint((int)topWL.xInt, (int)topWL.yInt); 
     leftWall.addPoint(0, 0);
     leftWall.addPoint(0, bottom);
     leftWall.addPoint((int)lMax.xInt, (int)lMax.yInt);
@@ -342,6 +330,9 @@ public class Render {
       drawWallLines(intersectionsL, intersectionsR, g2);
 
       //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
+      //g2.drawImage(image, 0, 0, null);
+      //g2.drawImage(image, xT, yT, null);
+      drawItem(image, tiles, g2);
       return;
     }
 
@@ -357,7 +348,8 @@ public class Render {
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
-
+      
+     
 
       g2.setColor(Color.BLACK); 
 
@@ -368,10 +360,15 @@ public class Render {
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      
+      
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
       //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
+      //g2.drawImage(image, 0, 0, null);
+      //g2.drawImage(image, xT, yT, null);
+      drawItem(image, tiles, g2);
       return;
     }
 
@@ -403,6 +400,10 @@ public class Render {
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      //g2.drawImage(image, 0, 0, null);
+      //g2.drawImage(image, (int)last.v2.xInt, (int)last.v2.yInt, null);
+      drawItem(image, tiles, g2);
+      
       return;
     }
 
@@ -418,6 +419,8 @@ public class Render {
       g2.fillPolygon(rightWall);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      //g2.drawImage(image, 0, 0, null);
+      drawItem(image, tiles, g2);
       return;
     }
 
@@ -433,6 +436,9 @@ public class Render {
       g2.fillPolygon(leftWall);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      //g2.drawImage(image, 0, 0, null);
+      //g2.drawImage(image, xT, yT, null);
+      drawItem(image, tiles, g2);
       return;
     }
 
@@ -446,6 +452,9 @@ public class Render {
       g2.fillPolygon(backWallT);//draws back wall all along display
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      //g2.drawImage(image, 0, 0, null);
+      //g2.drawImage(image, xT, yT, null);
+      //drawItem(image, tiles, g2);
       return;
     }
 
@@ -476,8 +485,14 @@ public class Render {
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
-      //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
+      //g2.drawImage(image, 0, 0, null);//draws scroll image on tile
+      //g2.drawImage(image, xT, yT, null);
+      drawItem(image, tiles, g2);
       return;
+    }
+    
+    if(game.hasLeftCorner() == false && game.hasRightCorner() == false) {
+      System.out.println("skipped but caught");
     }
 
     System.out.println("skipped all if's");
@@ -532,6 +547,15 @@ public class Render {
       g.setColor(Color.BLACK);
       g.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
     }
+  }
+  
+  public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g) {
+    Tile targetTile = tiles.get(tiles.size()-1);
+    int tileWidth = (int)targetTile.v3.xInt -  (int)targetTile.v1.xInt;
+    int x = (int)targetTile.v1.xInt + (tileWidth/2) - 20;
+    int tileHeight = (int)targetTile.v2.yInt - (int)targetTile.v1.yInt + 20;
+    int y = (int)targetTile.v2.yInt - (tileHeight/2);
+    g.drawImage(image, x, y, null);
   }
 
   public static Image loadImage(String fileName) {
