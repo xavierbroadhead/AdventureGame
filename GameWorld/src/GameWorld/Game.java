@@ -109,6 +109,70 @@ public class Game {
 		}
 		return buffer;
 	}
+		
+	/** Checks if there is a wall to the north of the current position
+	 * 
+	 * 
+	 * @return true if there is a wall to the north
+	 */
+	public boolean wallNorth() {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Integer current = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(current).getMap();
+		if (isAccessible(currentMap[y-1][x], current)) {
+			return false;
+		}
+		else return true;
+	}	
+	
+	/** Checks if there is a wall to the east of the current position
+	 * 
+	 * 
+	 * @return true if there is a wall to the east
+	 */
+	public boolean wallEast() {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Integer current = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(current).getMap();
+		if (isAccessible(currentMap[y][x+1], current)) {
+			return false;
+		}
+		else return true;
+	}	
+	
+	/** Check if there is a wall to the south of the current position
+	 * 
+	 * 
+	 * @return true if there is a wall to the south
+	 */
+	public boolean wallSouth() {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Integer current = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(current).getMap();
+		if (isAccessible(currentMap[y+1][x], current)) {
+			return false;
+		}
+		else return true;
+	}	
+	
+	/** Check if there is a wall to the west of the current position
+	 * 
+	 * 
+	 * @return true if there is a wall
+	 */
+	public boolean wallWest() {
+		int x = this.player.getPosition().getx();
+		int y = this.player.getPosition().gety();
+		Integer current = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(current).getMap();
+		if (isAccessible(currentMap[y][x-1], current)) {
+			return false;
+		}
+		else return true;
+	}
 	
 	/** Checks how many tiles from player's current position and current direction until they hit a wall
 	 * 
