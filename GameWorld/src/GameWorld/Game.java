@@ -174,6 +174,7 @@ public class Game {
 	public boolean hasLeftCorner() {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
+		if(wall == 0) return false;
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
 		Integer integer = player.currentMapInteger();
@@ -195,7 +196,7 @@ public class Game {
 			}
 		}
 		else if (direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y + 1][x + wall], integer)) {
+			if (isAccessible(currentMap[y - 1][x + wall], integer)) {
 				return true;
 			}
 		}		
@@ -205,7 +206,7 @@ public class Game {
 			}
 		}		
 		else if (direction == Player.Direction.WEST) {
-			if (isAccessible(currentMap[y - 1][x - wall], integer)) {
+			if (isAccessible(currentMap[y + 1][x - wall], integer)) {
 				return true;
 			}
 		}
@@ -224,6 +225,7 @@ public class Game {
 	public boolean hasRightCorner() {
 		Position[][] currentMap = maps.get(player.currentMapInteger()).getMap();
 		int wall = tilesTilWall();
+		if (wall == 0) return false;
 		int x = this.player.getPosition().getx();
 		int y = this.player.getPosition().gety();
 		Player.Direction direction = this.player.getDirection();
@@ -245,7 +247,7 @@ public class Game {
 			}
 		}
 		else if (direction == Player.Direction.EAST) {
-			if (isAccessible(currentMap[y - 1][x + wall], integer)) {
+			if (isAccessible(currentMap[y + 1][x + wall], integer)) {
 				return true;
 			}
 		}		
@@ -255,7 +257,7 @@ public class Game {
 			}
 		}		
 		else if (direction == Player.Direction.WEST) {
-			if (isAccessible(currentMap[y + 1][x - wall], integer)) {
+			if (isAccessible(currentMap[y - 1][x - wall], integer)) {
 				return true;
 			}
 		}

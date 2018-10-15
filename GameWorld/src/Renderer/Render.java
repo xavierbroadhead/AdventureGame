@@ -17,7 +17,8 @@ public class Render {
 
 
   public void renderGame(Graphics2D g2, int width, int height, Game game, int steps) {
-
+    
+    System.out.println("game position: " + game.getPlayer().getPosition().getx() + " , "+  game.getPlayer().getPosition().gety());
     System.out.println("Steps: " + game.tilesTilWall());
     int windowWidth = width;
     int windowHeight = height;
@@ -313,8 +314,8 @@ public class Render {
     //g2.fillPolygon(rightWall);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     left.drawLine(g2);
     right.drawLine(g2);
-    /**
-    if(game.tilesTilWall() == 0) {//will draw a hallway wall when your're facing it
+    
+    if(game.tilesTilWall() == 0 && game.hasLeftCorner() && game.hasRightCorner()) {//will draw a hallway wall when your're facing it
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
@@ -333,10 +334,10 @@ public class Render {
       }
       return;
     }
-    */
-    /**
+    
+    
     //end of wall is on the right
-    if(game.tilesTilWall() == 0) {
+    if(game.tilesTilWall() == 0 && game.hasRightCorner() == false) {
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
@@ -356,10 +357,10 @@ public class Render {
       }
       return;
     }
-    */
-    /**
+    
+    
     //end of wall is on the left
-    if(game.tilesTilWall() == 0) {//&& game.hasLeftCorner() == false
+    if(game.tilesTilWall() == 0 && game.hasLeftCorner() == false) {//&& game.hasLeftCorner() == false
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
@@ -379,11 +380,11 @@ public class Render {
       }
       return;
     }
-    */
+    
     
     
     //draws right corner turn
-    if(game.tilesTilWall() == 2 ) {
+    if(game.hasRightCorner()) {
     g2.setColor(Color.RED);
     g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);//draws line seperating back wall from floor
     g2.fillPolygon(rightTurn);//call to draw right turn//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -423,9 +424,38 @@ public class Render {
     g2.setColor(Color.BLACK);
     g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
     g2.setColor(Color.GREEN);
+    g2.fillPolygon(backWallT);
     g2.fillPolygon(leftTurn);//call to draw left turn
     g2.fillPolygon(rightWall);
+    
+    
+    g2.setColor(Color.BLACK); 
+
+    //line for wall turn
+    g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
+
+    g2.setColor(Color.BLACK);
+    //line for skiring seperating floor and walls
+    g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
+    g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+
+    for(Intersect i : intersectionsL) {
+      g2.setColor(Color.BLACK);
+      g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
     }
+
+    for(Intersect i : intersectionsR) {
+      g2.setColor(Color.BLACK);
+      g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
+    }
+    
+    //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
+    return;
+    }
+    
+    
+    
+    
     //}
     
     //draws back wall last to cover horizon guide lines
