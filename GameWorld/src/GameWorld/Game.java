@@ -42,10 +42,8 @@ public class Game {
 		doors.put(3, door3);
 		doors.put(4, door4);
     
-		Key key1 = new Key(1, map1[2][2], 1, "A key with no markings." , "Key", 1, 1, new ImageIcon());
-		Key key2 = new Key(1, map2[2][4], 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, 3, new ImageIcon());
-		map1[2][2].addItem(key1);
-		map2[2][4].addItem(key2);
+		Key key1 = new Key(1, map1[2][2], 1, "A key with no markings." , "Key", 1, door1, new ImageIcon());
+		Key key2 = new Key(1, map2[2][4], 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, door3, new ImageIcon());
 		keys.put(1, key1);
 		keys.put(2, key2);
     
@@ -166,14 +164,14 @@ public class Game {
 		Integer integer = player.currentMapInteger();
 		Player.Direction direction = this.player.getDirection();
 		
-		if ((y == 0 && direction == Player.Direction.EAST) ||
+		if ((y == 0 && (direction == Player.Direction.EAST || direction == Player.Direction.NORTH)) ||
 				(x == 0 && y == 0 &&(direction == Player.Direction.NORTH || direction == Player.Direction.EAST))||
 				x == 4 && y == 0 &&(direction == Player.Direction.SOUTH || direction == Player.Direction.EAST)||
-				(x == 4 && direction == Player.Direction.SOUTH) ||
+				(x == 4 && (direction == Player.Direction.SOUTH || direction == Player.Direction.EAST)) ||
 				(x == 4 && y == 4 &&(direction == Player.Direction.SOUTH || direction == Player.Direction.WEST))||
-				(y == 4 && direction == Player.Direction.WEST)||
+				(y == 4 && (direction == Player.Direction.WEST || direction == Player.Direction.SOUTH))||
 				(x == 0 && y == 4 &&(direction==Player.Direction.NORTH || direction == Player.Direction.WEST))||
-				(x == 0 && direction == Player.Direction.NORTH))
+				(x == 0 && direction == Player.Direction.NORTH || direction == Player.Direction.WEST))
 			return false;
 		
 		if (direction == Player.Direction.NORTH) {
@@ -212,14 +210,14 @@ public class Game {
 		Player.Direction direction = this.player.getDirection();
 		Integer integer = player.currentMapInteger();
 		
-		if ((y == 0 && direction == Player.Direction.WEST) ||
+		if ((y == 0 && (direction == Player.Direction.WEST || direction == Player.Direction.NORTH)) ||
 				(x == 0 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.SOUTH))||
 				x == 4 && y == 0 &&(direction == Player.Direction.WEST || direction == Player.Direction.NORTH)||
-				(x == 4 && direction == Player.Direction.NORTH) ||
+				(x == 4 && (direction == Player.Direction.NORTH || direction == Player.Direction.EAST)) ||
 				(x == 4 && y == 4 &&(direction == Player.Direction.EAST || direction == Player.Direction.NORTH))||
-				(y == 4 && direction == Player.Direction.EAST)||
+				(y == 4 && (direction == Player.Direction.EAST || direction == Player.Direction.SOUTH))||
 				(x == 0 && y == 4 &&(direction==Player.Direction.EAST || direction == Player.Direction.SOUTH))||
-				(x == 0 && direction == Player.Direction.SOUTH))
+				(x == 0 && (direction == Player.Direction.SOUTH || direction == Player.Direction.WEST)))
 			return false;
 		
 		if (direction == Player.Direction.NORTH) {
@@ -283,12 +281,4 @@ public class Game {
 		}
 		else return false;
 	}
-
-  public void setMaps(HashMap<Integer, Map> newMaps) {
-    maps = newMaps;
-  }
-
-  public Player getPlayer() {
-    return this.player;
-  }
 }
