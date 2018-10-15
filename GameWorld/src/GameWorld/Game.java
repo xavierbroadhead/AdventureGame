@@ -76,12 +76,11 @@ public class Game {
 	 */
 	public boolean isAccessible(Position position, Integer mapNum) {
 		if (position == null) return false;
-		
 		try {
 		Position[][] buffer = maps.get(mapNum).getMap();
 		int x = position.getx();
 		int y = position.gety();
-		if (buffer[x][y] != null) return true;
+		if (buffer[y][x] != null) return true;
 		else return false;
 		}
 		catch (ArrayIndexOutOfBoundsException exception) {
@@ -102,7 +101,7 @@ public class Game {
 				{null, null, null, null, null},
 				{null, null, null, null, null}};
 		for (Position p : pos) {
-			if (buffer[p.getx()][p.gety()] == null) buffer[p.getx()][p.gety()] = p;
+			if (buffer[p.gety()][p.getx()] == null) buffer[p.gety()][p.getx()] = p;
 		}
 		return buffer;
 	}
