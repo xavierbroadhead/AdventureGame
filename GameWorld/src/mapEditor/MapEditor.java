@@ -17,7 +17,7 @@ import javax.swing.JFileChooser;
 
 /**
  * The Map Editor Class that handles editing the map when in play.
- * @author Christian Lee
+ * @author Christian Lee 300417339
  */
 public class MapEditor extends javax.swing.JFrame {
 
