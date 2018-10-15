@@ -479,7 +479,14 @@ public class Game {
 
   public void setMaps(HashMap<Integer, Map> newMaps) {
     maps = newMaps;
-    
+  }
+  
+  public void setDoors(HashMap<Integer, Door> newDoors) {
+    doors = newDoors;
+  }
+  
+  public void setKeys(HashMap<Integer, Key> newKeys) {
+    keys = newKeys;
   }
 
   public Player getPlayer() {
