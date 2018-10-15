@@ -280,7 +280,7 @@ public class Parser {
    * .values to get your lists. Also added the file the info will be saved to from the
    * selector in Mapeditor and ApplicationWindow classes.
    */
-  public void saveToFile(List<Map> maps, List<Door> doors, Player player) {
+  public void saveToFile(List<Map> maps, List<Door> doors, Player player, File file) {
     // create root element
     Element game = new Element("Game");
 
