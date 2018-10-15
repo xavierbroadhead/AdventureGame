@@ -1,5 +1,6 @@
 package GameWorld;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -13,6 +14,7 @@ public class Player {
     this.currentMap = startMap;
     this.position = position;
     this.direction = Direction.NORTH;
+    inventory = new ArrayList<Item>();
   }
 
   public enum Direction {
