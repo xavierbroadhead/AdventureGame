@@ -154,7 +154,7 @@ public class Render {
     for(Polygon p : polygons) {
       //System.out.println("Polygons");
       //System.out.println("Polygon: " + p.toString());
-      g2.setColor(Color.ORANGE);
+      g2.setColor(Color.GRAY);
       
       g2.fillPolygon(p);
     }
@@ -344,7 +344,7 @@ public class Render {
       System.out.println("left turn");
       g2.setColor(Color.BLACK);
       g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
-      g2.setColor(Color.GREEN);
+      g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
@@ -375,6 +375,7 @@ public class Render {
 
     if(game.wallForward() && game.wallRight() && game.wallLeft()) {
       System.out.println("dead end corner");
+      g2.setColor(Color.RED);
       g2.fillPolygon(leftWall);
       g2.fillPolygon(rightWall);
       g2.fillPolygon(backWallT);
@@ -448,7 +449,7 @@ public class Render {
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
-      g2.setColor(Color.BLUE);
+      g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall all along display
 
       drawWallLines(intersectionsL, intersectionsR, g2);
@@ -467,7 +468,7 @@ public class Render {
     if(game.hasLeftCorner() == false && game.hasRightCorner()){
       g2.setColor(Color.BLACK);
       g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
-      g2.setColor(Color.GREEN);
+      g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftWall);//call to draw left turn
       g2.fillPolygon(rightWall);
