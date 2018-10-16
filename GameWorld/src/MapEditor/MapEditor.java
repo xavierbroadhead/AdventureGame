@@ -1,6 +1,8 @@
 package MapEditor;
 
+import GameWorld.Book;
 import GameWorld.Game;
+import GameWorld.Key;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
@@ -8,6 +10,8 @@ import Parser.Parser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -90,19 +94,48 @@ public class MapEditor extends javax.swing.JFrame {
     GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 5; j++) {
+        
+        //Save the contents in the first map
         if (rooms.get(0)[i][j].equals("Wall")) {
           map1[i][j] = null;
+        } else if (rooms.get(0)[i][j].equals("Key")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Key(1, 1, "This is a key", "Key", 1, 1, new ImageIcon()));
+          map1[i][j] = pos;
+        } else if (rooms.get(0)[i][j].equals("Book")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Book(1, 1, "This is a book", "Book", 1, true, "Book", new ImageIcon()));
+          map1[i][j] = pos;
         } else {
           map1[i][j] = new Position(i, j);
         }
-        
+
+        //Save the contents in the second map
         if (rooms.get(1)[i][j].equals("Wall")) {
           map2[i][j] = null;
+        } else if (rooms.get(1)[i][j].equals("Key")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Key(1, 1, "This is a key", "Key", 2, 1, new ImageIcon()));
+          map2[i][j] = pos;
+        } else if (rooms.get(1)[i][j].equals("Book")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Book(1, 1, "This is a book", "Book", 2, true, "Book", new ImageIcon()));
+          map2[i][j] = pos;
         } else {
           map2[i][j] = new Position(i, j);
         }
+
+        //Save the contents in the third map
         if (rooms.get(2)[i][j].equals("Wall")) {
           map3[i][j] = null;
+        } else if (rooms.get(0)[i][j].equals("Key")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Key(1, 1, "This is a key", "Key", 2, 1, new ImageIcon()));
+          map3[i][j] = pos;
+        } else if (rooms.get(0)[i][j].equals("Book")) {
+          Position pos = new Position(i, j);
+          pos.addItem(new Book(1, 1, "This is a book", "Book", 2, true, "Book", new ImageIcon()));
+          map3[i][j] = pos;
         } else {
           map3[i][j] = new Position(i, j);
         }
@@ -161,11 +194,11 @@ public class MapEditor extends javax.swing.JFrame {
         if (map2[i][j] == null) {
           rooms.get(1)[i][j] = "Wall";
         } else {
-          if (map1[i][j].getDoor() != null) {
-            int link = map1[i][j].getDoor().getLink();
-            rooms.get(0)[i][j] = "DoorTo" + link;
-          } else if (map1[i][j].getItem() != null) {
-            rooms.get(0)[i][j] = map1[i][j].getItem().toString();
+          if (map2[i][j].getDoor() != null) {
+            int link = map2[i][j].getDoor().getLink();
+            rooms.get(1)[i][j] = "DoorTo" + link;
+          } else if (map2[i][j].getItem() != null) {
+            rooms.get(1)[i][j] = map2[i][j].getItem().toString();
           } else {
             rooms.get(1)[i][j] = "Empty";
           }
@@ -173,11 +206,11 @@ public class MapEditor extends javax.swing.JFrame {
         if (map3[i][j] == null) {
           rooms.get(2)[i][j] = "Wall";
         } else {
-          if (map1[i][j].getDoor() != null) {
-            int link = map1[i][j].getDoor().getLink();
-            rooms.get(0)[i][j] = "DoorTo" + link;
-          } else if (map1[i][j].getItem() != null) {
-            rooms.get(0)[i][j] = map1[i][j].getItem().toString();
+          if (map3[i][j].getDoor() != null) {
+            int link = map3[i][j].getDoor().getLink();
+            rooms.get(2)[i][j] = "DoorTo" + link;
+          } else if (map3[i][j].getItem() != null) {
+            rooms.get(2)[i][j] = map3[i][j].getItem().toString();
           } else {
             rooms.get(2)[i][j] = "Empty";
           }
@@ -203,12 +236,12 @@ public class MapEditor extends javax.swing.JFrame {
       input += "E";
     } else if (item.equals("Key")) {
       input += "K";
+    } else if (item.equals("Book")) {
+      input += "B";
     } else if (item.equals("Start")) {
       input += "S";
     } else if (item.equals("End")) {
       input += "ED";
-    } else if (item.equals("RoomEnterPos")) {
-      input += "EP";
     } else if (item.equals("DoorTo1")) {
       input += "D1";
     } else if (item.equals("DoorTo2")) {
@@ -352,7 +385,7 @@ public class MapEditor extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
     jcomboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
-        "Wall", "Empty", "Key", "Start", "End", "RoomEnterPos", 
+        "Wall", "Empty", "Key", "Book", "Start", "End", 
         "DoorTo1", "DoorTo2", "DoorTo3", "DoorTo4", "DoorTo5" }));
     jcomboBox1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
