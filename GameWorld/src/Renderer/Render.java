@@ -15,7 +15,14 @@ import java.util.Collections;
 
 public class Render {
 
-
+/**
+ * 
+ * @param g2 - graphics object which gameworld in rendered onto
+ * @param width - width of JPanel used to render in the GUI
+ * @param height - width of JPanel used to render in the GUI
+ * @param game - Current Game being run
+ * @param steps
+ */
   public void renderGame(Graphics2D g2, int width, int height, Game game, int steps) {
 
     System.out.println("game position: " + game.getPlayer().getPosition().getx() + " , "+  game.getPlayer().getPosition().gety());
@@ -27,10 +34,7 @@ public class Render {
     System.out.println("wall right: " + game.wallRight());
     int windowWidth = width;
     int windowHeight = height;
-    int edgeWidth = 50;
-    int tileHeight = 50;
     int bottom = windowWidth;
-    int mid = bottom/2;
     int y = bottom;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
@@ -56,40 +60,30 @@ public class Render {
     //check if object is in squares in front of player: boolean
     //if true, return how many steps away it is 
     
-    
+    //ArrayList holding all horizontal edges of tile path to be rendered
     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
     for(int j = bottom; j > windowHeight/2; j--) {
       y = y/2;
       stepsToWall--;
       if(stepsToWall < 0) break;
-      //if(y < 0.3) break;
-      //System.out.println("y: " + y);
       Vertex lil = new Vertex(0, y, 0);
       Vertex uzi = new Vertex(windowWidth,  y, 0);
       Edge e = new Edge(lil, uzi);
       horizontalEdges.add(e);
       e.drawLine(g2);
-
     }
-
+    
+    //draws guide lines for rendering tiles
     for(Edge e : horizontalEdges) {
       e.v1.drawOval(g2);
       e.v2.drawOval(g2);
     }
 
+    //Vertex to represent the focal point used to render perspective
     Vertex horizon = new Vertex(windowWidth/2, 0, 0);
+    
+    //ArrayLIst holding the two Edges used to render tile edges
     ArrayList<Edge> verticalEdges = new ArrayList<Edge>();
-    /*
-                    for(int i = 0; i < getWidth(); i++) {
-                      if(i*edgeWidth > getWidth()) {
-                        break;
-                      }
-                      Vertex v = new Vertex(0 + (i*edgeWidth), bottom, 0);
-                      Edge ed = new Edge(horizon, v);
-                      verticalEdges.add(ed);
-                      ed.drawLine(g2);
-                    }
-     */
     Vertex bottomL = new Vertex(0,bottom,0);
     Vertex bottomR = new Vertex(windowWidth,bottom,0);
     Edge left = new Edge(bottomL, horizon);
@@ -103,7 +97,7 @@ public class Render {
 
 
 
-
+    //ArraylList holding intersects between tile edges, determine points used to draw Polygons and create Tile objects
     ArrayList<Intersect> intersectionsL = new ArrayList<Intersect>();
     ArrayList<Intersect> intersectionsR = new ArrayList<Intersect>();
     //adding first two points on bottom left and right of screen to make first tile
