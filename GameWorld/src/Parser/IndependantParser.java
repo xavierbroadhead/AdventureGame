@@ -22,6 +22,12 @@ import GameWorld.Position;
 import GameWorld.Player.Direction;
 
 import javax.xml.parsers.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -267,7 +273,246 @@ public class IndependantParser {
   }
 
 
+  
+///////////////////////////////////SAVING/////////////////////////////////////////
 
+  
+  /**
+   * Save the current game state (maps, doors and the player) in an XML file
+   * @param mapHash HashMap of all Maps (passed in this format to match the rest of the program) however here it is immediately converted to a List
+   * @param doorHash HashMap of all Doors (passed in this format to match the rest of the program) however here it is immediately converted to a List
+   * @param player object representing the player
+   * @param file file where the data is to be saved to
+   */
+  public void saveToFile (HashMap<Integer, Map> mapHash, HashMap<Integer, Door> doorHash, Player player, File file) {
+    // change HashMaps to Collections for easier use
+    Collection<Map> maps = mapHash.values();
+    Collection<Door> doors = doorHash.values();
+    
+    try {  
+      // create document
+      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+      Document doc = dBuilder.newDocument();
+      
+      // create root element
+      Element game = doc.createElement("Game");
+      doc.appendChild(game);
+      
+      // create map, player, door elements
+      for (Map m : maps) {game.appendChild(saveMap(m, doc));}
+      game.appendChild(savePlayer(player, doc));
+      for (Door d : doors) {game.appendChild(saveDoor(d, doc));}
+      
+      // save the document to an XML file
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      DOMSource source = new DOMSource(doc);
+      StreamResult result = new StreamResult(file);
+      transformer.transform(source, result);
+    }
+    catch (Exception e) {e.printStackTrace();}
+    
+  }
+  
+  /**
+   * saves a Player object as an XML element (used by saveToFile)
+   * @param p
+   * @param doc
+   * @return
+   */
+  private Element savePlayer (Player p, Document doc) {
+    Element player = doc.createElement("Player");
+    player.setAttribute("StartMap", p.currentMapInteger().toString());
+    
+    // save position and inventory, then return
+    player.appendChild(saveFindPosition(p.getPosition(), p.currentMapInteger(), "FindPosition", doc));
+    player.appendChild(saveInventory(p.getInventory(), doc));
+    return player;
+    }
+  
+  /**
+   * saves the player's inventory as an XML element (used by saveToFile)
+   * @param items
+   * @param doc
+   * @return
+   */
+  private Element saveInventory (List<Item> items, Document doc) {
+    Element inventory = doc.createElement("Inventory");
+    // saves the Items in the inventory
+    for (Item i : items) {inventory.appendChild(saveItem(i, doc));}
+    return inventory;
+  }
+  
+  /**
+   * saves a Map object as an XML element (used by saveToFile)
+   * @param m
+   * @param doc
+   * @return
+   */
+  private Element saveMap (Map m, Document doc) {
+    Element map = doc.createElement("Map");
+    
+    // save each Position in the map
+    for (int row = 0; row < MAP_GRIDSIZE; row++) {
+      for (int col = 0; col < MAP_GRIDSIZE; col++) {
+        map.appendChild(savePosition(m.getMap()[row][col], doc));
+      }
+    }
+    return map;
+    }
+  
+  /**
+   * Saves a Position object as an XML element (used by saveToFile)
+   * @param p if p is null, the position's xVal and yVal are saved as -1
+   * @param doc
+   * @return
+   */
+  private Element savePosition (Position p, Document doc) {
+    Element position = doc.createElement("Position");
+    
+    if (p != null) {
+      // save x and y values
+      Element xVal = doc.createElement("xVal");
+      Element yVal = doc.createElement("yVal");
+      xVal.appendChild(doc.createTextNode(Integer.toString(p.getx())));
+      yVal.appendChild(doc.createTextNode(Integer.toString(p.gety())));
+      position.appendChild(xVal);
+      position.appendChild(yVal);
+      
+      // save item
+      position.appendChild(saveItem(p.getItem(), doc));
+    }
+    // only x and y value are saved here, both set at -1
+    else {
+      Element xVal = doc.createElement("xVal");
+      Element yVal = doc.createElement("yVal");
+      xVal.appendChild(doc.createTextNode("-1"));
+      yVal.appendChild(doc.createTextNode("-1"));
+      position.appendChild(xVal);
+      position.appendChild(yVal);
+    }
+ 
+    return position;
+  }
+  
+  /**
+   * Another way of saving a Position; used to save the position of Doors and the player. It is essentially a reference to a Position saved in a given map
+   * @param p the position this element is pointing to
+   * @param map the map where the position is located
+   * @param title the title for this type of expression changes depending on where it is being called from, hence the parameter.
+   * @param doc
+   * @return an Element object
+   */
+  private Element saveFindPosition (Position p, int map, String title, Document doc) {
+    Element findPosition = doc.createElement(title);
+    
+    // if position is null; save by representing the Map as -1 and returning early
+    if (p == null) {
+      findPosition.appendChild(doc.createElement("Map").appendChild(doc.createTextNode("-1")));
+      return findPosition;
+    }
+    
+    // otherwise, add appropriate elements to store map, x and y values before returning
+    findPosition.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(map - 1))));
+    findPosition.appendChild(doc.createElement("xVal").appendChild(doc.createTextNode(Integer.toString(p.getx()))));
+    findPosition.appendChild(doc.createElement("yVal").appendChild(doc.createTextNode(Integer.toString(p.gety()))));
+    return findPosition;
+  }
+  
+  /**
+   * Saves an Item object as an XML element
+   * @param i
+   * @param doc
+   * @return
+   */
+  private Element saveItem (Item i, Document doc) {
+    Element item = doc.createElement("Item");
+    
+    // if i is null, set the type and return early
+    if (i == null) {
+      item.setAttribute("Type", "Empty");
+      return item;
+    }
+    
+    // if i is a Key, set the type and add "DoorID" child
+    if (i instanceof Key) {
+      item.setAttribute("Type", "Key");
+      Key k = (Key) i;
+      item.appendChild(doc.createElement("DoorID").appendChild(doc.createTextNode(Integer.toString(k.getDoor()))));
+    }
+    
+    // if i is a a Book, set the type and add "Contents" and "Magical" children
+    if (i instanceof Book) {
+      item.setAttribute("Type", "Book");
+      Book b = (Book) i;
+      item.appendChild(doc.createElement("Contents").appendChild(doc.createTextNode(b.read())));
+      item.appendChild(doc.createElement("Magical").appendChild(doc.createTextNode(Boolean.toString(b.isMagical()))));
+    }
+    
+    // add generic parameters and return
+    item.appendChild(doc.createElement("weight").appendChild(doc.createTextNode(Integer.toString(i.getWeight()))));
+    item.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(i.getItemID()))));
+    item.appendChild(doc.createElement("Description").appendChild(doc.createTextNode(i.getDescription())));
+    item.appendChild(doc.createElement("Title").appendChild(doc.createTextNode(i.toString())));
+    item.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(i.currentMap() - 1))));
+    item.appendChild(saveIcon(i, doc));
+    return item;
+    }
+  
+  /**
+   * Saves a Door object as an XML element
+   * @param d
+   * @param doc
+   * @return
+   */
+  private Element saveDoor (Door d, Document doc) {
+    Element door = doc.createElement("Door");
+    
+    // add parameters and return
+    door.appendChild(doc.createElement("Locked").appendChild(doc.createTextNode(Boolean.toString(d.isLocked()))));
+    door.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(d.getMap()))));
+    door.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(d.getID()))));
+    door.appendChild(doc.createElement("Link").appendChild(doc.createTextNode(Integer.toString(d.getLink()))));
+    door.appendChild(doc.createElement("Direction").appendChild(doc.createTextNode(directionString(d.getDirection()))));
+    door.appendChild(saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition", doc));
+    door.appendChild(saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition", doc));
+    return door;
+  }
+  
+  /**
+   * used by saveDoor. Takes a Direction as a parameter and converts it to a String
+   * @param d
+   * @return
+   */
+  private String directionString (Player.Direction d) {
+    if (d == Direction.NORTH) {return "NORTH";}
+    if (d == Direction.SOUTH) {return "SOUTH";}
+    if (d == Direction.EAST) {return "EAST";}
+    if (d == Direction.WEST) {return "WEST";}
+
+    return " ";       // shouldn't reach this bit
+  }
+  
+  /**
+   * Saves the file path for an icon
+   * @param i
+   * @param doc
+   * @return
+   */
+  private Element saveIcon (Item i, Document doc) {
+    Element icon = doc.createElement("Icon");
+    
+    if (i instanceof Key) {
+      icon.appendChild(doc.createTextNode("/Resources/key.gif"));
+    }
+    
+    if (i instanceof Book) {
+      icon.appendChild(doc.createTextNode("/Resources/scroll.gif"));
+    }
+    
+    return icon;
+    }
 
 
 
