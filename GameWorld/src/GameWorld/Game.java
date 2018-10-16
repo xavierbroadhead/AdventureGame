@@ -9,11 +9,10 @@ public class Game {
 	private HashMap<Integer, Map> maps;
 	private Player player;
 	private HashMap<Integer, Door> doors;
-	private HashMap<Integer, Key> keys;
+
 	
 	public Game(Player player) {
 		maps = new HashMap<Integer, Map>();
-		keys = new HashMap<Integer, Key>();
 		doors = new HashMap<Integer, Door>();
 		Position[][] map1 = {{new Position(0,0), null, new Position(2,0), new Position(3,0), null},
 							{new Position(0,1), null, new Position(2,1), null, null},
@@ -48,7 +47,6 @@ public class Game {
 		doors.put(4, door4);
     
 		Key key = new Key(1, 1, "A key with no markings." , "Key", 1, door1.getID(), new ImageIcon());
-		keys.put(1, key);
 		Book book = new Book(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", new Integer(2), true, "Book", new ImageIcon());
 		map1[2][2].addItem(key);
 		map2[4][2].addItem(book);
@@ -87,9 +85,7 @@ public class Game {
 		return maps;
 	}
 	
-	public HashMap<Integer, Key> getKeys(){
-    return keys;
-  }
+
 	
 	public HashMap<Integer, Door> getDoors(){
     return doors;
@@ -585,9 +581,7 @@ public class Game {
     doors = newDoors;
   }
   
-  public void setKeys(HashMap<Integer, Key> newKeys) {
-    keys = newKeys;
-  }
+
 
   public Player getPlayer() {
     return this.player;
