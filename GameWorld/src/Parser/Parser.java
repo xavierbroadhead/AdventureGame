@@ -144,7 +144,7 @@ public class Parser {
     if (x < 0 || y < 0) {
       return null;
     }
-    // otherwise create the position, add its item and return it
+    
     Position pos = new Position(x, y);
     Item item = parseItem(position.getChild("Item"));
     pos.addItem(item);
