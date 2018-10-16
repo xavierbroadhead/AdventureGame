@@ -601,9 +601,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
     }
 
     if (this.player.getPosition().containsItem()) {
-      
+
       GameWorld.Item item = this.player.getPosition().getItem();
-      
 
       if (item instanceof GameWorld.Key) {
         this.player.pickup();
@@ -616,9 +615,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
         // inventory 1 .add icon
       }
 
-      // if there is an item you are on top of
-
-      // else there is no item to pick up
+    } else {
+      messageBoard.append("You are not near an item \ngo find one! \n");
     }
 
   }
@@ -650,16 +648,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
     Door door = player.getPosition().getDoor();
     if (door != null) {
       if (door.getDirection() == player.getDirection()) {
-        if (door.isLocked()==false) {
+        if (door.isLocked() == false) {
           messageBoard.append("You have opened the door, sir \n");
         } else {
-          messageBoard.append("Door is still locked, you \n you need to find the right key");
+          messageBoard.append("Door is still locked, you \n you need to find the right key \n");
         }
       } else {
-        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "");
+        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
       }
     } else {
-      messageBoard.append("You are not near a door!");
+      messageBoard.append("You are not near a door!\n");
     }
 
   }
@@ -682,18 +680,14 @@ public class ApplicationWindow extends javax.swing.JFrame {
           messageBoard.append("KaCHINK... the door is now \n open... \n");
           door.setLock(false);
         } else {
-          messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere around the faculty");
+          messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
         }
       } else {
-        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "");
+        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
       }
     } else {
-      messageBoard.append("You are not near a door!");
+      messageBoard.append("You are not near a door! \n");
     }
-
-   
-
-   
 
   }
 
@@ -711,7 +705,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     if (items.isEmpty()) {
       System.out.println("inside");
-      messageBoard.append("You have no items to discard");
+      messageBoard.append("You have no items to discard \n");
       return;
     }
 
@@ -727,7 +721,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
 
         if (key.isSelected() == true) {
-          messageBoard.append("You have discarded a Key");
+          messageBoard.append("You have discarded a Key \n");
           for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Key) {
 
@@ -736,7 +730,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
             }
           }
         } else if (scroll.isSelected() == true) {
-          messageBoard.append("You have discarded a Book");
+          messageBoard.append("You have discarded a Book \n");
           for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Book) {
 
@@ -753,7 +747,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
           }
 
         } else {
-          messageBoard.append("Select a item to discard");
+          messageBoard.append("Select a item to discard \n");
         }
         discardPanel.dispose();
       }
@@ -788,8 +782,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
     // player.setDirection(player.getBehind());
     player.movePlayer(player.getDirection(), this.game);
 
-    wallaway--;
-
     renderer.repaint();
 
   }
@@ -805,8 +797,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
     player.movePlayer(player.getDirection(), this.game);
-    //player.setDirection(player.getBehind());
-    wallaway++;
+    // player.setDirection(player.getBehind());
 
     renderer.repaint();
 
@@ -856,7 +847,8 @@ public class ApplicationWindow extends javax.swing.JFrame {
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = chooserSave.getSelectedFile();
-      //parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player, file);
+      // parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player,
+      // file);
     } else {
       System.out.println("File access cancelled by user.");
     }
