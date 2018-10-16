@@ -789,7 +789,7 @@ public class MapEditor extends javax.swing.JFrame {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = jfileChooserLoad.getSelectedFile();
       String filename = file.getName();
-      Game loadedGame = parser.loadFromFile(filename);
+      Game loadedGame = parser.loadFromFile(file);
       this.originalGame = loadedGame;
       convertGameToString();
     } else {

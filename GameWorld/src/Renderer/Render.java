@@ -13,6 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/**
+ * 
+ * @author Muchengeti Matinde 300417773
+ *
+ */
 public class Render {
 
   /**
