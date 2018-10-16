@@ -37,8 +37,8 @@ public class Render {
 
     int windowWidth = width;
     int windowHeight = height;
-    int bottom = windowWidth;
-    int y = bottom;
+    int bottomDisplay = windowWidth;
+    int y = bottomDisplay;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
     boolean keyItem = true;
@@ -61,13 +61,13 @@ public class Render {
 
     //ArrayList holding all horizontal edges of tile path to be rendered
     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
-    for(int j = bottom; j > windowHeight/2; j--) {
+    for(int j = bottomDisplay; j > windowHeight/2; j--) {
       y = y/2;
       stepsToWall--;
       if(stepsToWall < 0) break;
-      Vertex lil = new Vertex(0, y, 0);
-      Vertex uzi = new Vertex(windowWidth,  y, 0);
-      Edge e = new Edge(lil, uzi);
+      Vertex vertex1 = new Vertex(0, y, 0);
+      Vertex vertex2 = new Vertex(windowWidth,  y, 0);
+      Edge e = new Edge(vertex1, vertex2);
       horizontalEdges.add(e);
       e.drawLine(g2);
     }
@@ -83,8 +83,8 @@ public class Render {
 
     //ArrayLIst holding the two Edges used to render tile edges
     ArrayList<Edge> verticalEdges = new ArrayList<Edge>();
-    Vertex bottomL = new Vertex(0,bottom,0);
-    Vertex bottomR = new Vertex(windowWidth,bottom,0);
+    Vertex bottomL = new Vertex(0,bottomDisplay,0);
+    Vertex bottomR = new Vertex(windowWidth,bottomDisplay,0);
     Edge left = new Edge(bottomL, horizon);
     Edge right = new Edge(bottomR, horizon);
     left.drawLine(g2);
@@ -210,7 +210,7 @@ public class Render {
     Polygon leftWall = new Polygon();
     leftWall.addPoint((int)topWL.xInt, (int)topWL.yInt); 
     leftWall.addPoint(0, 0);
-    leftWall.addPoint(0, bottom);
+    leftWall.addPoint(0, bottomDisplay);
     leftWall.addPoint((int)lMax.xInt, (int)lMax.yInt);
     g2.setColor(Color.GRAY);
     g2.fillPolygon(leftWall);
@@ -238,7 +238,7 @@ public class Render {
     //draws right wall w/ right turn
     Polygon rightTurn = new Polygon();
     rightTurn.addPoint((int)rturn.xInt, (int)rturn.yInt);
-    rightTurn.addPoint(windowWidth, bottom);
+    rightTurn.addPoint(windowWidth, bottomDisplay);
     rightTurn.addPoint(windowWidth, 0);
     rightTurn.addPoint((int)rturn.xInt, 0);
 
@@ -247,14 +247,14 @@ public class Render {
     leftTurn.addPoint((int)lturn.xInt, (int)lturn.yInt);
     leftTurn.addPoint((int)lturn.xInt, 0);
     leftTurn.addPoint(0, 0);
-    leftTurn.addPoint(0, bottom);
+    leftTurn.addPoint(0, bottomDisplay);
 
     //draws right wall
     Polygon rightWall = new Polygon();
     rightWall.addPoint(windowWidth, 0);
     rightWall.addPoint((int)topWR.xInt, (int)topWR.yInt);
     rightWall.addPoint((int)rMax.xInt, (int)rMax.yInt);
-    rightWall.addPoint(windowWidth, bottom);
+    rightWall.addPoint(windowWidth, bottomDisplay);
 
     if(game.hasRightCorner()) {
       System.out.println("right turn");
@@ -271,8 +271,8 @@ public class Render {
 
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
@@ -301,8 +301,8 @@ public class Render {
 
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
@@ -326,8 +326,8 @@ public class Render {
       g2.setColor(Color.BLACK);
 
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
@@ -344,8 +344,8 @@ public class Render {
       g2.setColor(Color.BLACK);
 
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall 
       g2.fillPolygon(rightWall);//draws right wall
@@ -364,8 +364,8 @@ public class Render {
       System.out.println("end wall is on left");
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall all along display
       g2.fillPolygon(leftWall);
@@ -384,8 +384,8 @@ public class Render {
       g2.setColor(Color.BLACK);
       
       //line for skirting separating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
       
     //draws back wall all along display
@@ -411,8 +411,8 @@ public class Render {
 
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
-      g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-      g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+      g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+      g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
@@ -439,8 +439,8 @@ public class Render {
 
     g2.setColor(Color.BLACK);
     //line for skiring seperating floor and walls
-    g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
-    g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
+    g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
+    g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
 
     for(Intersect i : intersectionsL) {
       g2.setColor(Color.BLACK);
