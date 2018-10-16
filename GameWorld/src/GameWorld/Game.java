@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 public class Game {
 	private HashMap<Integer, Map> maps;
 	private Player player;
-	private HashMap<Integer, Key> keys;
 	private HashMap<Integer, Door> doors;
 	
 	public Game(Player player) {
@@ -47,12 +46,10 @@ public class Game {
 		doors.put(3, door3);
 		doors.put(4, door4);
     
-		Key key1 = new Key(1, 1, "A key with no markings." , "Key", 1, 1, new ImageIcon());
-		Key key2 = new Key(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, 3, new ImageIcon());
-		map1[2][2].addItem(key1);
-		map2[4][2].addItem(key2);
-		keys.put(1, key1);
-		keys.put(2, key2);
+		Key key = new Key(1, map1[2][2], 1, "A key with no markings." , "Key", 1, door1, new ImageIcon());
+		Book book = new Book(1, map2[4][2], 2, "Its a key. You notice the letter Z inscribed on it.", "Key", new Integer(2), new ImageIcon(), 123);
+		map1[2][2].addItem(key);
+		map2[4][2].addItem(book);
     
 		maps.put(1, new Map(map1));
 		maps.put(2, new Map(map2));
@@ -133,7 +130,108 @@ public class Game {
 		}
 		return buffer;
 	}
-		
+	
+	/** Checks if there is an item in the corridor in front of the player.
+	 * 
+	 * 
+	 * @return true if there is an item in the corridor in front of the player
+	 */
+	public boolean itemInCorridor() {
+		int x = player.getPosition().getx();
+		int y = player.getPosition().gety();
+		int i = 1;
+		Player.Direction direction = player.getDirection();
+		Integer integer = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(integer).getMap();
+		try {
+			while(true) {
+				if (direction == Player.Direction.NORTH) {
+					if (isAccessible(currentMap[y - i][x], integer)) {
+						if (currentMap[y - 1][x].containsItem()) {
+							return true;
+						}
+						else i++;
+
+					}
+					else break;
+				}
+				else if (direction == Player.Direction.EAST) {
+					if (isAccessible(currentMap[y][x + i], integer)) {
+						if(currentMap[y][x + i].containsItem()) {
+							return true;
+						}
+						else i++;
+					}
+					else break;
+				}
+				else if (direction == Player.Direction.SOUTH) {
+					if (isAccessible(currentMap[y + i][x], integer)) {
+						if(currentMap[y + i][x].containsItem()) {
+							return true;
+						}
+						else i++;
+					}
+					else break;
+				}
+				else if (direction == Player.Direction.WEST) {
+					if (isAccessible(currentMap[y][x - i], integer)) {
+						if(currentMap[y][x - i].containsItem()) {
+							return true;
+						}
+						else i++;
+					}
+					else break;
+				}
+			}
+			return false;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return false;
+		}
+	}
+	/** Counts the amount of tiles in front of the player until an there is an item.
+	 * 
+	 * 
+	 * @return the number of tiles in front of the player until there is an item, 
+	 * or -1 if there was an error or no item was found
+	 */
+	public int tilesTilItem() {
+		int x = player.getPosition().getx();
+		int y = player.getPosition().gety();
+		Player.Direction direction = player.getDirection();
+		Integer integer = player.currentMapInteger();
+		Position[][] currentMap = this.maps.get(integer).getMap();
+		try {
+			if(itemInCorridor()) {
+				for (int i = 0; i < tilesTilWall(); i++) {
+					if (direction == Player.Direction.NORTH) {
+						if (currentMap[y - i][x].containsItem()) {
+							return i;
+						}
+					}
+					else if (direction == Player.Direction.EAST) {
+						if (currentMap[y][x + i].containsItem()) {
+							return i;
+						}
+					}
+					else if (direction == Player.Direction.SOUTH) {
+						if (currentMap[y + i][x].containsItem()) {
+							return i;
+						}
+					}
+					else if (direction == Player.Direction.WEST) {
+						if (currentMap[y][x - i].containsItem()) {
+							return i;
+						}
+					}
+				}
+			}
+			return -1;
+		}
+		catch(ArrayIndexOutOfBoundsException exception) {
+			return -1;
+		}
+	}
 	/** Checks if there is a wall in front of the current position
 	 * 
 	 * 
