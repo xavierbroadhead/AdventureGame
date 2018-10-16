@@ -6,7 +6,7 @@ import GameWorld.Key;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
-import Parser.Parser;
+import Parser.IndependantParser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class MapEditor extends javax.swing.JFrame {
   private static final long serialVersionUID = 1L;
   
   // MapEditor variables
-  private Parser parser;
+  private IndependantParser parser;
   private Game originalGame;
   private ArrayList<JButton> buttonList;
   private ArrayList<String[][]> rooms;
@@ -315,7 +315,7 @@ public class MapEditor extends javax.swing.JFrame {
   private void initComponents() {
     
     // Create all of the variables.
-    parser = new Parser();
+    parser = new IndependantParser();
     jpanel1 = new javax.swing.JPanel();
     jcomboBox1 = new javax.swing.JComboBox<>();
     jbutton1 = new javax.swing.JButton();

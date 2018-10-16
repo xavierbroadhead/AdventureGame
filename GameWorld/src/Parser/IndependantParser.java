@@ -450,13 +450,15 @@ public class IndependantParser {
       item.appendChild(doc.createElement("Magical").appendChild(doc.createTextNode(Boolean.toString(b.isMagical()))));
     }
     
+    
+    
     // add generic parameters and return
-    item.appendChild(doc.createElement("weight").appendChild(doc.createTextNode(Integer.toString(i.getWeight()))));
-    item.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(i.getItemID()))));
-    item.appendChild(doc.createElement("Description").appendChild(doc.createTextNode(i.getDescription())));
-    item.appendChild(doc.createElement("Title").appendChild(doc.createTextNode(i.toString())));
-    item.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(i.currentMap() - 1))));
-    item.appendChild(saveIcon(i, doc));
+   item.appendChild(doc.createElement("Weight").appendChild(doc.createTextNode(Integer.toString(i.getWeight()))));
+   item.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(i.getItemID()))));
+   item.appendChild(doc.createElement("Description").appendChild(doc.createTextNode(i.getDescription())));
+   item.appendChild(doc.createElement("Title").appendChild(doc.createTextNode(i.toString())));
+   item.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(i.currentMap() - 1))));
+   item.appendChild(saveIcon(i, doc));
     return item;
     }
   

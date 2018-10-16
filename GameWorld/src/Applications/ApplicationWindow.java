@@ -14,7 +14,7 @@ import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
 import MapEditor.MapEditor;
-import Parser.Parser;
+import Parser.IndependantParser;
 import Renderer.Render;
 
 import java.awt.Color;
@@ -47,7 +47,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class ApplicationWindow extends javax.swing.JFrame {
 
-  protected Parser parser = new Parser();
+  protected IndependantParser parser = new IndependantParser();
   protected Player player = new Player(1, new Position(0, 0));
   protected Game game = new Game(player);
   protected Render render = new Render();
