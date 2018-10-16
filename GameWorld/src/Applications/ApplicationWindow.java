@@ -883,8 +883,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = chooserLoad.getSelectedFile();
-      String filename = file.getName();
-      Game loadedGame = parser.loadFromFile(filename);
+      Game loadedGame = parser.loadFromFile(file);
       this.game = loadedGame;
       renderer.repaint(); // refreshes the players position etc
 

@@ -45,8 +45,7 @@ public class Parser {
    * @param fname filename (obtained from a file chooser of some sort)
    * @return complete Game object
    */
-  public Game loadFromFile(String fname) {
-    File file = new File(fname);
+  public Game loadFromFile(File file) {
     SAXBuilder sBuilder = new SAXBuilder();
 
     try {
