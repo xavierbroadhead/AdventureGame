@@ -3,6 +3,13 @@ package GameWorld;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 
+ * @author Xavier
+ * and Christian 300417339
+ *
+ */
 public class Player {
   private Integer currentMap;
   private Position position;
@@ -194,5 +201,9 @@ public class Player {
   // used by Parser to fill inventory from file
   public void addItem(Item parseItem) {
     inventory.add(parseItem);
+  }
+
+  public int getcurrentMap() {
+    return this.getcurrentMap();
   }
 }

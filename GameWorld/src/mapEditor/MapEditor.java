@@ -77,15 +77,6 @@ public class MapEditor extends javax.swing.JFrame {
     this.originalGame = game;
     initComponents();
     this.rooms = convertGameToString();
-    saveGame();
-  }
-
-  /**
-   * Returns the game that has been modified.
-   * @return the game 
-   */
-  public Game getGame() {
-    return this.originalGame;
   }
   
   /**

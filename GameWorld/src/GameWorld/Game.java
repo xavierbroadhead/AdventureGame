@@ -492,4 +492,29 @@ public class Game {
   public Player getPlayer() {
     return this.player;
   }
+  
+  /*
+  public Game clone() {
+    Player player = new Player(this.player.getcurrentMap(), this.player.getPosition());
+    Game newGame = new Game(player);
+    newGame.copyInfo(this);
+    return newGame;
+  }
+
+  
+   * get all of the information in game in to the current game.
+   * @param game the game whose information is being copied. 
+   
+  private void copyInfo(Game game) {
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 5; j++) {
+        this.maps.get(0).getMap()[i][j] = game.maps.get(0).getMap()[i][j];
+        this.maps.get(1).getMap()[i][j] = game.maps.get(1).getMap()[i][j];
+        this.maps.get(2).getMap()[i][j] = game.maps.get(2).getMap()[i][j];
+      }
+    }
+    //Clone doors
+    //Clone Keys
+    
+  }*/
 }
