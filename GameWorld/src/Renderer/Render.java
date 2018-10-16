@@ -32,6 +32,8 @@ public class Render {
     System.out.println("wall back: " + game.wallBehind());
     System.out.println("wall left: " + game.wallLeft());
     System.out.println("wall right: " + game.wallRight());
+    System.out.println("item in corridor: " + game.itemInCorridor());
+    
     int windowWidth = width;
     int windowHeight = height;
     int bottom = windowWidth;
@@ -48,7 +50,7 @@ public class Render {
     //BufferedImage scroll = scale((BufferedImage)img2, 70, 40);
     
     //check if item is a key, if so it will get the key image. if not it gets the scroll image
-    if(keyItem) {
+    if (keyItem) {
       image = scale((BufferedImage)img1, 60, 40);
     }
     else {
@@ -78,7 +80,8 @@ public class Render {
       e.v1.drawOval(g2);
       e.v2.drawOval(g2);
     }
-
+    
+   
     //Vertex to represent the focal point used to render perspective
     Vertex horizon = new Vertex(windowWidth/2, 0, 0);
     
@@ -326,7 +329,8 @@ public class Render {
       //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
       //g2.drawImage(image, 0, 0, null);
       //g2.drawImage(image, xT, yT, null);
-      drawItem(image, tiles, g2);
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
       return;
     }
 
@@ -362,7 +366,8 @@ public class Render {
       //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
       //g2.drawImage(image, 0, 0, null);
       //g2.drawImage(image, xT, yT, null);
-      drawItem(image, tiles, g2);
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
       return;
     }
 
@@ -395,9 +400,9 @@ public class Render {
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
-      //g2.drawImage(image, 0, 0, null);
-      //g2.drawImage(image, (int)last.v2.xInt, (int)last.v2.yInt, null);
-      drawItem(image, tiles, g2);
+      
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
       
       return;
     }
@@ -414,8 +419,10 @@ public class Render {
       g2.fillPolygon(rightWall);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
-      //g2.drawImage(image, 0, 0, null);
-      drawItem(image, tiles, g2);
+     
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
+      
       return;
     }
 
@@ -431,9 +438,9 @@ public class Render {
       g2.fillPolygon(leftWall);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
-      //g2.drawImage(image, 0, 0, null);
-      //g2.drawImage(image, xT, yT, null);
-      drawItem(image, tiles, g2);
+     
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
       return;
     }
 
@@ -447,9 +454,6 @@ public class Render {
       g2.fillPolygon(backWallT);//draws back wall all along display
 
       drawWallLines(intersectionsL, intersectionsR, g2);
-      //g2.drawImage(image, 0, 0, null);
-      //g2.drawImage(image, xT, yT, null);
-      //drawItem(image, tiles, g2);
       return;
     }
 
@@ -482,7 +486,8 @@ public class Render {
 
       //g2.drawImage(image, 0, 0, null);//draws scroll image on tile
       //g2.drawImage(image, xT, yT, null);
-      drawItem(image, tiles, g2);
+      if(game.itemInCorridor())
+        drawItem(image, tiles, g2);
       return;
     }
     
