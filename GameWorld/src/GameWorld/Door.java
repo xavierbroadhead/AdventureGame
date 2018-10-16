@@ -91,7 +91,7 @@ public class Door {
    *          the player that is opening the door
    * @return true if we could move to the next room
    */
-  public boolean openDoor(Player player) {
+  public boolean openDoor(Player player, Game game) {
     if (this.hasKey(player)) {
     		if (beenThrough) {
     			beenThrough = false;
