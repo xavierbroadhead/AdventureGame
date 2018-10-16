@@ -30,7 +30,7 @@ public class Render {
    * @param game - Current Game being run
    * @param steps
    */
-  public void renderGame(Graphics2D g2, int width, int height, Game game, int steps) {
+  public void renderGame(Graphics2D g2, int width, int height, Game game) {
 
     System.out.println("game position: " + game.getPlayer().getPosition().getx() + " , "+  game.getPlayer().getPosition().gety());
     System.out.println("item in corridor: " + game.itemInCorridor());

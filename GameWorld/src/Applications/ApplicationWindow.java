@@ -129,7 +129,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
-        render.renderGame(g2, getWidth(), getHeight(), game, wallaway);
+        render.renderGame(g2, getWidth(), getHeight(), game);
       }
     };
     jLabel3 = new javax.swing.JLabel();
