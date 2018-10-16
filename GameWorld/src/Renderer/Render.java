@@ -425,17 +425,7 @@ public class Render {
     g2.fillPolygon(leftWall);
     g2.fillPolygon(rightWall);
     g2.fillPolygon(backWallT);
-    //}
-
-    //g2.drawLine(x1, y1, x2, y2);
-    g2.setColor(Color.GRAY);  
-    //draws back wall for right turn
-    //g2.fillPolygon(backWallRT);//took out to fix render
-    g2.setColor(Color.BLACK);
-    //draws lines for backWallLT
-    //g2.drawLine((int)lMax.xInt, (int)lMax.yInt, (int)lMax.xInt, 0);
-    //g2.drawLine((int)rMax.xInt, (int)rMax.yInt, (int)rMax.xInt, 0);
-
+   
     g2.setColor(Color.BLACK); 
 
     //line for wall turn
