@@ -313,17 +313,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
-    inventory1.setText("");
+    inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
 
-    inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-
+    inventory2.setText("");
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/health.gif")));
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+    inventory4.setText("");
     inventory4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory5.setText("");
@@ -611,6 +610,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
         // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
         this.player.pickup();
+        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
         messageBoard.append("You have picked up a Book! \n");
         // inventory 1 .add icon
       }
@@ -724,8 +724,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
           messageBoard.append("You have discarded a Key \n");
           for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Key) {
-
+              inventory6.setIcon(null);
+              player.getPosition().addItem(items.get(i));
               items.remove(i);
+
               // put on ground
             }
           }
@@ -733,15 +735,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
           messageBoard.append("You have discarded a Book \n");
           for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Book) {
-
+              inventory6.setIcon(null);
+              player.getPosition().addItem(items.get(i));
               items.remove(i);
+
               // put on ground
             }
           }
         } else if (healthPack.isSelected() == true) {
           for (int i = 0; i < items.size(); i++) {
             if (items.get(i) instanceof GameWorld.Key) {
+              inventory6.setIcon(null);
+              player.getPosition().addItem(items.get(i));
               items.remove(i);
+
               // put on ground
             }
           }
