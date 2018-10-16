@@ -9,6 +9,7 @@ public class Door {
   private Position doorPosition;
   private Position linkPosition;
   private Player.Direction doorDirection;
+  private boolean beenThrough;
 
   public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition,
       Player.Direction direction) {
@@ -90,13 +91,23 @@ public class Door {
    *          the player that is opening the door
    * @return true if we could move to the next room
    */
-  public boolean openDoor(Player player, Game game) {
+  public boolean openDoor(Player player) {
     if (this.hasKey(player)) {
-      Position[][] buffer = game.getMaps().get(this.link).getMap();
-      player.updateMap(link);
-      player.setPosition(buffer[0][0]);
-      return true;
-    } else
-      return false;
+    		if (beenThrough) {
+    			beenThrough = false;
+    			player.updateMap(map);
+    	        Position[][] buffer = game.getMaps().get(this.map).getMap();
+    		    player.setPosition(buffer[0][0]);
+    		    return true;
+    		}
+    		else {
+    			beenThrough = true;
+    			player.updateMap(link);
+    	        Position[][] buffer = game.getMaps().get(this.link).getMap();
+    		    player.setPosition(buffer[0][0]);
+    		    return true;
+    		}
+    } 
+    else return false;
   }
 }
