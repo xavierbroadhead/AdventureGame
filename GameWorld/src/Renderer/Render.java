@@ -15,25 +15,25 @@ import java.util.Collections;
 
 public class Render {
 
-/**
- * 
- * @param g2 - graphics object which gameworld in rendered onto
- * @param width - width of JPanel used to render in the GUI
- * @param height - width of JPanel used to render in the GUI
- * @param game - Current Game being run
- * @param steps
- */
+  /**
+   * 
+   * @param g2 - graphics object which gameworld in rendered onto
+   * @param width - width of JPanel used to render in the GUI
+   * @param height - width of JPanel used to render in the GUI
+   * @param game - Current Game being run
+   * @param steps
+   */
   public void renderGame(Graphics2D g2, int width, int height, Game game, int steps) {
 
     System.out.println("game position: " + game.getPlayer().getPosition().getx() + " , "+  game.getPlayer().getPosition().gety());
-    System.out.println("Steps: " + game.tilesTilWall());
-    System.out.println("direction: " + game.getPlayer().getDirection());
-    System.out.println("wall front: " + game.wallForward());
-    System.out.println("wall back: " + game.wallBehind());
-    System.out.println("wall left: " + game.wallLeft());
-    System.out.println("wall right: " + game.wallRight());
+    //System.out.println("Steps: " + game.tilesTilWall());
+    //System.out.println("direction: " + game.getPlayer().getDirection());
+    //System.out.println("wall front: " + game.wallForward());
+    //System.out.println("wall back: " + game.wallBehind());
+    //System.out.println("wall left: " + game.wallLeft());
+    //System.out.println("wall right: " + game.wallRight());
     System.out.println("item in corridor: " + game.itemInCorridor());
-    
+
     int windowWidth = width;
     int windowHeight = height;
     int bottom = windowWidth;
@@ -41,14 +41,14 @@ public class Render {
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
     boolean keyItem = false;
-    
-    
+
+
     Image img1 = loadImage("newKeyImage1.png");
     //BufferedImage key = scale((BufferedImage)img1, 60, 40);
     BufferedImage image = null;
     Image img2 = loadImage("scroll.png");
     //BufferedImage scroll = scale((BufferedImage)img2, 70, 40);
-    
+
     //check if item is a key, if so it will get the key image. if not it gets the scroll image
     if (keyItem) {
       image = scale((BufferedImage)img1, 60, 40);
@@ -56,12 +56,12 @@ public class Render {
     else {
       image = scale((BufferedImage)img2, 70, 40);
     }
-    
-    
+
+
     //to render object
     //check if object is in squares in front of player: boolean
     //if true, return how many steps away it is 
-    
+
     //ArrayList holding all horizontal edges of tile path to be rendered
     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
     for(int j = bottom; j > windowHeight/2; j--) {
@@ -74,17 +74,17 @@ public class Render {
       horizontalEdges.add(e);
       e.drawLine(g2);
     }
-    
+
     //draws guide lines for rendering tiles
     for(Edge e : horizontalEdges) {
       e.v1.drawOval(g2);
       e.v2.drawOval(g2);
     }
-    
-   
+
+
     //Vertex to represent the focal point used to render perspective
     Vertex horizon = new Vertex(windowWidth/2, 0, 0);
-    
+
     //ArrayLIst holding the two Edges used to render tile edges
     ArrayList<Edge> verticalEdges = new ArrayList<Edge>();
     Vertex bottomL = new Vertex(0,bottom,0);
@@ -152,10 +152,10 @@ public class Render {
       //System.out.println("Polygons");
       //System.out.println("Polygon: " + p.toString());
       g2.setColor(Color.GRAY);
-      
+
       g2.fillPolygon(p);
     }
-    
+
     for(Tile t: tiles) {
       g2.setColor(Color.RED);
       g2.fillOval((int)t.v1.xInt+10, (int)t.v1.yInt - 10, 5, 5);
@@ -163,7 +163,7 @@ public class Render {
     }
     System.out.println("Polygons: " + polygons.size());
     System.out.println("Tiles: " + tiles.size());
-    
+
     g2.setColor(Color.ORANGE);
     Polygon small = polygons.get(polygons.size()-1);
     g2.fillPolygon(small);
@@ -302,7 +302,7 @@ public class Render {
 
 
     g2.setColor(Color.GREEN);
-    //g2.fillPolygon(rightWall);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   
     left.drawLine(g2);
     right.drawLine(g2);
 
@@ -334,9 +334,6 @@ public class Render {
       return;
     }
 
-    //if(door in front){
-    //}
-
     //draws left corner turn
     if(game.hasLeftCorner()) {
       System.out.println("left turn");
@@ -346,8 +343,6 @@ public class Render {
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
-      
-     
 
       g2.setColor(Color.BLACK); 
 
@@ -358,14 +353,9 @@ public class Render {
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
-      
-      
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
-      //g2.drawImage(img3, 0, 0, null);//draws scroll image on tile
-      //g2.drawImage(image, 0, 0, null);
-      //g2.drawImage(image, xT, yT, null);
       if(game.itemInCorridor())
         drawItem(image, tiles, g2);
       return;
@@ -378,56 +368,49 @@ public class Render {
       g2.fillPolygon(leftWall);
       g2.fillPolygon(rightWall);
       g2.fillPolygon(backWallT);
-      //}
 
-      //g2.drawLine(x1, y1, x2, y2);
-      g2.setColor(Color.GRAY);  
-      //draws back wall for right turn
-      //g2.fillPolygon(backWallRT);//took out to fix render
       g2.setColor(Color.BLACK);
-      //draws lines for backWallLT
-      //g2.drawLine((int)lMax.xInt, (int)lMax.yInt, (int)lMax.xInt, 0);
-      //g2.drawLine((int)rMax.xInt, (int)rMax.yInt, (int)rMax.xInt, 0);
-
-      g2.setColor(Color.BLACK); 
-
       //line for wall turn
       g2.drawLine((int)rturn.xInt, (int)rturn.yInt, (int)rturn.xInt, 0);
 
       g2.setColor(Color.BLACK);
+
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
-      
-      if(game.itemInCorridor())
+
+      if (game.itemInCorridor()) { 
         drawItem(image, tiles, g2);
-      
+      }
+
       return;
     }
 
     //end of wall is on the right
-    if(game.wallForward() && game.wallRight()) {
+    if (game.wallForward() && game.wallRight()) {
       System.out.println("end wall is on right");
       g2.setColor(Color.BLACK);
+
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
-      g2.fillPolygon(backWallT);//draws back wall all along display
-      g2.fillPolygon(rightWall);
+      g2.fillPolygon(backWallT);//draws back wall 
+      g2.fillPolygon(rightWall);//draws right wall
 
-      drawWallLines(intersectionsL, intersectionsR, g2);
-     
-      if(game.itemInCorridor())
+      drawWallLines(intersectionsL, intersectionsR, g2);//draws wall lines
+
+      if (game.itemInCorridor()) {
         drawItem(image, tiles, g2);
-      
+      }
+
       return;
     }
 
     //end of wall is on the left
-    if(game.wallForward() && game.wallLeft()) {//&& game.hasLeftCorner() == false
+    if (game.wallForward() && game.wallLeft()) {
       System.out.println("end wall is on left");
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
@@ -436,41 +419,41 @@ public class Render {
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall all along display
       g2.fillPolygon(leftWall);
-
+      
+      //draws wall lines
       drawWallLines(intersectionsL, intersectionsR, g2);
-     
-      if(game.itemInCorridor())
+
+      if (game.itemInCorridor()) {
         drawItem(image, tiles, g2);
+      }
       return;
     }
 
-    if(game.wallForward() && game.wallBehind()) {//will draw a hallway wall when your're facing it
+    if (game.wallForward() && game.wallBehind()) {
       System.out.println("wall mid hall");
       g2.setColor(Color.BLACK);
-      //line for skiring seperating floor and walls
+      
+      //line for skirting separating floor and walls
       g2.drawLine(0, bottom, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottom, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
-      g2.fillPolygon(backWallT);//draws back wall all along display
+      
+    //draws back wall all along display
+      g2.fillPolygon(backWallT);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
       return;
     }
 
-    //draws right corner turns
 
-    //draws back wall last to cover horizon guide lines
-    g2.setColor(Color.RED);  
-    //g2.fillPolygon(backWall);
-
-    if(game.hasLeftCorner() == false && game.hasRightCorner()){
+    if (game.hasLeftCorner() == false && game.hasRightCorner()) {
       g2.setColor(Color.BLACK);
-      g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
+      //draws line seperating back wall from floor
+      g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);
       g2.setColor(Color.RED);
-      g2.fillPolygon(backWallT);
-      g2.fillPolygon(leftWall);//call to draw left turn
-      g2.fillPolygon(rightWall);
-
+      g2.fillPolygon(backWallT);// draws back wall
+      g2.fillPolygon(leftWall);//draws left wall
+      g2.fillPolygon(rightWall);//draws right wall
 
       g2.setColor(Color.BLACK); 
 
@@ -484,14 +467,14 @@ public class Render {
 
       drawWallLines(intersectionsL, intersectionsR, g2);
 
-      //g2.drawImage(image, 0, 0, null);//draws scroll image on tile
-      //g2.drawImage(image, xT, yT, null);
-      if(game.itemInCorridor())
+
+      if (game.itemInCorridor()) {
         drawItem(image, tiles, g2);
+      }
       return;
     }
-    
-    if(game.hasLeftCorner() == false && game.hasRightCorner() == false) {
+
+    if (game.hasLeftCorner() == false && game.hasRightCorner() == false) {
       System.out.println("skipped but caught");
     }
 
@@ -530,12 +513,16 @@ public class Render {
       g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
     }
 
-    //g2.drawImage(img, 0, 0, null);//draws key image on tile
-    //g2.drawImage(img2, 0, 0, null);//draws scroll image on tile
-    //g2.drawImage(bi3, 0, 0, null);//draws scroll image on tile
-    //g2.drawImage(key, 0, 0, null);
+    
   }
-
+  
+  /**
+   * Draws the line across left and right walls.
+   * 
+   * @param r - arrayList of right hand side intersects.
+   * @param l - arrayList of right hand side intersects.
+   * @param g - Graphics objects to be draw on.
+   */
   public void drawWallLines(ArrayList<Intersect> r, ArrayList<Intersect> l, Graphics2D g) {
     g.setColor(Color.BLACK);
     for(Intersect i : l) {
@@ -549,6 +536,13 @@ public class Render {
     }
   }
   
+  /**
+   * Draws the item (key or scroll) onto the appropriate tile
+   * 
+   * @param image - item image to be drawn
+   * @param tiles - tile object used to determine image location
+   * @param g - Graphics object to be drawn on
+   */
   public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g) {
     Tile targetTile = tiles.get(tiles.size()-1);
     int tileWidth = (int)targetTile.v3.xInt -  (int)targetTile.v1.xInt;
@@ -558,6 +552,12 @@ public class Render {
     g.drawImage(image, x, y, null);
   }
 
+  /**
+   * Loads images from the Renderer.images package.
+   * 
+   * @param fileName
+   * @return
+   */
   public static Image loadImage(String fileName) {
     java.net.URL imageUrl = Render.class.getResource("images/" + fileName);
     System.out.println("imageURL: " + imageUrl.toString());
@@ -572,30 +572,42 @@ public class Render {
     }
   }
 
+  /**
+   * Casts Image object to BufferedImage, and returns it.
+   * 
+   * @param img - image to be converted.
+   * @return
+   */
   public BufferedImage toBufferedImage(Image img){
     if (img instanceof BufferedImage)
     {
       return (BufferedImage) img;
     }
 
-    // Create a buffered image with transparency
-    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+    BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
-    // Draw the image on to the buffered image
-    Graphics2D bGr = bimage.createGraphics();
-    bGr.drawImage(img, 0, 0, null);
-    bGr.dispose();
+    Graphics2D bg = bi.createGraphics();
+    bg.drawImage(img, 0, 0, null);
+    bg.dispose();
 
-    // Return the buffered image
-    return bimage;
+
+    return bi;
   }
 
-  public BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+  /**
+   * Scales bufferedImage to fit into tiles.
+   * 
+   * @param imageToScale - image to be scaled.
+   * @param width - scaled width.
+   * @param height - sclaed height.
+   * @return
+   */
+  public BufferedImage scale(BufferedImage imageToScale, int width, int height) {
     BufferedImage scaledImage = null;
     if (imageToScale != null) {
-      scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+      scaledImage = new BufferedImage(width, height, imageToScale.getType());
       Graphics2D graphics2D = scaledImage.createGraphics();
-      graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+      graphics2D.drawImage(imageToScale, 0, 0, width, height, null);
       graphics2D.dispose();
     }
     return scaledImage;
@@ -660,12 +672,21 @@ class Edge {
     this.v1 = v1;
     this.v2 = v2;
   }
-
+  /**
+   * Draws a line representing the edge from one vertex to another.
+   * 
+   * @param g - Graphics object.
+   */
   public void drawLine(Graphics2D g) {
     g.setColor(Color.BLUE);
     g.drawLine(v1.x, v1.y, v2.x, v2.y);
   }
 
+  /**
+   * Calculates and returns the gradient of an edge.
+   * 
+   * @return
+   */
   public double findGradient() {
     if((v2.x - v1.x) == 0) {
       return 0;
@@ -676,11 +697,23 @@ class Edge {
     return this.slope = gradient;
   }
 
+  /**
+   * Calculates the offset of an edge and returns it.
+   * 
+   * @return
+   */
   public double findOffset() {
     double offset = v1.y - (v1.x * this.slope);
     return this.offset = offset;
   }
 
+  /**
+   * Finds the intersect between two edges an Intersect object
+   * which holds the x and y position of the intersecting point.
+   * 
+   * @param other - other intersecting edge.
+   * @return
+   */
   public Intersect IntersectX(Edge other) {
     double xInt = (other.offset - this.offset) /(this.slope-other.slope);
     double yInt = this.slope * xInt + this.offset;
