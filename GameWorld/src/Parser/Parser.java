@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -158,10 +159,15 @@ public class Parser {
    */
   private Position parseFindPosition(Element findPosition) {
     Element map = findPosition.getChild("Map");
+    int mp = Integer.parseInt(map.getText());
+    
+    // check if the element points to a null position
+    if (mp < 0) {return null;}
+    
     Element xVal = findPosition.getChild("xVal");
     Element yVal = findPosition.getChild("yVal");
 
-    int mp = Integer.parseInt(map.getText());
+    
     int x = Integer.parseInt(xVal.getText());
     int y = Integer.parseInt(yVal.getText());
 
@@ -280,8 +286,8 @@ public class Parser {
    */
   public void saveToFile(HashMap<Integer, Map> mapHash, HashMap<Integer, Door> doorHash, Player player, File file) {
     // change HashMaps to Lists for easier use
-    List<Map> maps = (List<Map>) mapHash.values();
-    List<Door> doors = (List<Door>) doorHash.values();
+    Collection<Map> maps = mapHash.values();
+    Collection<Door> doors = doorHash.values();
     
     // create root element
     Element game = new Element("Game");
@@ -399,6 +405,14 @@ public class Parser {
    */
   private Element saveFindPosition(Position p, int map, String title) {
     Element findPosition = new Element(title);
+    
+    if (p == null) {
+      Element mapVal = new Element("Map");
+      mapVal.setText("-1");
+      findPosition.addContent(mapVal);
+      return findPosition;
+    }
+    
     Element mapVal = new Element("Map");
     Element xVal = new Element("xVal");
     Element yVal = new Element("yVal");
