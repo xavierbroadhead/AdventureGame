@@ -55,17 +55,26 @@ public class Tests {
   }
   
   @Test
-  public void testIsAccessible1() {
+  public void testMaps1() {
     Position[][] buffer = game.getMaps().get(1).getMap();
     assert (buffer[0][1] == null);
   }
   
   @Test
-  public void testIsAccessible() {
+  public void testMaps2() {
     Position[][] buffer = game.getMaps().get(1).getMap();
     assert (buffer[0][0] instanceof Position);
   }
-  
+  @Test
+	public void testIsAccessible() {
+		assert(game.isAccessible(new Position(0,0), 1));
+		assert(game.isAccessible(new Position(2,2), 1));
+		assert(game.isAccessible(new Position(0,0), 2));
+		assert(game.isAccessible(new Position(2, 4), 2));
+		assert(!game.isAccessible(new Position(4,4), 1));
+		assert(!game.isAccessible(new Position(4,4), 2));
+		assert(!game.isAccessible(new Position(1, 0), 2));
+	}
   @Test
   public void testToMap() {
     Position[] buffer = {new Position(3,2), new Position(1,2), new Position(2,2)};
