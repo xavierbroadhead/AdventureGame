@@ -16,5 +16,9 @@ public class Key extends Item {
   public int getDoor() {
     return door;
   }
+  
+  public String toString() {
+    return "Key";
+  }
 
 }
