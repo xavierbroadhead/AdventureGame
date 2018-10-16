@@ -415,7 +415,7 @@ public class Parser {
     Element mapVal = new Element("Map");
     Element xVal = new Element("xVal");
     Element yVal = new Element("yVal");
-    mapVal.setText(Integer.toString(map));
+    mapVal.setText(Integer.toString(map - 1));
     xVal.setText(Integer.toString(p.getx()));
     yVal.setText(Integer.toString(p.gety()));
     findPosition.addContent(mapVal);
@@ -469,7 +469,7 @@ public class Parser {
     id.setText(Integer.toString(i.getItemID()));
     description.setText(i.getDescription());
     title.setText(i.toString());
-    map.setText(Integer.toString(i.currentMap()));
+    map.setText(Integer.toString(i.currentMap() - 1));
 
     item.addContent(weight);
     item.addContent(id);
