@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import org.junit.Test;
 
 public class GameWorldTests {
-	
+	/* Added to Tests.java file
 	Player player = new Player(1, new Position(0,0));
 	Game game = new Game(player);
 	
@@ -113,5 +113,5 @@ public class GameWorldTests {
 	public void testAddItem() {
 		player.addItem(new Key(0, 0, null, null, null, 0, null));
 		assert(!player.getInventory().isEmpty());
-	}
+	}*/
 }
