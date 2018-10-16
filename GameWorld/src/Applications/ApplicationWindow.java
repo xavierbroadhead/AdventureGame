@@ -846,8 +846,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     int returnVal = chooserSave.showSaveDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = chooserSave.getSelectedFile();
-      // parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player,
-      // file);
+      parser.saveToFile(this.game.getMaps(), this.game.getDoors(), this.player, file);
     } else {
       System.out.println("File access cancelled by user.");
     }
