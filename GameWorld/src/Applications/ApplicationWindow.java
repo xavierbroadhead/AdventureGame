@@ -654,7 +654,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       if (door.getDirection() == player.getDirection()) {
         if (door.isLocked() == false) {
           messageBoard.append("You have opened the door, sir \n");
-          door.openDoor(this.player);
+          door.openDoor(this.player, this.game);
         } else {
           messageBoard.append("Door is still locked, you \n you need to find the right key \n");
         }
@@ -883,8 +883,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     int returnVal = chooserLoad.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       File file = chooserLoad.getSelectedFile();
-      String filename = file.getName();
-      Game loadedGame = parser.loadFromFile(filename);
+      Game loadedGame = parser.loadFromFile(file);
       this.game = loadedGame;
       renderer.repaint(); // refreshes the players position etc
 
