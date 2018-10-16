@@ -48,7 +48,7 @@ public class Render {
     //BufferedImage key = scale((BufferedImage)img1, 60, 40);
     BufferedImage image = null;
     Image img2 = loadImage("scroll.png");
-    //BufferedImage scroll = scale((BufferedImage)img2, 70, 40);
+    
 
     //check if item is a key, if so it will get the key image. if not it gets the scroll image
     if (game.getPlayer().currentMapInteger() == 1) {
