@@ -14,8 +14,9 @@ import GameWorld.Player;
 import GameWorld.Player.Direction;
 import GameWorld.Position;
 import MapEditor.MapEditor;
-import Renderer.Render;
 import Parser.Parser;
+import Renderer.Render;
+
 
 import java.awt.Color;
 import java.awt.FlowLayout;
