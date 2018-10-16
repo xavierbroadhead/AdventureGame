@@ -5,7 +5,6 @@ import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
 import Parser.Parser;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +95,7 @@ public class MapEditor extends javax.swing.JFrame {
         } else {
           map1[i][j] = new Position(i, j);
         }
+        
         if (rooms.get(1)[i][j].equals("Wall")) {
           map2[i][j] = null;
         } else {
@@ -112,7 +112,8 @@ public class MapEditor extends javax.swing.JFrame {
     newMaps.put(1, new Map(map1));
     newMaps.put(2, new Map(map2));
     newMaps.put(3, new Map(map3));
-    
+
+    //Put in keys doors and books
     this.originalGame.setMaps(newMaps);
 
   }
@@ -122,7 +123,6 @@ public class MapEditor extends javax.swing.JFrame {
    * can be made more easily as positions can be more specific due to game logic .
    * void method and takes no arguments.
   */
-   
   public ArrayList<String[][]> convertGameToString() {
     
     // Create the room 2D arrays that correspond to the Game maps as a template
@@ -140,9 +140,7 @@ public class MapEditor extends javax.swing.JFrame {
     rooms.add(room1);
     rooms.add(room2);
     rooms.add(room3);
-    
-    //this.originalGame = something from load method
-    
+
     GameWorld.Position[][] map1 = this.originalGame.getMaps().get(1).getMap();
     GameWorld.Position[][] map2 = this.originalGame.getMaps().get(2).getMap();
     GameWorld.Position[][] map3 = this.originalGame.getMaps().get(3).getMap();
@@ -151,20 +149,42 @@ public class MapEditor extends javax.swing.JFrame {
         if (map1[i][j] == null) {
           rooms.get(0)[i][j] = "Wall";
         } else {
-          rooms.get(0)[i][j] = "Empty";
+          if (map1[i][j].getDoor() != null) {
+            int link = map1[i][j].getDoor().getLink();
+            rooms.get(0)[i][j] = "DoorTo" + link;
+          } else if (map1[i][j].getItem() != null) {
+            rooms.get(0)[i][j] = map1[i][j].getItem().toString();
+          } else {
+            rooms.get(0)[i][j] = "Empty";
+          }
         }
         if (map2[i][j] == null) {
           rooms.get(1)[i][j] = "Wall";
         } else {
-          rooms.get(1)[i][j] = "Empty";
+          if (map1[i][j].getDoor() != null) {
+            int link = map1[i][j].getDoor().getLink();
+            rooms.get(0)[i][j] = "DoorTo" + link;
+          } else if (map1[i][j].getItem() != null) {
+            rooms.get(0)[i][j] = map1[i][j].getItem().toString();
+          } else {
+            rooms.get(1)[i][j] = "Empty";
+          }
         }
         if (map3[i][j] == null) {
           rooms.get(2)[i][j] = "Wall";
         } else {
-          rooms.get(2)[i][j] = "Empty";
+          if (map1[i][j].getDoor() != null) {
+            int link = map1[i][j].getDoor().getLink();
+            rooms.get(0)[i][j] = "DoorTo" + link;
+          } else if (map1[i][j].getItem() != null) {
+            rooms.get(0)[i][j] = map1[i][j].getItem().toString();
+          } else {
+            rooms.get(2)[i][j] = "Empty";
+          }
         }
       }
     }
+    
     return rooms;
   }
 
@@ -251,15 +271,6 @@ public class MapEditor extends javax.swing.JFrame {
 
       count++;
     }
-  }
-  
-  
-  /**
-   * A public method that allows the buttonlist to be available for testing. 
-   * @return
-   */
-  public ArrayList<JButton> getButtons() {
-    return buttonList;
   }
 
   

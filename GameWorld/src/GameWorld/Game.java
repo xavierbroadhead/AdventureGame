@@ -493,7 +493,7 @@ public class Game {
     return this.player;
   }
   
-  /*
+  /* was for in game changes but not happening anymore
   public Game clone() {
     Player player = new Player(this.player.getcurrentMap(), this.player.getPosition());
     Game newGame = new Game(player);
