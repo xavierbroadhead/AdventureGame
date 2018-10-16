@@ -41,7 +41,7 @@ public class Render {
     int y = bottom;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
-    boolean keyItem = false;
+    boolean keyItem = true;
 
 
     Image img1 = loadImage("newKeyImage1.png");
@@ -51,7 +51,7 @@ public class Render {
     //BufferedImage scroll = scale((BufferedImage)img2, 70, 40);
 
     //check if item is a key, if so it will get the key image. if not it gets the scroll image
-    if (keyItem) {
+    if (game.getPlayer().currentMapInteger() == 1) {
       image = scale((BufferedImage)img1, 60, 40);
     }
     else {
