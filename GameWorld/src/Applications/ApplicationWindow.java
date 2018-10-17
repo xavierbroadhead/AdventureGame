@@ -330,13 +330,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
-    inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
+    inventory1.setText("");
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
 
     inventory2.setText("");
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/health.gif")));
+    inventory3.setText("");
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory4.setText("");
@@ -619,12 +619,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       if (item instanceof GameWorld.Key) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+        this.inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
         messageBoard.append("You have picked up a Key! \n");
         // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
+        this.inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
         messageBoard.append("You have picked up a Book! \n");
         // inventory 1 .add icon
       }
