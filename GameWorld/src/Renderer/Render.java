@@ -41,15 +41,15 @@ public class Render {
     int y = bottomDisplay;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
-    boolean keyItem = true;
+
 
 
     Image img1 = loadImage("newKeyImage1.png");
     //BufferedImage key = scale((BufferedImage)img1, 60, 40);
-    BufferedImage image = null;
-    Image img2 = loadImage("scroll.png");
-    
+    BufferedImage image = scale((BufferedImage)img1, 60, 40);
+    //Image img2 = loadImage("scroll.png");
 
+    /**
     //check if item is a key, if so it will get the key image. if not it gets the scroll image
     if (game.getPlayer().currentMapInteger() == 1) {
       image = scale((BufferedImage)img1, 60, 40);
@@ -57,7 +57,7 @@ public class Render {
     else {
       image = scale((BufferedImage)img2, 70, 40);
     }
-
+     */
 
     //ArrayList holding all horizontal edges of tile path to be rendered
     ArrayList<Edge> horizontalEdges = new ArrayList<Edge>();
@@ -149,11 +149,11 @@ public class Render {
     int sideLength = ((int)last.v3.xInt - (int)last.v1.xInt);
     int xT = (int)last.v3.xInt - (sideLength/2) - 20;
     int yT = (int)last.v1.yInt - (int)last.v2.yInt;
-    
+
     //finding highest tile, where wall will be drawn
     Intersect lMax = null;
     Intersect rMax = null;
-    
+
     // sets highest intersect on left
     for(int i = 0; i < intersectionsL.size()-1; i++) {
       if(intersectionsL.get(i).yInt < intersectionsL.get(i+1).yInt) {
@@ -186,7 +186,7 @@ public class Render {
     Intersect topWR = new Intersect((int)rMax.xInt, 0);
     intersectionsR.add(topWR);
     backWall.addPoint((int)topWR.xInt, 0);//top of wall right
-   
+
 
     for(int i = 0; i < intersectionsL.size(); i++) {
       Intersect i1 = intersectionsL.get(i);
@@ -216,10 +216,10 @@ public class Render {
     g2.fillPolygon(leftWall);
     left.drawLine(g2);
     right.drawLine(g2);
-    
+
     //Intersect at right turn
     Intersect rturn = intersectionsR.get(stepsToWallPolys-1);
-    
+
     //draws floor for right turn
     Polygon floorT = new Polygon();//floor for turns
     floorT.addPoint(0, (int)rMax.yInt);
@@ -369,7 +369,7 @@ public class Render {
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);//draws back wall all along display
       g2.fillPolygon(leftWall);
-      
+
       //draws wall lines
       drawWallLines(intersectionsL, intersectionsR, g2);
 
@@ -382,13 +382,13 @@ public class Render {
     if (game.wallForward() && game.wallBehind()) {
       System.out.println("wall mid hall");
       g2.setColor(Color.BLACK);
-      
+
       //line for skirting separating floor and walls
       g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
       g2.drawLine(windowWidth, bottomDisplay, (int)rMax.xInt, (int)rMax.yInt);
       g2.setColor(Color.RED);
-      
-    //draws back wall all along display
+
+      //draws back wall all along display
       g2.fillPolygon(backWallT);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
@@ -424,14 +424,16 @@ public class Render {
     }
 
     if (game.hasLeftCorner() == false && game.hasRightCorner() == false) {
+      g2.setColor(Color.BLACK);
+      
       System.out.println("skipped but caught");
     }
-    g2.setColor(Color.RED);
+    g2.setColor(Color.BLUE);
     System.out.println("skipped all if's");
     g2.fillPolygon(leftWall);
     g2.fillPolygon(rightWall);
     g2.fillPolygon(backWallT);
-   
+
     g2.setColor(Color.BLACK); 
 
     //line for wall turn
@@ -452,9 +454,9 @@ public class Render {
       g2.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
     }
 
-    
+
   }
-  
+
   /**
    * Draws the line across left and right walls.
    * 
@@ -474,7 +476,7 @@ public class Render {
       g.drawLine((int)i.xInt, (int)i.yInt, (int)i.xInt, 0);
     }
   }
-  
+
   /**
    * Draws the item (key or scroll) onto the appropriate tile
    * 

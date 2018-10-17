@@ -30,7 +30,7 @@ public class Game {
 							{null, null, new Position(2,1), null, new Position(4,1)},
 							{null, new Position(1,2), new Position(2,2), null, new Position(4,2)},
 							{null, new Position(1,3), null, new Position(3,3), new Position (4,3)},
-							{new Position(0,4), new Position(1,4), new Position(2,4), new Position(3,4), null}};
+							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
 		
 		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0]);
 		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0]);
@@ -47,9 +47,9 @@ public class Game {
 		doors.put(4, door4);
     
 		Key key = new Key(1, 1, "A key with no markings." , "Key", 1, door1.getID(), new ImageIcon());
-		Key key = new key(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, door3.getID(), new ImageIcon());
+		Key key2 = new Key(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, door3.getID(), new ImageIcon());
 		map1[2][2].addItem(key);
-		map2[4][2].addItem(key);
+		map2[4][2].addItem(key2);
     
 		maps.put(1, new Map(map1));
 		maps.put(2, new Map(map2));
