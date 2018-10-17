@@ -837,7 +837,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
-    player.movePlayer(player.getDirection(), this.game);
+    player.movePlayer(player.getBehind(), this.game);
 
     messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
     // player.setDirection(player.getBehind());
