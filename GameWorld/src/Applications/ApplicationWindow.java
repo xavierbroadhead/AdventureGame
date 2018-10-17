@@ -279,52 +279,52 @@ public class ApplicationWindow extends javax.swing.JFrame {
       }
     });
 
-    
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(miniMap);
     miniMap.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 0, Short.MAX_VALUE)
-    );
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
     jPanel1Layout.setVerticalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 117, Short.MAX_VALUE)
-    );
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 117, Short.MAX_VALUE));
 
     javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel); // initialise right side
     // panel layout
     rightSidePanel.setLayout(rightSidePanelLayout);
-    rightSidePanelLayout.setHorizontalGroup(
-        rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    rightSidePanelLayout.setHorizontalGroup(rightSidePanelLayout
+        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(rightSidePanelLayout.createSequentialGroup()
             .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rightSidePanelLayout.createSequentialGroup()
                     .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(rightSidePanelLayout.createSequentialGroup()
-                            .addComponent(pickUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(open, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pickUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(open,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(rightSidePanelLayout.createSequentialGroup()
-                            .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(unlock, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(unlock,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(0, 0, Short.MAX_VALUE))
-                .addComponent(miniMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
-    );
-    rightSidePanelLayout.setVerticalGroup(
-        rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(rightSidePanelLayout.createSequentialGroup()
-            .addComponent(miniMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(discard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(unlock))
-            .addGap(49, 49, 49)
-            .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(pickUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(open)))
-    );
+                .addComponent(miniMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    Short.MAX_VALUE))
+            .addContainerGap()));
+    rightSidePanelLayout
+        .setVerticalGroup(
+            rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rightSidePanelLayout.createSequentialGroup()
+                    .addComponent(miniMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(discard, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(unlock))
+                    .addGap(49, 49, 49)
+                    .addGroup(rightSidePanelLayout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(pickUp,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(open))));
 
     // Create inventory aspects of the GUI and Left side panel
 
@@ -569,7 +569,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
         dispose();
         newGame.dispose();
         new ApplicationWindow().main(null);
-        
+
       }
     });
 
@@ -593,10 +593,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
     newGame.setLayout(new FlowLayout());
     newGame.setResizable(false);
     newGame.setVisible(true);
-
-    
-
-    
 
   }
 
@@ -664,23 +660,17 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
     Door door = player.getPosition().getDoor();
     if (door != null) {
-        if (door.isLocked() == false) {
-          messageBoard.append("You have opened the door, sir \n");
-          door.openDoor(this.player, this.game);
-          renderer.repaint();
-        } else {
-          messageBoard.append("Door is still locked, you \n you need to find the right key \n");
-        }
-<<<<<<< HEAD
+      if (door.isLocked() == false) {
+        messageBoard.append("You have opened the door, sir \n");
+        door.openDoor(this.player, this.game);
+        renderer.repaint();
       } else {
-        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
+        messageBoard.append("Door is still locked, you \n you need to find the right key \n");
       }
-=======
->>>>>>> 1a64a97cac7337bed0eaf47a04f20f81907e4de0
+
     } else {
       messageBoard.append("You are not near a door!\n");
     }
-
   }
 
   /**
@@ -696,19 +686,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     Door door = player.getPosition().getDoor();
     if (door != null) {
-        if (door.hasKey(player)) {
-          messageBoard.append("KaCHINK... the door is now \n open... \n");
-          door.setLock(false);
-        } else {
-          messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
-        }
-<<<<<<< HEAD
+      if (door.hasKey(player)) {
+        messageBoard.append("KaCHINK... the door is now \n open... \n");
+        door.setLock(false);
       } else {
-        messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
+        messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
       }
-=======
-      
->>>>>>> 1a64a97cac7337bed0eaf47a04f20f81907e4de0
+
     } else {
       messageBoard.append("You are not near a door! \n");
     }
