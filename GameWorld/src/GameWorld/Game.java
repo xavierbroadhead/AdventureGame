@@ -196,12 +196,13 @@ public class Game {
 	public int tilesTilItem() {
 		int x = player.getPosition().getx();
 		int y = player.getPosition().gety();
+		int i = 0;
 		Player.Direction direction = player.getDirection();
 		Integer integer = player.currentMapInteger();
 		Position[][] currentMap = this.maps.get(integer).getMap();
 		try {
 			if(itemInCorridor()) {
-				for (int i = 0; i < tilesTilWall(); i++) {
+				for (i = 0; i < tilesTilWall(); i++) {
 					if (direction == Player.Direction.NORTH) {
 						if (currentMap[y - i][x].containsItem()) {
 							return i;
@@ -224,10 +225,10 @@ public class Game {
 					}
 				}
 			}
-			return -1;
+			return i;
 		}
 		catch(ArrayIndexOutOfBoundsException exception) {
-			return -1;
+			return i;
 		}
 	}
 	/** Checks if there is a wall in front of the current position

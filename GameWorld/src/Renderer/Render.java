@@ -41,6 +41,18 @@ public class Render {
     int y = bottomDisplay;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
+    
+    Color floor = null;
+    if(game.getPlayer().currentMapInteger() == 1) {
+      floor = Color.GRAY;
+    }
+    if(game.getPlayer().currentMapInteger() == 2) {
+      floor = Color.GREEN;
+    }
+    if(game.getPlayer().currentMapInteger() == 3) {
+      floor = Color.BLUE;
+    }
+    
 
 
 
@@ -141,7 +153,7 @@ public class Render {
 
     // drawing tile/polygon objects 
     for(Polygon p : polygons) {
-      g2.setColor(Color.GRAY);
+      g2.setColor(floor);
       g2.fillPolygon(p);
     }
 
@@ -260,7 +272,7 @@ public class Render {
       System.out.println("right turn");
       g2.setColor(Color.RED);
       g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);//draws line seperating back wall from floor
-      g2.fillPolygon(rightTurn);//call to draw right turn//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      g2.fillPolygon(rightTurn);//call to draw right turn
       g2.fillPolygon(leftWall);
       g2.fillPolygon(backWallT);
 
@@ -280,7 +292,7 @@ public class Render {
       //g2.drawImage(image, 0, 0, null);
       //g2.drawImage(image, xT, yT, null);
       if(game.itemInCorridor())
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       return;
     }
 
@@ -293,6 +305,7 @@ public class Render {
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
+      drawDoor(tiles, g2, game);
 
       g2.setColor(Color.BLACK); 
 
@@ -307,7 +320,7 @@ public class Render {
       drawWallLines(intersectionsL, intersectionsR, g2);
 
       if(game.itemInCorridor())
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       return;
     }
 
@@ -332,7 +345,7 @@ public class Render {
       drawWallLines(intersectionsL, intersectionsR, g2);
 
       if (game.itemInCorridor()) { 
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       }
 
       return;
@@ -353,7 +366,7 @@ public class Render {
       drawWallLines(intersectionsL, intersectionsR, g2);//draws wall lines
 
       if (game.itemInCorridor()) {
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       }
 
       return;
@@ -374,7 +387,7 @@ public class Render {
       drawWallLines(intersectionsL, intersectionsR, g2);
 
       if (game.itemInCorridor()) {
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       }
       return;
     }
@@ -396,6 +409,7 @@ public class Render {
     }
 
     if (game.hasLeftCorner() == false && game.hasRightCorner()) {
+      System.out.println("what is this");
       g2.setColor(Color.BLACK);
       //draws line seperating back wall from floor
       g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);
@@ -418,7 +432,7 @@ public class Render {
 
 
       if (game.itemInCorridor()) {
-        drawItem(image, tiles, g2);
+        drawItem(image, tiles, g2, game);
       }
       return;
     }
@@ -433,6 +447,7 @@ public class Render {
     g2.fillPolygon(leftWall);
     g2.fillPolygon(rightWall);
     g2.fillPolygon(backWallT);
+    
 
     g2.setColor(Color.BLACK); 
 
@@ -478,19 +493,41 @@ public class Render {
   }
 
   /**
-   * Draws the item (key or scroll) onto the appropriate tile
+   * Draws the key item onto the appropriate tile
    * 
    * @param image - item image to be drawn
    * @param tiles - tile object used to determine image location
    * @param g - Graphics object to be drawn on
    */
-  public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g) {
-    Tile targetTile = tiles.get(tiles.size()-1);
+  public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g, Game game) {
+    Tile targetTile = null;
+    int  tilesAway= game.tilesTilItem() - 1;
+    if(game.getPlayer().currentMapInteger() == 1) {
+      targetTile = tiles.get(tiles.size() - 1);
+    }
+    if(game.getPlayer().currentMapInteger() == 2) {
+      targetTile = tiles.get(tiles.size() - 2);
+    }
+    if(game.getPlayer().currentMapInteger() == 3) {
+      targetTile = tiles.get(tiles.size() - 3);
+    }
+    
     int tileWidth = (int)targetTile.v3.xInt -  (int)targetTile.v1.xInt;
     int x = (int)targetTile.v1.xInt + (tileWidth/2) - 20;
     int tileHeight = (int)targetTile.v2.yInt - (int)targetTile.v1.yInt + 20;
     int y = (int)targetTile.v2.yInt - (tileHeight/2);
     g.drawImage(image, x, y, null);
+  }
+  
+  public void drawDoor(ArrayList<Tile> tiles, Graphics2D g, Game game) {
+    Tile tile = tiles.get(tiles.size() - 1);
+    Polygon p = new Polygon();
+    p.addPoint((int)tile.v1.xInt, (int)tile.v1.yInt);
+    p.addPoint((int)tile.v3.xInt, (int)tile.v3.yInt);
+    p.addPoint((int)tile.v4.xInt, (int)tile.v4.yInt);
+    p.addPoint((int)tile.v2.xInt, (int)tile.v2.yInt);
+    g.setColor(Color.GREEN);
+    g.fillPolygon(p);
   }
 
   /**
