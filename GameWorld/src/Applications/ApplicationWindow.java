@@ -802,10 +802,9 @@ public class ApplicationWindow extends javax.swing.JFrame {
       renderer.repaint();
     } else {
       javax.swing.JFrame endGame = new javax.swing.JFrame();
-      
+
       javax.swing.JDialog warning = new javax.swing.JDialog();
-      javax.swing.JLabel message = new javax.swing.JLabel(
-          "Awesome, You have completed our game! YOU WON!");
+      javax.swing.JLabel message = new javax.swing.JLabel("Awesome, You have completed our game! YOU WON!");
 
       JButton yes = new JButton("Fantastic!");
       yes.addActionListener(new java.awt.event.ActionListener() {
@@ -813,14 +812,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
           dispose();
           endGame.dispose();
           new ApplicationWindow().main(null);
-          
-          
+
         }
       });
-      
+
       endGame.add(message);
       endGame.add(yes);
-      
 
       endGame.setSize(410, 80);
       endGame.setLayout(new FlowLayout());
