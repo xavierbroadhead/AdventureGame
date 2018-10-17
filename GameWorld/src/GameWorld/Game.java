@@ -128,6 +128,44 @@ public class Game {
 		}
 		return buffer;
 	}
+		
+	/** Returns number of tiles until a trap door.
+	 * 
+	 * 
+	 * @return number of tiles until a trap door, or -1 if there is no door in front of us
+	 */
+	public int tilesTilDoor() {
+		int x = player.getPosition().getx();
+		int y = player.getPosition().gety();
+		Position[][] buffer = this.maps.get(player.currentMapInteger()).getMap();
+		List<Door> doorsInRoom = new ArrayList<Door>();
+		for (Door door : doors.values()) {
+			if (door.getMap() == player.currentMapInteger()) doorsInRoom.add(door);
+			}
+		for (int i = 0; i < tilesTilWall(); i++) {
+			if (player.getDirection() == Player.Direction.NORTH) {
+				for (Door door : doorsInRoom) {
+					if (buffer[y-i][x] == door.getDoorPosition()) return i;
+				}
+			}
+			if (player.getDirection() == Player.Direction.EAST) {
+				for (Door door : doorsInRoom) {
+					if (buffer[y][x+i] == door.getDoorPosition()) return i;
+				}
+			}
+			if (player.getDirection() == Player.Direction.SOUTH) {
+				for (Door door : doorsInRoom) {
+					if (buffer[y+i][x] == door.getDoorPosition()) return i;
+				}
+			}
+			if (player.getDirection() == Player.Direction.WEST) {
+				for (Door door : doorsInRoom) {
+					if (buffer[y][x-i] == door.getDoorPosition()) return i;
+				}
+			}
+		}
+		return -1;
+	}
 	
 	/** Checks if there is an item in the corridor in front of the player.
 	 * 
