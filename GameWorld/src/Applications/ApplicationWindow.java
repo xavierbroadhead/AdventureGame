@@ -617,16 +617,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       GameWorld.Item item = this.player.getPosition().getItem();
 
-      if (item instanceof GameWorld.Key) {
+            if (item instanceof GameWorld.Key) {
         this.player.pickup();
-        this.inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
-        messageBoard.append("You have picked up a Key! \n");
-        // invetory1 .add icon ....
+        if(inventory1.getIcon() == null) {
+        		this.inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+        		messageBoard.append("You have picked up a Key! \n");
+        }
+        else {
+        	this.inventory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+        	messageBoard.append("You have picked up a Key! \n");
+        }
       } else if (item instanceof GameWorld.Book) {
         this.player.pickup();
         this.inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
         messageBoard.append("You have picked up a Book! \n");
-        // inventory 1 .add icon
       }
 
     } else {
