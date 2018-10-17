@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import GameWorld.Game;
 import GameWorld.Player;
+import GameWorld.Position;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,7 +42,7 @@ public class Render {
     int y = bottomDisplay;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
-    
+    /**
     Color floor = null;
     if(game.getPlayer().currentMapInteger() == 1) {
       floor = Color.GRAY;
@@ -52,7 +53,7 @@ public class Render {
     if(game.getPlayer().currentMapInteger() == 3) {
       floor = Color.BLUE;
     }
-    
+    */
 
 
 
@@ -153,7 +154,7 @@ public class Render {
 
     // drawing tile/polygon objects 
     for(Polygon p : polygons) {
-      g2.setColor(floor);
+      g2.setColor(Color.GRAY);
       g2.fillPolygon(p);
     }
 
@@ -293,6 +294,7 @@ public class Render {
       //g2.drawImage(image, xT, yT, null);
       if(game.itemInCorridor())
         drawItem(image, tiles, g2, game);
+      drawDoor(tiles, g2, game);
       return;
     }
 
@@ -305,7 +307,7 @@ public class Render {
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
-      drawDoor(tiles, g2, game);
+      //drawDoor(tiles, g2, game);
 
       g2.setColor(Color.BLACK); 
 
@@ -321,6 +323,7 @@ public class Render {
 
       if(game.itemInCorridor())
         drawItem(image, tiles, g2, game);
+      drawDoor(tiles, g2, game);
       return;
     }
 
@@ -347,7 +350,7 @@ public class Render {
       if (game.itemInCorridor()) { 
         drawItem(image, tiles, g2, game);
       }
-
+      drawDoor(tiles, g2, game);
       return;
     }
 
@@ -368,7 +371,7 @@ public class Render {
       if (game.itemInCorridor()) {
         drawItem(image, tiles, g2, game);
       }
-
+      drawDoor(tiles, g2, game);
       return;
     }
 
@@ -405,6 +408,7 @@ public class Render {
       g2.fillPolygon(backWallT);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      drawDoor(tiles, g2, game);
       return;
     }
 
@@ -434,21 +438,17 @@ public class Render {
       if (game.itemInCorridor()) {
         drawItem(image, tiles, g2, game);
       }
+      drawDoor(tiles, g2, game);
       return;
     }
 
-    if (game.hasLeftCorner() == false && game.hasRightCorner() == false) {
-      g2.setColor(Color.BLACK);
-      
-      System.out.println("skipped but caught");
-    }
-    g2.setColor(Color.BLUE);
-    System.out.println("skipped all if's");
+    g2.setColor(Color.RED);
     g2.fillPolygon(leftWall);
     g2.fillPolygon(rightWall);
     g2.fillPolygon(backWallT);
     
-
+    drawDoor(tiles, g2, game);
+    
     g2.setColor(Color.BLACK); 
 
     //line for wall turn
@@ -501,7 +501,8 @@ public class Render {
    */
   public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g, Game game) {
     Tile targetTile = null;
-    int  tilesAway= game.tilesTilItem() - 1;
+    int  tilesAway = game.tilesTilItem() ;
+    
     if(game.getPlayer().currentMapInteger() == 1) {
       targetTile = tiles.get(tiles.size() - 1);
     }
@@ -520,14 +521,30 @@ public class Render {
   }
   
   public void drawDoor(ArrayList<Tile> tiles, Graphics2D g, Game game) {
-    Tile tile = tiles.get(tiles.size() - 1);
-    Polygon p = new Polygon();
-    p.addPoint((int)tile.v1.xInt, (int)tile.v1.yInt);
-    p.addPoint((int)tile.v3.xInt, (int)tile.v3.yInt);
-    p.addPoint((int)tile.v4.xInt, (int)tile.v4.yInt);
-    p.addPoint((int)tile.v2.xInt, (int)tile.v2.yInt);
-    g.setColor(Color.GREEN);
-    g.fillPolygon(p);
+    //door 1 x=3 y=0 for array(0,3)
+    Position[][] buffer = game.getMaps().get(game.getPlayer().currentMapInteger()).getMap();
+    Position pdoor1 = null;
+    Position bdoor1 = null;
+    if(game.getPlayer().currentMapInteger() == 1) {
+    pdoor1 = buffer[0][3];//new Position(3,0);//for map 1
+    bdoor1 = buffer[0][2];//new Position(2, 0);//for map 1
+    }
+    if(game.getPlayer().currentMapInteger() == 2) {
+      pdoor1 = buffer[3][4];//new Position(3,0);//for map 1
+      bdoor1 = buffer[3][3];//new Position(2, 0);//for map 1
+     }
+    
+    if(game.getPlayer().getPosition().equals(bdoor1) || game.getPlayer().getPosition().equals(pdoor1)) {
+      Tile tile = tiles.get(tiles.size() - 1);
+      Polygon p = new Polygon();
+      p.addPoint((int)tile.v1.xInt, (int)tile.v1.yInt);
+      p.addPoint((int)tile.v3.xInt, (int)tile.v3.yInt);
+      p.addPoint((int)tile.v4.xInt, (int)tile.v4.yInt);
+      p.addPoint((int)tile.v2.xInt, (int)tile.v2.yInt);
+      g.setColor(Color.GREEN);
+      g.fillPolygon(p);
+    }
+   
   }
 
   /**
