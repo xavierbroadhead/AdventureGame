@@ -32,10 +32,10 @@ public class Game {
 							{null, new Position(1,3), null, new Position(3,3), new Position (4,3)},
 							{new Position(0,4), new Position(1,4), new Position(2,4), new Position(3,4), null}};
 		
-		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0], Player.Direction.NORTH);
-		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0], Player.Direction.NORTH);
-		Door door3 = new Door(true, 2, 3, 3, map2[3][4], map3[0][0], Player.Direction.EAST);
-		Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[4][3], Player.Direction.NORTH);
+		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0]);
+		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0]);
+		Door door3 = new Door(true, 2, 3, 3, map2[3][4], map3[0][0]);
+		Door door4 = new Door(false, 3, 4, 2, map3[0][0], map2[4][3]);
 		
 		map1[0][3].setDoor(door1);
 		map2[0][0].setDoor(door2);
@@ -47,9 +47,9 @@ public class Game {
 		doors.put(4, door4);
     
 		Key key = new Key(1, 1, "A key with no markings." , "Key", 1, door1.getID(), new ImageIcon());
-		Book book = new Book(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", new Integer(2), true, "Book", new ImageIcon());
+		Key key = new key(1, 2, "Its a key. You notice the letter Z inscribed on it.", "Key", 2, door3.getID(), new ImageIcon());
 		map1[2][2].addItem(key);
-		map2[4][2].addItem(book);
+		map2[4][2].addItem(key);
     
 		maps.put(1, new Map(map1));
 		maps.put(2, new Map(map2));
