@@ -8,18 +8,15 @@ public class Door {
   private Integer link;
   private Position doorPosition;
   private Position linkPosition;
-  private Player.Direction doorDirection;
   private boolean beenThrough;
 
-  public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition,
-      Player.Direction direction) {
+  public Door(boolean locked, Integer map, int doorID, Integer link, Position doorPosition, Position linkPosition) {
     this.locked = locked;
     this.map = map;
     this.doorID = doorID;
     this.link = link;
     this.doorPosition = doorPosition;
     this.linkPosition = linkPosition;
-    this.doorDirection = direction;
   }
 
   public int getID() {
@@ -46,9 +43,6 @@ public class Door {
     return linkPosition;
   }
 
-  public Player.Direction getDirection() {
-    return doorDirection;
-  }
 
   public void setLock(boolean locked) {
     this.locked = locked;
@@ -60,10 +54,6 @@ public class Door {
 
   public void setLinkPosition(Position position) {
     this.linkPosition = position;
-  }
-
-  public void setDirection(Player.Direction direction) {
-    this.doorDirection = direction;
   }
 
   /**
@@ -91,20 +81,25 @@ public class Door {
    *          the player that is opening the door
    * @return true if we could move to the next room
    */
-  public boolean openDoor(Player player, Game game) {
+    public boolean openDoor(Player player, Game game) {
+	  int linkx = this.linkPosition.getx();
+	  int originalx = this.doorPosition.getx();
+	  int linky = this.linkPosition.gety();
+	  int originaly = this.doorPosition.gety();
+	  
     if (this.hasKey(player)) {
     		if (beenThrough) {
     			beenThrough = false;
     			player.updateMap(map);
     	        Position[][] buffer = game.getMaps().get(this.map).getMap();
-    		    player.setPosition(buffer[0][0]);
+    		    player.setPosition(buffer[originaly][originalx]);
     		    return true;
     		}
     		else {
     			beenThrough = true;
     			player.updateMap(link);
     	        Position[][] buffer = game.getMaps().get(this.link).getMap();
-    		    player.setPosition(buffer[0][0]);
+    		    player.setPosition(buffer[linky][linkx]);
     		    return true;
     		}
     } 
