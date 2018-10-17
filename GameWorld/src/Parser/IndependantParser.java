@@ -124,7 +124,7 @@ public class IndependantParser {
   
   private Position parsePosition (Node position) {
     Element el = (Element) position;
-    Node xVal = el.getElementsByTagName("xVal").item(0);
+    Node xVal = el.getElementsByTagName("xVal").item(0);             // BUG: NullPointerException thrown here                 
     Node yVal = el.getElementsByTagName("yVal").item(0);
     
     // get x and y values
@@ -403,9 +403,9 @@ public class IndependantParser {
     }
     
     // otherwise, add appropriate elements to store map, x and y values before returning
-    findPosition.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(map - 1))));
-    findPosition.appendChild(doc.createElement("xVal").appendChild(doc.createTextNode(Integer.toString(p.getx()))));
-    findPosition.appendChild(doc.createElement("yVal").appendChild(doc.createTextNode(Integer.toString(p.gety()))));
+    findPosition.appendChild(saveParameter("Map", Integer.toString(map - 1), doc));
+    findPosition.appendChild(saveParameter("xVal", Integer.toString(p.getx()), doc));
+    findPosition.appendChild(saveParameter("yVal", Integer.toString(p.gety()), doc));
     return findPosition;
   }
   
@@ -428,25 +428,25 @@ public class IndependantParser {
     if (i instanceof Key) {
       item.setAttribute("Type", "Key");
       Key k = (Key) i;
-      item.appendChild(doc.createElement("DoorID").appendChild(doc.createTextNode(Integer.toString(k.getDoor()))));
+      item.appendChild(saveParameter("DoorID", Integer.toString(k.getDoor()), doc));
     }
     
     // if i is a a Book, set the type and add "Contents" and "Magical" children
     if (i instanceof Book) {
       item.setAttribute("Type", "Book");
       Book b = (Book) i;
-      item.appendChild(doc.createElement("Contents").appendChild(doc.createTextNode(b.read())));
-      item.appendChild(doc.createElement("Magical").appendChild(doc.createTextNode(Boolean.toString(b.isMagical()))));
+      item.appendChild(saveParameter("Contents", b.read(), doc));
+      item.appendChild(saveParameter("Magical", Boolean.toString(b.isMagical()), doc));
     }
     
     
     
     // add generic parameters and return
-   item.appendChild(doc.createElement("Weight").appendChild(doc.createTextNode(Integer.toString(i.getWeight()))));
-   item.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(i.getItemID()))));
-   item.appendChild(doc.createElement("Description").appendChild(doc.createTextNode(i.getDescription())));
-   item.appendChild(doc.createElement("Title").appendChild(doc.createTextNode(i.toString())));
-   item.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(i.currentMap() - 1))));
+   item.appendChild(saveParameter("Weight", Integer.toString(i.getWeight()), doc));  
+   item.appendChild(saveParameter("ID", Integer.toString(i.getItemID()), doc));
+   item.appendChild(saveParameter("Description", i.getDescription(), doc));
+   item.appendChild(saveParameter("Title", i.toString(), doc));
+   item.appendChild(saveParameter("Map", Integer.toString(i.currentMap() - 1), doc));
    item.appendChild(saveIcon(i, doc));
     return item;
     }
@@ -461,13 +461,26 @@ public class IndependantParser {
     Element door = doc.createElement("Door");
     
     // add parameters and return
-    door.appendChild(doc.createElement("Locked").appendChild(doc.createTextNode(Boolean.toString(d.isLocked()))));
-    door.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(d.getMap()))));
-    door.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(d.getID()))));
-    door.appendChild(doc.createElement("Link").appendChild(doc.createTextNode(Integer.toString(d.getLink()))));
+    door.appendChild(saveParameter("Locked", Boolean.toString(d.isLocked()), doc));
+    door.appendChild(saveParameter("Map", Integer.toString(d.getMap()), doc));                                  
+    door.appendChild(saveParameter("ID", Integer.toString(d.getID()), doc));  
+    door.appendChild(saveParameter("Link", Integer.toString(d.getLink()), doc));     
     door.appendChild(saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition", doc));
     door.appendChild(saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition", doc));
     return door;
+  }
+  
+  /**
+   * Used to create an Element representation of a single piece of data
+   * @param title
+   * @param param
+   * @param doc
+   * @return
+   */
+  private Element saveParameter (String title, String param, Document doc) {
+    Element el = doc.createElement(title);
+    el.appendChild(doc.createTextNode(param));
+    return el;
   }
   
   /**
