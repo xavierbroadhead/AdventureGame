@@ -667,7 +667,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
       } else {
         messageBoard.append("Door is still locked, you \n you need to find the right key \n");
       }
-
     } else {
       messageBoard.append("You are not near a door!\n");
     }
@@ -692,7 +691,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
       } else {
         messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
       }
-
     } else {
       messageBoard.append("You are not near a door! \n");
     }
@@ -795,10 +793,41 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-    player.movePlayer(player.getDirection(), this.game);
-    messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
-    renderer.repaint();
 
+    Position[][] buffer = game.getMaps().get(3).getMap();
+
+    if (player.getPosition() != buffer[2][4]) {
+      player.movePlayer(player.getDirection(), this.game);
+      messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
+      renderer.repaint();
+    } else {
+      javax.swing.JFrame endGame = new javax.swing.JFrame();
+      
+      javax.swing.JDialog warning = new javax.swing.JDialog();
+      javax.swing.JLabel message = new javax.swing.JLabel(
+          "Awesome, You have completed our game! YOU WON!");
+
+      JButton yes = new JButton("Fantastic!");
+      yes.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent ev) { // need to sort out
+          dispose();
+          endGame.dispose();
+          new ApplicationWindow().main(null);
+          
+          
+        }
+      });
+      
+      endGame.add(message);
+      endGame.add(yes);
+      
+
+      endGame.setSize(410, 80);
+      endGame.setLayout(new FlowLayout());
+      endGame.setResizable(false);
+      endGame.setVisible(true);
+      messageBoard.setText("You have won our very difficult \n Game Woohoo!");
+    }
   }
 
   /**
@@ -817,7 +846,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
     // player.setDirection(player.getBehind());
 
     renderer.repaint();
-
   }
 
   /**
