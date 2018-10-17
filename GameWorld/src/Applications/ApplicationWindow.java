@@ -194,28 +194,28 @@ public class ApplicationWindow extends javax.swing.JFrame {
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE));
 
     // Bottom Panel
-    up.setText("FORWARD");
+    up.setText("Forward");
     up.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         upActionPerformed(evt);
       }
     });
 
-    backwards.setText("BACKWARDS");
+    backwards.setText("Back");
     backwards.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backwardsActionPerformed(evt);
       }
     });
 
-    right.setText("Clockwise");
+    right.setText("Right");
     right.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         rightActionPerformed(evt);
       }
     });
 
-    left.setText("Anti-Clockwise");
+    left.setText("Left");
     left.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         leftActionPerformed(evt);
