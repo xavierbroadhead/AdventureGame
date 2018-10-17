@@ -201,7 +201,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       }
     });
 
-    backwards.setText("Back");
+    backwards.setText("      Back      ");
     backwards.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backwardsActionPerformed(evt);
