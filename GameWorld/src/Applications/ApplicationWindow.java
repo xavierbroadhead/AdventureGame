@@ -654,6 +654,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
         if (door.isLocked() == false) {
           messageBoard.append("You have opened the door, sir \n");
           door.openDoor(this.player, this.game);
+          renderer.repaint();
         } else {
           messageBoard.append("Door is still locked, you \n you need to find the right key \n");
         }
