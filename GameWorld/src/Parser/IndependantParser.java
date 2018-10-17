@@ -124,8 +124,8 @@ public class IndependantParser {
   
   private Position parsePosition (Node position) {
     Element el = (Element) position;
-    Node xVal = el.getElementsByTagName("xVal").item(0);             // BUG: NullPointerException thrown here                 
-    Node yVal = el.getElementsByTagName("yVal").item(0);
+    Node xVal = el.getFirstChild();            // BUG: NullPointerException thrown here                 
+    Node yVal = el.getLastChild();
     
     // get x and y values
     int x = Integer.parseInt(xVal.getTextContent());
