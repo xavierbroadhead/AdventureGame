@@ -28,7 +28,7 @@ public class Game {
 							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
 		
 		Position[][] map3 = {{new Position(0,0), new Position(1,0), null, null, null},
-							{null, new Position(2,1), null, null, null},
+							{null, new Position(1,1), null, null, null},
 							{null, new Position(1,2), null, null, new Position(4,2)},
 							{null, new Position(1,3), null, null, new Position (4,3)},
 							{null, new Position(1,4), new Position(2,4), new Position(3,4), new Position(4,4)}};
