@@ -4,8 +4,6 @@ import GameWorld.Book;
 import GameWorld.Key;
 import GameWorld.Door;
 import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +17,6 @@ import GameWorld.Item;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
-import GameWorld.Player.Direction;
 
 import javax.xml.parsers.*;
 import javax.xml.transform.Transformer;
@@ -27,7 +24,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -251,14 +247,7 @@ public class IndependantParser {
     Position doorPos = parseFindPosition(doorPosition);
     Position linkPos = parseFindPosition(linkPosition);
     
-    // determine the Direction (set to North as default)
-    Player.Direction dir = Direction.NORTH;
-    String dirStr = direction.getTextContent();
-    if (dirStr.equals("SOUTH")) {dir = Direction.SOUTH;}
-    else if (dirStr.equals("EAST")) {dir = Direction.EAST;}
-    else if (dirStr.equals("WEST")) {dir = Direction.WEST;}
-    
-    return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos, dir);
+    return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos);
   }
   
   /**
@@ -476,24 +465,11 @@ public class IndependantParser {
     door.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(d.getMap()))));
     door.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(d.getID()))));
     door.appendChild(doc.createElement("Link").appendChild(doc.createTextNode(Integer.toString(d.getLink()))));
-    door.appendChild(doc.createElement("Direction").appendChild(doc.createTextNode(directionString(d.getDirection()))));
     door.appendChild(saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition", doc));
     door.appendChild(saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition", doc));
     return door;
   }
-  /**
-   * used by saveDoor. Takes a Direction as a parameter and converts it to a String
-   * @param d
-   * @return
-   */
-  private String directionString (Player.Direction d) {
-    if (d == Direction.NORTH) {return "NORTH";}
-    if (d == Direction.SOUTH) {return "SOUTH";}
-    if (d == Direction.EAST) {return "EAST";}
-    if (d == Direction.WEST) {return "WEST";}
-
-    return " ";       // shouldn't reach this bit
-  }
+  
   /**
    * Saves the file path for an icon
    * @param i
