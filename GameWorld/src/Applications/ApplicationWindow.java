@@ -664,16 +664,19 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
     Door door = player.getPosition().getDoor();
     if (door != null) {
-      if (door.getDirection() == player.getDirection()) {
         if (door.isLocked() == false) {
           messageBoard.append("You have opened the door, sir \n");
           door.openDoor(this.player, this.game);
+          renderer.repaint();
         } else {
           messageBoard.append("Door is still locked, you \n you need to find the right key \n");
         }
+<<<<<<< HEAD
       } else {
         messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
       }
+=======
+>>>>>>> 1a64a97cac7337bed0eaf47a04f20f81907e4de0
     } else {
       messageBoard.append("You are not near a door!\n");
     }
@@ -693,16 +696,19 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     Door door = player.getPosition().getDoor();
     if (door != null) {
-      if (door.getDirection() == player.getDirection()) {
         if (door.hasKey(player)) {
           messageBoard.append("KaCHINK... the door is now \n open... \n");
           door.setLock(false);
         } else {
           messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
         }
+<<<<<<< HEAD
       } else {
         messageBoard.append("You are not facing the right \n way. the door is facing" + door.getDirection() + "\n");
       }
+=======
+      
+>>>>>>> 1a64a97cac7337bed0eaf47a04f20f81907e4de0
     } else {
       messageBoard.append("You are not near a door! \n");
     }

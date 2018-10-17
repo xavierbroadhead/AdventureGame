@@ -481,7 +481,6 @@ public class IndependantParser {
     door.appendChild(saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition", doc));
     return door;
   }
-  
   /**
    * used by saveDoor. Takes a Direction as a parameter and converts it to a String
    * @param d
@@ -495,7 +494,6 @@ public class IndependantParser {
 
     return " ";       // shouldn't reach this bit
   }
-  
   /**
    * Saves the file path for an icon
    * @param i
@@ -508,37 +506,9 @@ public class IndependantParser {
     if (i instanceof Key) {
       icon.appendChild(doc.createTextNode("/Resources/key.gif"));
     }
-    
     if (i instanceof Book) {
       icon.appendChild(doc.createTextNode("/Resources/scroll.gif"));
     }
-    
     return icon;
     }
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
