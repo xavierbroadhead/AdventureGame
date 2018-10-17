@@ -684,7 +684,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
           messageBoard.append("You do not have the KEY on \n " 
               + "you! Go find one somewhere \n around the faculty \n");
         }
-      }
+      
     } else {
       messageBoard.append("You are not near a door! \n");
     }
