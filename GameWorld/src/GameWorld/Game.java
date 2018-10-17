@@ -132,7 +132,7 @@ public class Game {
 	/** Returns number of tiles until a trap door.
 	 * 
 	 * 
-	 * @return number of tiles until a trap door, or -1 if there is no door in front of us
+	 * @return number of tiles until a trap door, or 0 if there is no door in front of us
 	 */
 	public int tilesTilDoor() {
 		int x = player.getPosition().getx();
@@ -142,7 +142,7 @@ public class Game {
 		for (Door door : doors.values()) {
 			if (door.getMap() == player.currentMapInteger()) doorsInRoom.add(door);
 			}
-		for (int i = 0; i < tilesTilWall(); i++) {
+		for (int i = 1; i < tilesTilWall(); i++) {
 			if (player.getDirection() == Player.Direction.NORTH) {
 				for (Door door : doorsInRoom) {
 					if (buffer[y-i][x] == door.getDoorPosition()) return i;
@@ -164,7 +164,7 @@ public class Game {
 				}
 			}
 		}
-		return -1;
+		return 0;
 	}
 	
 	/** Checks if there is an item in the corridor in front of the player.
