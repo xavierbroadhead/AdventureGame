@@ -28,10 +28,10 @@ public class Game {
 							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
 		
 		Position[][] map3 = {{new Position(0,0), new Position(1,0), new Position(2,0), null, null},
-							{null, null, new Position(2,1), null, new Position(4,1)},
+							{null, null, new Position(2,1), null, null},
 							{null, new Position(1,2), new Position(2,2), null, new Position(4,2)},
-							{null, new Position(1,3), null, new Position(3,3), new Position (4,3)},
-							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
+							{null, new Position(1,3), null, null, new Position (4,3)},
+							{null, new Position(1,4), new Position(2,4), new Position(3,4), new Position(4,4)}};
 		
 		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0]);
 		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0]);
@@ -133,7 +133,7 @@ public class Game {
 	/** Returns number of tiles until a trap door.
 	 * 
 	 * 
-	 * @return number of tiles until a trap door, or -1 if there is no door in front of us
+	 * @return number of tiles until a trap door, or 0 if there is no door in front of us
 	 */
 	public int tilesTilDoor() {
 		int x = player.getPosition().getx();
@@ -143,7 +143,7 @@ public class Game {
 		for (Door door : doors.values()) {
 			if (door.getMap() == player.currentMapInteger()) doorsInRoom.add(door);
 			}
-		for (int i = 0; i < tilesTilWall(); i++) {
+		for (int i = 1; i < tilesTilWall(); i++) {
 			if (player.getDirection() == Player.Direction.NORTH) {
 				for (Door door : doorsInRoom) {
 					if (buffer[y-i][x] == door.getDoorPosition()) return i;
@@ -165,7 +165,7 @@ public class Game {
 				}
 			}
 		}
-		return -1;
+		return 0;
 	}
 	
 	/** Checks if there is an item in the corridor in front of the player.

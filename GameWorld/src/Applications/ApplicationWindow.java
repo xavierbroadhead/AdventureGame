@@ -63,6 +63,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private javax.swing.JFrame discardPanel;
   private javax.swing.JPanel renderer;
   private javax.swing.JButton up;
+  private javax.swing.JPanel miniMap;
   private javax.swing.JButton backwards;
   private javax.swing.JPanel bottomPanel;
   private javax.swing.JButton discard;
@@ -106,7 +107,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   public ApplicationWindow() {
 
     initComponents();
-
+    messageBoard.setText("You have started a New Game. \n Welcome :) \n");
   }
 
   /**
@@ -133,6 +134,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
       }
     };
     jLabel3 = new javax.swing.JLabel();
+    miniMap = new javax.swing.JPanel();
     bottomPanel = new javax.swing.JPanel();
     up = new javax.swing.JButton();
     backwards = new javax.swing.JButton();
@@ -277,28 +279,43 @@ public class ApplicationWindow extends javax.swing.JFrame {
       }
     });
 
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(miniMap);
+    miniMap.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 117, Short.MAX_VALUE));
+
     javax.swing.GroupLayout rightSidePanelLayout = new javax.swing.GroupLayout(rightSidePanel); // initialise right side
-                                                                                                // panel layout
+    // panel layout
     rightSidePanel.setLayout(rightSidePanelLayout);
-    rightSidePanelLayout
-        .setHorizontalGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightSidePanelLayout.createSequentialGroup()
-                .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rightSidePanelLayout.createSequentialGroup()
-                        .addComponent(pickUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(open,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rightSidePanelLayout.createSequentialGroup()
-                        .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(unlock,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+    rightSidePanelLayout.setHorizontalGroup(rightSidePanelLayout
+        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(rightSidePanelLayout.createSequentialGroup()
+            .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rightSidePanelLayout.createSequentialGroup()
+                    .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(rightSidePanelLayout.createSequentialGroup()
+                            .addComponent(pickUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(open,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(rightSidePanelLayout.createSequentialGroup()
+                            .addComponent(discard, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(unlock,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(miniMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    Short.MAX_VALUE))
+            .addContainerGap()));
     rightSidePanelLayout
         .setVerticalGroup(
             rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(rightSidePanelLayout.createSequentialGroup().addGap(123, 123, 123)
+                .addGroup(rightSidePanelLayout.createSequentialGroup()
+                    .addComponent(miniMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(rightSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(discard, javax.swing.GroupLayout.DEFAULT_SIZE,
                             javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -518,18 +535,15 @@ public class ApplicationWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-                                  .addComponent(jPanel4,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
+                                layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE).addComponent(jPanel4,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                                     javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                         layout.createSequentialGroup()
                             .addComponent(bottomPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, 
-                                  javax.swing.GroupLayout.PREFERRED_SIZE)
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap()))));
 
     pack();
@@ -555,6 +569,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
         dispose();
         newGame.dispose();
         new ApplicationWindow().main(null);
+
       }
     });
 
@@ -578,10 +593,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
     newGame.setLayout(new FlowLayout());
     newGame.setResizable(false);
     newGame.setVisible(true);
-
-    messageBoard.append("You have restarted the game \n");
-
-    messageBoard.setText("You have started a New Game. \n Welcome :) \n");
 
   }
 
@@ -608,14 +619,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       if (item instanceof GameWorld.Key) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass()
-            .getResource("/Resources/key.gif")));
+        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
         messageBoard.append("You have picked up a Key! \n");
         // invetory1 .add icon ....
       } else if (item instanceof GameWorld.Book) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass()
-            .getResource("/Resources/scroll.gif")));
+        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
         messageBoard.append("You have picked up a Book! \n");
         // inventory 1 .add icon
       }
@@ -651,17 +660,16 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void openActionPerformed(java.awt.event.ActionEvent evt) {
     Door door = player.getPosition().getDoor();
     if (door != null) {
-        if (door.isLocked() == false) {
-          messageBoard.append("You have opened the door, sir \n");
-          door.openDoor(this.player, this.game);
-          renderer.repaint();
-        } else {
-          messageBoard.append("Door is still locked, you \n you need to find the right key \n");
-        }
+      if (door.isLocked() == false) {
+        messageBoard.append("You have opened the door, sir \n");
+        door.openDoor(this.player, this.game);
+        renderer.repaint();
+      } else {
+        messageBoard.append("Door is still locked, you \n you need to find the right key \n");
+      }
     } else {
       messageBoard.append("You are not near a door!\n");
     }
-
   }
 
   /**
@@ -677,14 +685,12 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     Door door = player.getPosition().getDoor();
     if (door != null) {
-        if (door.hasKey(player)) {
-          messageBoard.append("KaCHINK... the door is now \n open... \n");
-          door.setLock(false);
-        } else {
-          messageBoard.append("You do not have the KEY on \n " 
-              + "you! Go find one somewhere \n around the faculty \n");
-        }
-      
+      if (door.hasKey(player)) {
+        messageBoard.append("KaCHINK... the door is now \n open... \n");
+        door.setLock(false);
+      } else {
+        messageBoard.append("You do not have the KEY on \n " + "you! Go find one somewhere \n around the faculty \n");
+      }
     } else {
       messageBoard.append("You are not near a door! \n");
     }
@@ -787,10 +793,38 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void upActionPerformed(java.awt.event.ActionEvent evt) {
     // player.setDirection(player.getBehind());
-    player.movePlayer(player.getDirection(), this.game);
 
-    renderer.repaint();
+    Position[][] buffer = game.getMaps().get(3).getMap();
 
+    if (player.getPosition() != buffer[2][4]) {
+      player.movePlayer(player.getDirection(), this.game);
+      messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
+      renderer.repaint();
+    } else {
+      javax.swing.JFrame endGame = new javax.swing.JFrame();
+
+      javax.swing.JDialog warning = new javax.swing.JDialog();
+      javax.swing.JLabel message = new javax.swing.JLabel("Awesome, You have completed our game! YOU WON!");
+
+      JButton yes = new JButton("Fantastic!");
+      yes.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent ev) { // need to sort out
+          dispose();
+          endGame.dispose();
+          new ApplicationWindow().main(null);
+
+        }
+      });
+
+      endGame.add(message);
+      endGame.add(yes);
+
+      endGame.setSize(410, 80);
+      endGame.setLayout(new FlowLayout());
+      endGame.setResizable(false);
+      endGame.setVisible(true);
+      messageBoard.setText("You have won our very difficult \n Game Woohoo!");
+    }
   }
 
   /**
@@ -804,10 +838,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
     player.movePlayer(player.getDirection(), this.game);
+
+    messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
     // player.setDirection(player.getBehind());
 
     renderer.repaint();
-
   }
 
   /**
@@ -821,6 +856,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
   private void rightActionPerformed(java.awt.event.ActionEvent evt) {
 
     player.setDirection(player.getRight());
+    messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
     renderer.repaint();
 
   }
@@ -835,6 +871,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    */
   private void leftActionPerformed(java.awt.event.ActionEvent evt) {
     player.setDirection(player.getLeft());
+    messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
     renderer.repaint();
 
   }
