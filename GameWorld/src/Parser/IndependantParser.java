@@ -125,7 +125,7 @@ public class IndependantParser {
   private Position parsePosition (Node position) {
     Element el = (Element) position;
     NodeList children = el.getChildNodes();
-    Node xVal = children.item(0);            // BUG: NullPointerException thrown here                 
+    Node xVal = children.item(0);                             
     Node yVal = children.item(1);
     
     // get x and y values
@@ -140,7 +140,7 @@ public class IndependantParser {
     
     // otherwise create the position, add its item and return it
     Position pos = new Position(x, y);
-    Item item = parseItem(el.getElementsByTagName("Item").item(0));
+    Item item = parseItem(children.item(3));
     pos.addItem(item);
     return pos;
   }
@@ -188,7 +188,7 @@ public class IndependantParser {
    */
   private Item parseItem (Node item) {
     Element el = (Element) item;
-    String type = el.getAttribute("Type");
+    String type = el.getAttributeNode("Type").getValue();        // BUG: Throws NullPointerException
     
     // returns null early if the Type of the item is 'Empty' (meaning the child elements do not exist)
     if (type.equals("Empty")) {return null;}
