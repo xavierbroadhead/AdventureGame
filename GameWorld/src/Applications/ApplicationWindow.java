@@ -122,6 +122,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
     chooserLoad = new javax.swing.JFileChooser();
     chooserSave = new javax.swing.JFileChooser();
     jLabel1 = new javax.swing.JLabel();
+   
+    leftSidePanel = new javax.swing.JPanel();
+    bottomPanel = new javax.swing.JPanel();
+    rightSidePanel = new javax.swing.JPanel();
     renderer = new javax.swing.JPanel() {
       public void paintComponent(Graphics g) {
 
@@ -133,19 +137,22 @@ public class ApplicationWindow extends javax.swing.JFrame {
         render.renderGame(g2, getWidth(), getHeight(), game);
       }
     };
+    jPanel2 = new javax.swing.JPanel();
+    jLabel4 = new javax.swing.JLabel();
+    
     jLabel3 = new javax.swing.JLabel();
     miniMap = new javax.swing.JPanel();
-    bottomPanel = new javax.swing.JPanel();
+    
     up = new javax.swing.JButton();
     backwards = new javax.swing.JButton();
     right = new javax.swing.JButton();
     left = new javax.swing.JButton();
-    rightSidePanel = new javax.swing.JPanel();
+    
     unlock = new javax.swing.JButton();
     discard = new javax.swing.JButton();
     pickUp = new javax.swing.JButton();
     open = new javax.swing.JButton();
-    leftSidePanel = new javax.swing.JPanel();
+    
     inventory = new javax.swing.JLabel();
     inventory1 = new javax.swing.JLabel();
     inventory2 = new javax.swing.JLabel();
@@ -153,10 +160,10 @@ public class ApplicationWindow extends javax.swing.JFrame {
     inventory4 = new javax.swing.JLabel();
     inventory5 = new javax.swing.JLabel();
     inventory6 = new javax.swing.JLabel();
-    jPanel2 = new javax.swing.JPanel();
+   
     jLabel10 = new javax.swing.JLabel();
     jPanel4 = new javax.swing.JPanel();
-    jLabel4 = new javax.swing.JLabel();
+    
     messageBoard = new java.awt.TextArea();
     jMenuBar1 = new javax.swing.JMenuBar();
     file = new javax.swing.JMenu();
@@ -183,8 +190,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     // Renderer Panel
     renderer.setPreferredSize(new java.awt.Dimension(50, 512));
-
-    // jLabel3.setIcon(new javax.swing.ImageIcon(this.img));
 
     javax.swing.GroupLayout rendererLayout = new javax.swing.GroupLayout(renderer);
     renderer.setLayout(rendererLayout);
@@ -710,7 +715,6 @@ public class ApplicationWindow extends javax.swing.JFrame {
     List<Item> items = this.player.getInventory();
 
     if (items.isEmpty()) {
-      System.out.println("inside");
       messageBoard.append("You have no items to discard \n");
       return;
     }
@@ -878,13 +882,11 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
   /**
    * Save Game Action.
-   * 
    * @param evt
    * 
    *          When user clicks the save option in the menu bar a file chooser with
    *          the save dialog will appear which will then give you option as what
    *          to do next.
-   * 
    */
   private void saveGameActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -921,7 +923,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
     }
 
     messageBoard.append("You have loaded a game \n");
-    // loadFromFile("hello");
+    
   }
 
   /**
