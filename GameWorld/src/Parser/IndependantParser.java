@@ -4,8 +4,6 @@ import GameWorld.Book;
 import GameWorld.Key;
 import GameWorld.Door;
 import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,7 +17,6 @@ import GameWorld.Item;
 import GameWorld.Map;
 import GameWorld.Player;
 import GameWorld.Position;
-import GameWorld.Player.Direction;
 
 import javax.xml.parsers.*;
 import javax.xml.transform.Transformer;
@@ -27,7 +24,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -128,8 +124,9 @@ public class IndependantParser {
   
   private Position parsePosition (Node position) {
     Element el = (Element) position;
-    Node xVal = el.getElementsByTagName("xVal").item(0);
-    Node yVal = el.getElementsByTagName("yVal").item(0);
+    NodeList children = el.getChildNodes();
+    Node xVal = children.item(0);                             
+    Node yVal = children.item(1);
     
     // get x and y values
     int x = Integer.parseInt(xVal.getTextContent());
@@ -143,7 +140,7 @@ public class IndependantParser {
     
     // otherwise create the position, add its item and return it
     Position pos = new Position(x, y);
-    Item item = parseItem(el.getElementsByTagName("Item").item(0));
+    Item item = parseItem(children.item(3));
     pos.addItem(item);
     return pos;
   }
@@ -191,7 +188,7 @@ public class IndependantParser {
    */
   private Item parseItem (Node item) {
     Element el = (Element) item;
-    String type = el.getAttribute("Type");
+    String type = el.getAttributeNode("Type").getValue();        // BUG: Throws NullPointerException
     
     // returns null early if the Type of the item is 'Empty' (meaning the child elements do not exist)
     if (type.equals("Empty")) {return null;}
@@ -251,14 +248,7 @@ public class IndependantParser {
     Position doorPos = parseFindPosition(doorPosition);
     Position linkPos = parseFindPosition(linkPosition);
     
-    // determine the Direction (set to North as default)
-    Player.Direction dir = Direction.NORTH;
-    String dirStr = direction.getTextContent();
-    if (dirStr.equals("SOUTH")) {dir = Direction.SOUTH;}
-    else if (dirStr.equals("EAST")) {dir = Direction.EAST;}
-    else if (dirStr.equals("WEST")) {dir = Direction.WEST;}
-    
-    return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos, dir);
+    return new Door(isLocked, mapVal, id, linkVal, doorPos, linkPos);
   }
   
   /**
@@ -414,9 +404,9 @@ public class IndependantParser {
     }
     
     // otherwise, add appropriate elements to store map, x and y values before returning
-    findPosition.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(map - 1))));
-    findPosition.appendChild(doc.createElement("xVal").appendChild(doc.createTextNode(Integer.toString(p.getx()))));
-    findPosition.appendChild(doc.createElement("yVal").appendChild(doc.createTextNode(Integer.toString(p.gety()))));
+    findPosition.appendChild(saveParameter("Map", Integer.toString(map - 1), doc));
+    findPosition.appendChild(saveParameter("xVal", Integer.toString(p.getx()), doc));
+    findPosition.appendChild(saveParameter("yVal", Integer.toString(p.gety()), doc));
     return findPosition;
   }
   
@@ -439,25 +429,25 @@ public class IndependantParser {
     if (i instanceof Key) {
       item.setAttribute("Type", "Key");
       Key k = (Key) i;
-      item.appendChild(doc.createElement("DoorID").appendChild(doc.createTextNode(Integer.toString(k.getDoor()))));
+      item.appendChild(saveParameter("DoorID", Integer.toString(k.getDoor()), doc));
     }
     
     // if i is a a Book, set the type and add "Contents" and "Magical" children
     if (i instanceof Book) {
       item.setAttribute("Type", "Book");
       Book b = (Book) i;
-      item.appendChild(doc.createElement("Contents").appendChild(doc.createTextNode(b.read())));
-      item.appendChild(doc.createElement("Magical").appendChild(doc.createTextNode(Boolean.toString(b.isMagical()))));
+      item.appendChild(saveParameter("Contents", b.read(), doc));
+      item.appendChild(saveParameter("Magical", Boolean.toString(b.isMagical()), doc));
     }
     
     
     
     // add generic parameters and return
-   item.appendChild(doc.createElement("Weight").appendChild(doc.createTextNode(Integer.toString(i.getWeight()))));
-   item.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(i.getItemID()))));
-   item.appendChild(doc.createElement("Description").appendChild(doc.createTextNode(i.getDescription())));
-   item.appendChild(doc.createElement("Title").appendChild(doc.createTextNode(i.toString())));
-   item.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(i.currentMap() - 1))));
+   item.appendChild(saveParameter("Weight", Integer.toString(i.getWeight()), doc));  
+   item.appendChild(saveParameter("ID", Integer.toString(i.getItemID()), doc));
+   item.appendChild(saveParameter("Description", i.getDescription(), doc));
+   item.appendChild(saveParameter("Title", i.toString(), doc));
+   item.appendChild(saveParameter("Map", Integer.toString(i.currentMap() - 1), doc));
    item.appendChild(saveIcon(i, doc));
     return item;
     }
@@ -472,28 +462,28 @@ public class IndependantParser {
     Element door = doc.createElement("Door");
     
     // add parameters and return
-    door.appendChild(doc.createElement("Locked").appendChild(doc.createTextNode(Boolean.toString(d.isLocked()))));
-    door.appendChild(doc.createElement("Map").appendChild(doc.createTextNode(Integer.toString(d.getMap()))));
-    door.appendChild(doc.createElement("ID").appendChild(doc.createTextNode(Integer.toString(d.getID()))));
-    door.appendChild(doc.createElement("Link").appendChild(doc.createTextNode(Integer.toString(d.getLink()))));
-    door.appendChild(doc.createElement("Direction").appendChild(doc.createTextNode(directionString(d.getDirection()))));
+    door.appendChild(saveParameter("Locked", Boolean.toString(d.isLocked()), doc));
+    door.appendChild(saveParameter("Map", Integer.toString(d.getMap()), doc));                                  
+    door.appendChild(saveParameter("ID", Integer.toString(d.getID()), doc));  
+    door.appendChild(saveParameter("Link", Integer.toString(d.getLink()), doc));     
     door.appendChild(saveFindPosition(d.getDoorPosition(), d.getMap(), "DoorPosition", doc));
     door.appendChild(saveFindPosition(d.getLinkPosition(), d.getLink(), "LinkPosition", doc));
     return door;
   }
+  
   /**
-   * used by saveDoor. Takes a Direction as a parameter and converts it to a String
-   * @param d
+   * Used to create an Element representation of a single piece of data
+   * @param title
+   * @param param
+   * @param doc
    * @return
    */
-  private String directionString (Player.Direction d) {
-    if (d == Direction.NORTH) {return "NORTH";}
-    if (d == Direction.SOUTH) {return "SOUTH";}
-    if (d == Direction.EAST) {return "EAST";}
-    if (d == Direction.WEST) {return "WEST";}
-
-    return " ";       // shouldn't reach this bit
+  private Element saveParameter (String title, String param, Document doc) {
+    Element el = doc.createElement(title);
+    el.appendChild(doc.createTextNode(param));
+    return el;
   }
+  
   /**
    * Saves the file path for an icon
    * @param i

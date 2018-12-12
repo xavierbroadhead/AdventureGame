@@ -199,28 +199,28 @@ public class ApplicationWindow extends javax.swing.JFrame {
         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE));
 
     // Bottom Panel
-    up.setText("FORWARD");
+    up.setText("Forward");
     up.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         upActionPerformed(evt);
       }
     });
 
-    backwards.setText("BACKWARDS");
+    backwards.setText("      Back      ");
     backwards.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backwardsActionPerformed(evt);
       }
     });
 
-    right.setText("Clockwise");
+    right.setText("Right");
     right.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         rightActionPerformed(evt);
       }
     });
 
-    left.setText("Anti-Clockwise");
+    left.setText("Left");
     left.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         leftActionPerformed(evt);
@@ -335,13 +335,13 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
     inventory.setText("INVENTORY");
 
-    inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
+    inventory1.setText("");
     inventory1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3)); // set Borders as
 
     inventory2.setText("");
     inventory2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-    inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/health.gif")));
+    inventory3.setText("");
     inventory3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
     inventory4.setText("");
@@ -622,16 +622,20 @@ public class ApplicationWindow extends javax.swing.JFrame {
 
       GameWorld.Item item = this.player.getPosition().getItem();
 
-      if (item instanceof GameWorld.Key) {
+            if (item instanceof GameWorld.Key) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
-        messageBoard.append("You have picked up a Key! \n");
-        // invetory1 .add icon ....
+        if(inventory1.getIcon() == null) {
+        		this.inventory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+        		messageBoard.append("You have picked up a Key! \n");
+        }
+        else {
+        	this.inventory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/key.gif")));
+        	messageBoard.append("You have picked up a Key! \n");
+        }
       } else if (item instanceof GameWorld.Book) {
         this.player.pickup();
-        this.inventory6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
+        this.inventory3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/scroll.gif")));
         messageBoard.append("You have picked up a Book! \n");
-        // inventory 1 .add icon
       }
 
     } else {
@@ -841,7 +845,7 @@ public class ApplicationWindow extends javax.swing.JFrame {
    *          come from
    */
   private void backwardsActionPerformed(java.awt.event.ActionEvent evt) {
-    player.movePlayer(player.getDirection(), this.game);
+    player.movePlayer(player.getBehind(), this.game);
 
     messageBoard.append("You are facing: " + this.player.getDirection() + "\n");
     // player.setDirection(player.getBehind());

@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import GameWorld.Game;
 import GameWorld.Player;
+import GameWorld.Position;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -32,16 +33,13 @@ public class Render {
    */
   public void renderGame(Graphics2D g2, int width, int height, Game game) {
 
-    System.out.println("game position: " + game.getPlayer().getPosition().getx() + " , "+  game.getPlayer().getPosition().gety());
-    System.out.println("item in corridor: " + game.itemInCorridor());
-
     int windowWidth = width;
     int windowHeight = height;
     int bottomDisplay = windowWidth;
     int y = bottomDisplay;
     int stepsToWall = game.tilesTilWall() +1;
     int stepsToWallPolys = stepsToWall;
-    
+    /**
     Color floor = null;
     if(game.getPlayer().currentMapInteger() == 1) {
       floor = Color.GRAY;
@@ -52,7 +50,7 @@ public class Render {
     if(game.getPlayer().currentMapInteger() == 3) {
       floor = Color.BLUE;
     }
-    
+    */
 
 
 
@@ -148,12 +146,12 @@ public class Render {
       poly.addPoint((int)intersectionsR.get(i+1).xInt, (int) intersectionsR.get(i+1).yInt);
       poly.addPoint((int)intersectionsL.get(i+1).xInt, (int) intersectionsL.get(i+1).yInt);
       polygons.add(poly);
-      //System.out.println("Polygon created");
+     
     }
 
     // drawing tile/polygon objects 
     for(Polygon p : polygons) {
-      g2.setColor(floor);
+      g2.setColor(Color.GRAY);
       g2.fillPolygon(p);
     }
 
@@ -269,7 +267,6 @@ public class Render {
     rightWall.addPoint(windowWidth, bottomDisplay);
 
     if(game.hasRightCorner()) {
-      System.out.println("right turn");
       g2.setColor(Color.RED);
       g2.drawLine((int)rMax.xInt, (int)rMax.yInt, windowWidth, (int)rMax.yInt);//draws line seperating back wall from floor
       g2.fillPolygon(rightTurn);//call to draw right turn
@@ -293,19 +290,19 @@ public class Render {
       //g2.drawImage(image, xT, yT, null);
       if(game.itemInCorridor())
         drawItem(image, tiles, g2, game);
+      drawDoor(tiles, g2, game);
       return;
     }
 
     //draws left corner turn
     if(game.hasLeftCorner()) {
-      System.out.println("left turn");
       g2.setColor(Color.BLACK);
       g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);//draws line seperating back wall from floor
       g2.setColor(Color.RED);
       g2.fillPolygon(backWallT);
       g2.fillPolygon(leftTurn);//call to draw left turn
       g2.fillPolygon(rightWall);
-      drawDoor(tiles, g2, game);
+      //drawDoor(tiles, g2, game);
 
       g2.setColor(Color.BLACK); 
 
@@ -321,12 +318,12 @@ public class Render {
 
       if(game.itemInCorridor())
         drawItem(image, tiles, g2, game);
+      drawDoor(tiles, g2, game);
       return;
     }
 
 
     if(game.wallForward() && game.wallRight() && game.wallLeft()) {
-      System.out.println("dead end corner");
       g2.setColor(Color.RED);
       g2.fillPolygon(leftWall);
       g2.fillPolygon(rightWall);
@@ -347,13 +344,12 @@ public class Render {
       if (game.itemInCorridor()) { 
         drawItem(image, tiles, g2, game);
       }
-
+      drawDoor(tiles, g2, game);
       return;
     }
 
     //end of wall is on the right
     if (game.wallForward() && game.wallRight()) {
-      System.out.println("end wall is on right");
       g2.setColor(Color.BLACK);
 
       //line for skiring seperating floor and walls
@@ -368,13 +364,12 @@ public class Render {
       if (game.itemInCorridor()) {
         drawItem(image, tiles, g2, game);
       }
-
+      drawDoor(tiles, g2, game);
       return;
     }
 
     //end of wall is on the left
     if (game.wallForward() && game.wallLeft()) {
-      System.out.println("end wall is on left");
       g2.setColor(Color.BLACK);
       //line for skiring seperating floor and walls
       g2.drawLine(0, bottomDisplay, (int)lMax.xInt, (int)lMax.yInt);
@@ -393,7 +388,6 @@ public class Render {
     }
 
     if (game.wallForward() && game.wallBehind()) {
-      System.out.println("wall mid hall");
       g2.setColor(Color.BLACK);
 
       //line for skirting separating floor and walls
@@ -405,11 +399,11 @@ public class Render {
       g2.fillPolygon(backWallT);
 
       drawWallLines(intersectionsL, intersectionsR, g2);
+      drawDoor(tiles, g2, game);
       return;
     }
 
     if (game.hasLeftCorner() == false && game.hasRightCorner()) {
-      System.out.println("what is this");
       g2.setColor(Color.BLACK);
       //draws line seperating back wall from floor
       g2.drawLine((int)lMax.xInt, (int)lMax.yInt, 0, (int)lMax.yInt);
@@ -434,21 +428,17 @@ public class Render {
       if (game.itemInCorridor()) {
         drawItem(image, tiles, g2, game);
       }
+      drawDoor(tiles, g2, game);
       return;
     }
 
-    if (game.hasLeftCorner() == false && game.hasRightCorner() == false) {
-      g2.setColor(Color.BLACK);
-      
-      System.out.println("skipped but caught");
-    }
-    g2.setColor(Color.BLUE);
-    System.out.println("skipped all if's");
+    g2.setColor(Color.RED);
     g2.fillPolygon(leftWall);
     g2.fillPolygon(rightWall);
     g2.fillPolygon(backWallT);
     
-
+    drawDoor(tiles, g2, game);
+    
     g2.setColor(Color.BLACK); 
 
     //line for wall turn
@@ -501,7 +491,7 @@ public class Render {
    */
   public void drawItem(Image image, ArrayList<Tile> tiles, Graphics2D g, Game game) {
     Tile targetTile = null;
-    int  tilesAway= game.tilesTilItem() - 1;
+    
     if(game.getPlayer().currentMapInteger() == 1) {
       targetTile = tiles.get(tiles.size() - 1);
     }
@@ -518,16 +508,38 @@ public class Render {
     int y = (int)targetTile.v2.yInt - (tileHeight/2);
     g.drawImage(image, x, y, null);
   }
-  
+  /**
+   * Draws door tiles in maps
+   * 
+   * @param tiles - tiles array
+   * @param g - graphics being drawn onto
+   * @param game - current game being played
+   */
   public void drawDoor(ArrayList<Tile> tiles, Graphics2D g, Game game) {
-    Tile tile = tiles.get(tiles.size() - 1);
-    Polygon p = new Polygon();
-    p.addPoint((int)tile.v1.xInt, (int)tile.v1.yInt);
-    p.addPoint((int)tile.v3.xInt, (int)tile.v3.yInt);
-    p.addPoint((int)tile.v4.xInt, (int)tile.v4.yInt);
-    p.addPoint((int)tile.v2.xInt, (int)tile.v2.yInt);
-    g.setColor(Color.GREEN);
-    g.fillPolygon(p);
+ 
+    Position[][] buffer = game.getMaps().get(game.getPlayer().currentMapInteger()).getMap();
+    Position pdoor1 = null;
+    Position bdoor1 = null;
+    if(game.getPlayer().currentMapInteger() == 1) {
+    pdoor1 = buffer[0][3];//for map 1
+    bdoor1 = buffer[0][2];//for map 1
+    }
+    if(game.getPlayer().currentMapInteger() == 2) {
+      pdoor1 = buffer[3][4];//for map 2
+      bdoor1 = buffer[3][3];//for map 2
+     }
+    
+    if(game.getPlayer().getPosition().equals(bdoor1) || game.getPlayer().getPosition().equals(pdoor1)) {
+      Tile tile = tiles.get(tiles.size() - 1);
+      Polygon p = new Polygon();
+      p.addPoint((int)tile.v1.xInt, (int)tile.v1.yInt);
+      p.addPoint((int)tile.v3.xInt, (int)tile.v3.yInt);
+      p.addPoint((int)tile.v4.xInt, (int)tile.v4.yInt);
+      p.addPoint((int)tile.v2.xInt, (int)tile.v2.yInt);
+      g.setColor(Color.GREEN);
+      g.fillPolygon(p);
+    }
+   
   }
 
   /**
@@ -538,7 +550,6 @@ public class Render {
    */
   public static Image loadImage(String fileName) {
     java.net.URL imageUrl = Render.class.getResource("images/" + fileName);
-    System.out.println("imageURL: " + imageUrl.toString());
     Image img;
     try {
       img = ImageIO.read(imageUrl);

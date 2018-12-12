@@ -1,5 +1,6 @@
 package GameWorld;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,11 +27,11 @@ public class Game {
 							{null, new Position(1,3), null, new Position(3,3), new Position(4,3)},
 							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
 		
-		Position[][] map3 = {{new Position(0,0), new Position(1,0), new Position(2,0), null, null},
-							{null, null, new Position(2,1), null, new Position(4,1)},
-							{null, new Position(1,2), new Position(2,2), null, new Position(4,2)},
-							{null, new Position(1,3), null, new Position(3,3), new Position (4,3)},
-							{null, new Position(1,4), new Position(2,4), new Position(3,4), null}};
+		Position[][] map3 = {{new Position(0,0), new Position(1,0), null, null, null},
+							{null, new Position(1,1), null, null, null},
+							{null, new Position(1,2), null, null, new Position(4,2)},
+							{null, new Position(1,3), null, null, new Position (4,3)},
+							{null, new Position(1,4), new Position(2,4), new Position(3,4), new Position(4,4)}};
 		
 		Door door1 = new Door(true, 1, 1, 2, map1[0][3], map2[0][0]);
 		Door door2 = new Door(false, 2, 2, 1, map2[0][0], map1[3][0]);

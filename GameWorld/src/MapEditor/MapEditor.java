@@ -806,7 +806,7 @@ public class MapEditor extends javax.swing.JFrame {
    * 
    */
   public static void main(String[] args) {
-    Player player = null;
+    Player player = new Player(1, new Position(0,0));
     Game game = new Game(player);
     MapEditor editor = new MapEditor(game);
     editor.setVisible(true);
