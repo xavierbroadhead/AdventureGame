@@ -1,9 +1,10 @@
 # AdventureGame
-A final group project done for SWEN225. 
+A final group project done for SWEN225. All is written using native Java, with no external dependencies. This includes the rendering, parsing, logic, GUI, and map editing.
 
-1.Run the Applicationwindow class.
-2. Move through the maze and when you see the item, move over it and click pickup.
-3. Continue moving through to the end of the maze, turn to the left.
-4. Unlock and Open door.
+# Steps to play
+* Run the Applicationwindow class.
+* Move through the maze, green tiles represent trap doors. Some of these are locked. You will have to find the keys.
+* Be careful not to get lost!
 
-MapEditor can be opened using the menu item list. 
+# Example scene
+![Example Scene](https://github.com/xavierbroadhead/AdventureGame/blob/master/Screen%20Shot%202019-06-10%20at%204.05.41%20PM.png?raw=true)
